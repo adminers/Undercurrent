@@ -1,2 +1,12 @@
-# Undercurrent
-Life is endless, and the undercurrent is surging
+#暗流
+项目描述：生命不息,暗流涌动.
+
+#功能
+服务器端系统,查看局域网内其他电脑系统文件.
+客服端的服务,读取本地磁盘文件,向目标服务器发送信号。
+
+#构建环境要求
+项目使用maven来构建.
+开发JDK版本=1.8.0
+
+#编辑暗流
