@@ -17,7 +17,9 @@
 开发JDK版本=1.8.0  
 
 ## 1.5. 编辑暗流
-
+正在学习知识,打算加入AI完善功能.
+学习：
+https://github.com/GitHubDaily/GitHubDaily
 
 
 
