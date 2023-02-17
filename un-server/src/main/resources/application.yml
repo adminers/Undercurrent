@@ -1,0 +1,5 @@
+server:
+  netty:
+    port: 6666
+    connection-timeout: 10000
+  port: 8080
