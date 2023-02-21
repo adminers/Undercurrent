@@ -1,6 +1,7 @@
 package com.qiaweidata.un;
 
 import com.qiaweidata.pojo.FolderInfo;
+import com.qiaweidata.un.enums.LoopFloderEnum;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +12,9 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @Title:
  * @Description:
- * @Company:www.wrenchdata.com
+ * @Company:www.qiaweidata.com
  * @author:shenshilong
  * @date:
  * @version:V1.0
@@ -39,6 +42,18 @@ public class TestFileList {
 
     private static StringBuilder logBuilder = new StringBuilder();
 
+    private static final String property = System.getProperty("line.separator");
+
+    /**
+     * 过滤不要的文件夹名称
+     */
+    private static Set<String> FILTER_NAMES = new HashSet<>(2);
+
+    static {
+        FILTER_NAMES.add("$RECYCLE.BIN");
+        FILTER_NAMES.add("SystemVolumeInformation");
+    }
+
     public TestFileList() {
     }
 
@@ -53,16 +68,22 @@ public class TestFileList {
 
         long startTime = System.currentTimeMillis();
 
-        String path = "F:\\";        //要遍历的路径
+        String path = "C:\\Users\\Administrator\\Desktop\\apache-tomcat-8.5.56";        //要遍历的路径
         File file = new File(path);        //获取其file对象
         File[] fs = file.listFiles();    //遍历path下的文件和目录，放在File数组中
+        LoopFloderEnum type = LoopFloderEnum.ONE_LEVEL_LIST;
         for (File f : fs) {
-            logBuilder.append(f).append(System.getProperty("line.separator"));
+            String replaceName = f.getName().replace(" ", "");
+            if (FILTER_NAMES.contains(replaceName)) {
+                continue;
+            }
+            logBuilder.append(f).append(property);
             File[] files = f.listFiles();
-            if (null != files && files.length > 0) {
+            if (LoopFloderEnum.ALL_LIST.equals(type)) {
                 sout(files);
             }
         }
+        //sout(fs[0].listFiles());
         System.out.println("----shenshilong------" + (System.currentTimeMillis() - startTime) + " ms.");
         Path logPath = Paths.get("F:\\temp\\file.log");
         try (BufferedWriter writer = Files.newBufferedWriter(logPath, StandardCharsets.UTF_8)) {
@@ -111,14 +132,14 @@ public class TestFileList {
 
     public static void sout(File[] fs) {
 
+        if (null == fs ||
+            fs.length == 0) {
+            return;
+        }
         for (File f : fs) {
             logBuilder.append(f).append(System.getProperty("line.separator"));
-
-            //System.out.println(f);
             File[] files = f.listFiles();
-            if (null != files && files.length > 0) {
-                sout(files);
-            }
+            sout(files);
         }
     }
 
