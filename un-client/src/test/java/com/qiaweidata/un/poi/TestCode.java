@@ -9,9 +9,12 @@ import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.util.ListUtils;
 import com.google.gson.Gson;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import org.junit.Test;
@@ -28,6 +31,9 @@ public class TestCode {
 
     private static Logger log = LogManager.getLogManager().getLogger("");
 
+    private static String fileName = "C:\\Users\\Administrator\\Documents\\WXWork\\1688850839526306\\Cache\\File"
+        + "\\2023-03\\客户信息维护-OK.xlsx";
+
     /**
      * 最简单的读
      * <p>
@@ -39,12 +45,11 @@ public class TestCode {
      */
     @Test
     public void simpleRead() {
-        String testPath = "C:\\Users\\Administrator\\Documents\\WXWork\\1688850839526306\\Cache\\File\\2023-03\\";
+
         
         
         // 写法1：JDK8+ ,不用额外写一个DemoDataListener
         // since: 3.0.0-beta1
-        String fileName = testPath + "客户信息维护-OK.xlsx";
 
         if (false) {
             // 这里默认每次会读取100条数据 然后返回过来 直接调用使用数据就行
@@ -115,12 +120,12 @@ public class TestCode {
 
         // 有个很重要的点 DemoDataListener 不能被spring管理，要每次读取excel都要new,然后里面用到spring可以构造方法传进去
         // 写法3：
-        fileName = testPath + "demo" + File.separator + "demo.xlsx";
+        fileName = "testPath" + "demo" + File.separator + "demo.xlsx";
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
         EasyExcel.read(fileName, DemoData.class, new DemoDataListener()).sheet().doRead();
 
         // 写法4
-        fileName = testPath + "demo" + File.separator + "demo.xlsx";
+        fileName = "testPath" + "demo" + File.separator + "demo.xlsx";
         // 一个文件一个reader
         try (ExcelReader excelReader = EasyExcel.read(fileName, DemoData.class, new DemoDataListener()).build()) {
             // 构建一个sheet 这里可以指定名字或者no
@@ -128,5 +133,69 @@ public class TestCode {
             // 读取一个sheet
             excelReader.read(readSheet);
         }
+    }
+
+    @Test
+    public void wr() {
+
+        List<Map<String, String>> allData = new ArrayList<>();
+        Map<String, Integer> excelIndex = new HashMap<>();
+        excelIndex.put("ID", Integer.valueOf(0));
+        excelIndex.put("I0000005", Integer.valueOf(1));
+        excelIndex.put("I0000006", Integer.valueOf(2));
+        excelIndex.put("I0000007", Integer.valueOf(3));
+        excelIndex.put("TASKDETAILID", Integer.valueOf(4));
+
+        List<String> columns = new ArrayList<>();
+        columns.add("ID");
+        columns.add("I0000005");
+        columns.add("I0000006");
+        columns.add("I0000007");
+        columns.add("TASKDETAILID");
+
+        long startTime = System.currentTimeMillis();
+        work(allData, excelIndex, columns);
+        log.info("----shenshilong------{} ms." + (System.currentTimeMillis() - startTime));
+        log.info("结束");
+    }
+
+    private void work(List<Map<String, String>> allData, Map<String, Integer> excelIndex,
+        List<String> columns) {
+
+        int startRow = 10;
+        int startEnd = 20;
+        int easyStartRow = startRow - 1;
+        final int columnSize = columns.size();
+        AtomicInteger tempCount = new AtomicInteger(0);
+        final int easyEndRow = startEnd - easyStartRow;
+        EasyExcel.read(fileName, new ReadListener<Map<Integer,String>>() {
+
+            @Override
+            public void invoke(Map<Integer,String> data, AnalysisContext context) {
+                tempCount.incrementAndGet();
+                Map<String, String> rowData = new HashMap<>(columnSize);
+                columns.forEach(column -> rowData.put(column, data.get(excelIndex.get(column))));
+                allData.add(rowData);
+            }
+
+            @Override
+            public void doAfterAllAnalysed(AnalysisContext context) {
+                saveData();
+            }
+
+            @Override
+            public boolean hasNext(AnalysisContext context) {
+
+                if (tempCount.get() == easyEndRow) {
+                    return false;
+                }
+                return true;
+            }
+
+            private void saveData() {
+                log.info("解析结束！");
+            }
+        }).sheet("开户补录").headRowNumber(Integer.valueOf(easyStartRow)).doRead();
+
     }
 }

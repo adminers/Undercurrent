@@ -1,9 +1,14 @@
 package com.qiaweidata.undercurrent;
 
+import com.google.gson.Gson;
+import com.qiaweidata.pojo.FolderInfo;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.util.ReferenceCountUtil;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
  
 import io.netty.channel.ChannelHandlerContext;
@@ -63,7 +68,13 @@ public class NettyClientHandler extends SimpleChannelInboundHandler{
                 System.out.println("READER_IDLE");
             }else if (event.state().equals(IdleState.WRITER_IDLE)){
                 //发送心跳，保持长连接
-                String s = "NettyClient"+System.getProperty("line.separator");
+                //String s = "NettyClient"+System.getProperty("line.separator");
+                List<FolderInfo> folderInfos = new ArrayList<>(1);
+                FolderInfo folderInfo = new FolderInfo();
+                folderInfo.setId(UUID.randomUUID().toString().replace("-", ""));
+                folderInfo.setMachineId("");
+                folderInfos.add(folderInfo);
+                String s = new Gson().toJson(folderInfos);
                 ctx.channel().writeAndFlush(s);  //发送心跳成功
             }else if (event.state().equals(IdleState.ALL_IDLE)){
                 System.out.println("ALL_IDLE");
