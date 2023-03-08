@@ -18,6 +18,11 @@ public class FileInfo implements Serializable {
     private static final long serialVersionUID = 4108639571513439570L;
 
     /**
+     * 全路径
+     */
+    private String fullPath;
+
+    /**
      * 文件类型
      */
     private FileTypeEnum fileType;
@@ -153,5 +158,23 @@ public class FileInfo implements Serializable {
      */
     public void setAbsolutePath(String absolutePath) {
         this.absolutePath = absolutePath;
+    }
+
+    /**
+     * 获取 全路径
+     *
+     * @return fullPath 全路径
+     */
+    public String getFullPath() {
+        return this.fullPath;
+    }
+
+    /**
+     * 设置 全路径
+     *
+     * @param fullPath 全路径
+     */
+    public void setFullPath(String fullPath) {
+        this.fullPath = fullPath;
     }
 }
