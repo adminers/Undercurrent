@@ -45,6 +45,8 @@ public class TestFileList {
 
     private static final String property = System.getProperty("line.separator");
 
+    private int rootPathLength;
+
     /**
      * 过滤不要的文件夹名称
      */
@@ -73,8 +75,9 @@ public class TestFileList {
         File parentFile = new File(path);
         File[] fs = parentFile.listFiles();
         LoopFloderEnum type = LoopFloderEnum.ONE_LEVEL_LIST;
-
-        List<FileInfo> fileInfos = appendFile(fs, type);
+        TestFileList testFileList = new TestFileList();
+        testFileList.rootPathLength = path.length();
+        List<FileInfo> fileInfos = testFileList.appendFile(fs, type);
         logBuilder.append(new Gson().toJson(fileInfos));
         System.out.println("----shenshilong------" + (System.currentTimeMillis() - startTime) + " ms.");
         Path logPath = Paths.get("F:\\temp\\file.log");
@@ -121,7 +124,7 @@ public class TestFileList {
         /*childAll("C:\\Users\\Administrator\\.m2");*/
     }
 
-    private static List<FileInfo> appendFile(File[] fs, LoopFloderEnum type) {
+    private List<FileInfo> appendFile(File[] fs, LoopFloderEnum type) {
 
         if (null == fs) {
             return Collections.emptyList();
@@ -163,23 +166,29 @@ public class TestFileList {
             return;
         }
         for (File childFile : childFiles) {
-            System.out.println(childFile.getName() +
-                ";最后修改时间:" + childFile.lastModified() + ";");
+            System.out.println(childFile.getName() + ";最后修改时间:" + childFile.lastModified() + ";");
         }
     }
 
-    public static void fileType(File file, List<FileInfo> fileInfos) {
+    public void fileType(File file, List<FileInfo> fileInfos) {
 
         FileInfo fileInfo = new FileInfo();
         fileInfo.setName(file.getName());
         fileInfo.setLastModified(file.lastModified());
         fileInfo.setFormatLastModified(DateUtil.formatLongTime(file.lastModified()));
+        String path = file.getPath();
         if (file.isDirectory()) {
             fileInfo.setFileType(FileTypeEnum.DIRECTORY);
+            fileInfo.setSuffix("DEFALUT_FOLDER");
         } else {
             fileInfo.setFileType(FileTypeEnum.FILE);
+            int lastIndex = path.lastIndexOf('.');
+            if (lastIndex != -1 &&
+                lastIndex > this.rootPathLength) {
+                fileInfo.setSuffix(path.substring(lastIndex + 1));
+            }
         }
-        fileInfo.setAbsolutePath(file.getPath());
+        fileInfo.setAbsolutePath(path);
         fileInfos.add(fileInfo);
     }
 

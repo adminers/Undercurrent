@@ -12,6 +12,11 @@
   <artifactId>un-client</artifactId>
   <dependencies>
     <dependency>
+      <groupId>com.qiaweidata</groupId>
+      <artifactId>un-common</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>

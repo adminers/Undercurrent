@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @Title: FileTypeInfo
  * @Description: FileTypeInfo
- * @Company: www.wrenchdata.com
+ * @Company: www.qiaweidata.com
  * @author: shenshilong
  * @date: 2023-03-07
  * @version: V1.0
