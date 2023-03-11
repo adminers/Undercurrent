@@ -19,6 +19,12 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
+  <modules>
+    <module>un-server</module>
+    <module>un-client</module>
+    <module>un-common</module>
+  </modules>
+
   <properties>
     <undercurrent.version>1.0.0</undercurrent.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -43,6 +49,8 @@
     <minio.version>8.2.2</minio.version>
     <poi.version>4.1.2</poi.version>
     <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
+    <gson.version>2.10.1</gson.version>
+    <netty.version>4.1.42.Final</netty.version>
   </properties>
 
   <dependencyManagement>
@@ -50,13 +58,28 @@
 
     </dependencies>
   </dependencyManagement>
-
-  <modules>
-    <module>un-server</module>
-  </modules>
   <packaging>pom</packaging>
 
   <dependencies>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${gson.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>easyexcel</artifactId>
+      <version>3.2.1</version>
+    </dependency>
   </dependencies>
 
   <build>
