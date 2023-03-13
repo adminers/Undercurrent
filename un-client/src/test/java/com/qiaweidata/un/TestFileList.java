@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -69,8 +70,11 @@ public class TestFileList {
 
     public static void main(String[] args) {
 
-        String path = "C:\\Users\\Administrator\\Desktop\\apache-tomcat-8.5.56";        //要遍历的路径
-        childPath(path);
+        /*String path = "C:\\Users\\Administrator\\Desktop\\apache-tomcat-8.5.56";        //要遍历的路径
+        childPath(path, LoopFloderEnum.ONE_LEVEL_LIST);*/
+
+        String path = "D:\\AI\\lama-cleaner-win\\lama-cleaner";        //要遍历的路径
+        childPath(path, LoopFloderEnum.ALL_LIST);
 
 
         /*
@@ -109,16 +113,17 @@ public class TestFileList {
         /*childAll("C:\\Users\\Administrator\\.m2");*/
     }
 
-    private static void childPath(String path) {
+    private static void childPath(String path, LoopFloderEnum type) {
 
+        Objects.requireNonNull(type, "不能为空！");
         long startTime = System.currentTimeMillis();
         File parentFile = new File(path);
         File[] fs = parentFile.listFiles();
-        LoopFloderEnum type = LoopFloderEnum.ONE_LEVEL_LIST;
         TestFileList testFileList = new TestFileList();
         testFileList.rootPathLength = path.length();
-        List<FileInfo> fileInfos = testFileList.appendFile(fs, type);
-        logBuilder.append(new Gson().toJson(fileInfos));
+        List<FileInfo> fileInfos = new ArrayList<>();
+        testFileList.appendFile(fs, type, fileInfos);
+        //logBuilder.append(new Gson().toJson(fileInfos));
         System.out.println("----shenshilong------" + (System.currentTimeMillis() - startTime) + " ms.");
         Path logPath = Paths.get("F:\\temp\\file.log");
         try (BufferedWriter writer = Files.newBufferedWriter(logPath, StandardCharsets.UTF_8)) {
@@ -128,21 +133,23 @@ public class TestFileList {
         }
     }
 
-    private List<FileInfo> appendFile(File[] fs, LoopFloderEnum type) {
+    private List<FileInfo> appendFile(File[] fs, LoopFloderEnum type, List<FileInfo> fileInfos) {
 
-        if (null == fs) {
+        if (null == fs ||
+            fs.length == 0) {
             return Collections.emptyList();
         }
-        List<FileInfo> fileInfos = new ArrayList<>(fs.length);
+
         for (File file : fs) {
             String replaceName = file.getName().replace(" ", "");
             if (FILTER_NAMES.contains(replaceName)) {
                 continue;
             }
-            logBuilder.append(file).append(property);
+            String absolutePath = file.getAbsolutePath();
+            logBuilder.append(absolutePath.substring(38)).append(property);
             if (LoopFloderEnum.ALL_LIST.equals(type)) {
                 File[] files = file.listFiles();
-                sout(files);
+                appendFile(files, type, fileInfos);
             }
             fileType(file, fileInfos);
         }
