@@ -15,6 +15,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <h2.version>2.1.214</h2.version>
     <hutool-db.version>5.8.15</hutool-db.version>
+    <httpclient.version>4.5.13</httpclient.version>
   </properties>
   <dependencies>
     <dependency>
@@ -32,6 +33,24 @@
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-db</artifactId>
       <version>${hutool-db.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${httpclient.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpmime</artifactId>
+      <version>${httpclient.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.2</version>
     </dependency>
 
     <dependency>
