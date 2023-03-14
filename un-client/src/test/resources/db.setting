@@ -1,0 +1,11 @@
+## db.setting文件
+url=jdbc:h2:E:\giteeWork\Undercurrent\un-client\src\main\resources\temp-sougou-font
+user=Undercurrent
+pass=Undercurrent
+## 可选配置
+# 是否在日志中显示执行的SQL
+showSql = true
+# 是否格式化显示的SQL
+formatSql = false
+# 是否显示SQL参数
+showParams = true

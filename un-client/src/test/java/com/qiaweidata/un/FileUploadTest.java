@@ -1,9 +1,12 @@
 package com.qiaweidata.un;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -17,7 +20,7 @@ import org.apache.http.util.EntityUtils;
 /**
  * @Title: FileUploadTest
  * @Description: FileUploadTest
- * @Company: www.qiaweidata.com
+ * @Company: www.wrenchdata.com
  * @author: shenshilong
  * @date: 2023-03-13
  * @version: V1.0
@@ -26,18 +29,34 @@ public class FileUploadTest {
 
     public static void main(String[] args) {
 
-        try (FileInputStream input = new FileInputStream("E:\\git\\qiwen-file-master\\README.md");) {
+        /*try (FileInputStream input = new FileInputStream("E:\\git\\qiwen-file-master\\README.md");) {
             doPost(input.readAllBytes(), "");
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+        for (int i = 0; i < 10_000; i++) {
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                BufferedImage bufferedImage = ScreenCaptureTest.extracted();
+                byte[] bytes = ScreenCaptureTest.bufferedImageToByteArray(bufferedImage);
+                doPost(bytes, "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public static String doPost( byte[] fileBytes, String fileName) {
 
         //拿到fileName拼接URL
         StringBuffer sb=new StringBuffer();
-        final String url = sb.append("http://localhost:8081").append(fileName).toString();
+        final String url =
+            sb.append("http://localhost:8082/uploadFile?fileId=" + UUID.randomUUID() + "&suffix=.jpg").append(fileName).toString();
         //创建HttpClient实例
         CloseableHttpClient httpClient = HttpClients.createDefault();
         //创建post方法连接实例，在post方法中传入待连接地址
@@ -58,7 +77,7 @@ public class FileUploadTest {
             entity.addTextBody("sourceId", "4028818982e871ab0182e8f53fac0099");
 
             httpPost.setEntity(entity.build());
-            httpPost.setHeader("Cookie","JSESSIONID=B7C9690454870704B431C735B46D5230");
+            httpPost.setHeader("Cookie","JSESSIONID=B7C9690454870704B431C735B46D5230; wrenchdata_uid=de9b7ac4-ee39-4f99-ac51-9bf59ed27f64");
 
 
 
