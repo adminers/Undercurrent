@@ -1,17 +1,28 @@
 package com.qiaweidata.un;
 
-import com.google.gson.Gson;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.db.Db;
+import cn.hutool.db.Entity;
 import com.qiaweidata.pojo.FolderInfo;
 import com.qiaweidata.un.enums.FileTypeEnum;
 import com.qiaweidata.un.enums.LoopFloderEnum;
+import com.qiaweidata.un.h2.StoreSystemFile;
 import com.qiaweidata.un.pojo.FileInfo;
 import com.qiaweidata.un.utils.DateUtil;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -19,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 测试
@@ -48,6 +60,11 @@ public class TestFileList {
 
     private int rootPathLength;
 
+    private long startTime;
+    private long endTime;
+
+    private StoreSystemFile storeSystemFile;
+
     /**
      * 过滤不要的文件夹名称
      */
@@ -59,6 +76,7 @@ public class TestFileList {
     }
 
     public TestFileList() {
+        this.storeSystemFile = new StoreSystemFile();
     }
 
     public TestFileList(Path rootPath, String parentId) {
@@ -74,9 +92,9 @@ public class TestFileList {
         childPath(path, LoopFloderEnum.ONE_LEVEL_LIST);*/
 
         String path = "D:\\AI\\lama-cleaner-win\\lama-cleaner";        //要遍历的路径
-        childPath(path, LoopFloderEnum.ALL_LIST);
+        //childPath(path, LoopFloderEnum.ALL_LIST);
 
-
+        new TestFileList().childPath(path, LoopFloderEnum.ALL_LIST, 2000);
         /*
 
         String p = null;
@@ -122,7 +140,7 @@ public class TestFileList {
         TestFileList testFileList = new TestFileList();
         testFileList.rootPathLength = path.length();
         List<FileInfo> fileInfos = new ArrayList<>();
-        testFileList.appendFile(fs, type, fileInfos);
+        testFileList.appendFile(fs, type, fileInfos, null);
         //logBuilder.append(new Gson().toJson(fileInfos));
         System.out.println("----shenshilong------" + (System.currentTimeMillis() - startTime) + " ms.");
         Path logPath = Paths.get("F:\\temp\\file.log");
@@ -133,7 +151,29 @@ public class TestFileList {
         }
     }
 
-    private List<FileInfo> appendFile(File[] fs, LoopFloderEnum type, List<FileInfo> fileInfos) {
+    private void childPath(String path, LoopFloderEnum type, int sleepTime) {
+
+        Objects.requireNonNull(type, "不能为空！");
+        long startTime = System.currentTimeMillis();
+        File parentFile = new File(path);
+        File[] fs = parentFile.listFiles();
+        TestFileList testFileList = new TestFileList();
+        testFileList.rootPathLength = path.length();
+        List<FileInfo> fileInfos = new ArrayList<>();
+        this.startTime = System.currentTimeMillis();
+        FileInfo fileInfo = fileType(parentFile, fileInfos, "0");
+        testFileList.appendFile(fs, type, fileInfos, sleepTime, fileInfo.getId());
+        //logBuilder.append(new Gson().toJson(fileInfos));
+        System.out.println("----shenshilong------" + (System.currentTimeMillis() - startTime) + " ms.");
+        Path logPath = Paths.get("F:\\temp\\file.log");
+        try (BufferedWriter writer = Files.newBufferedWriter(logPath, StandardCharsets.UTF_8)) {
+            writer.write(logBuilder.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<FileInfo> appendFile(File[] fs, LoopFloderEnum type, List<FileInfo> fileInfos, String parentId) {
 
         if (null == fs ||
             fs.length == 0) {
@@ -149,11 +189,62 @@ public class TestFileList {
             logBuilder.append(absolutePath.substring(38)).append(property);
             if (LoopFloderEnum.ALL_LIST.equals(type)) {
                 File[] files = file.listFiles();
-                appendFile(files, type, fileInfos);
+                appendFile(files, type, fileInfos, parentId);
             }
-            fileType(file, fileInfos);
+            fileType(file, fileInfos, parentId);
         }
         return fileInfos;
+    }
+
+    private List<FileInfo> appendFile(File[] fs, LoopFloderEnum type, List<FileInfo> fileInfos, int sleepTime,
+        String parentId) {
+
+        if (null == fs ||
+            fs.length == 0) {
+            return Collections.emptyList();
+        }
+        OperatingSystemMXBean bean = (com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+        this.endTime = System.currentTimeMillis();
+        if (this.endTime - this.startTime >= 1000) {
+            try {
+                saveFileInfo(fileInfos);
+                TimeUnit.MILLISECONDS.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.startTime = System.currentTimeMillis();
+        }
+
+        for (File file : fs) {
+            String replaceName = file.getName().replace(" ", "");
+            if (FILTER_NAMES.contains(replaceName)) {
+                continue;
+            }
+            String absolutePath = file.getAbsolutePath();
+            logBuilder.append(absolutePath.substring(38)).append(property);
+            FileInfo fileInfo = fileType(file, fileInfos, parentId);
+            if (LoopFloderEnum.ALL_LIST.equals(type)) {
+                File[] files = file.listFiles();
+                appendFile(files, type, fileInfos, sleepTime, fileInfo.getId());
+            }
+
+        }
+        return fileInfos;
+    }
+
+    private void saveFileInfo(List<FileInfo> fileInfos) {
+        Db db = this.storeSystemFile.getDb();
+        fileInfos.forEach(fileInfo -> {
+            try {
+                db.insert(
+                    Entity.create("T_FILE_INFO")
+                        .set("ID", fileInfo.getId())
+                );
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        fileInfos.clear();
     }
 
     public static void sout(File[] fs) {
@@ -181,9 +272,11 @@ public class TestFileList {
         }
     }
 
-    public void fileType(File file, List<FileInfo> fileInfos) {
+    public FileInfo fileType(File file, List<FileInfo> fileInfos, String parentId) {
 
         FileInfo fileInfo = new FileInfo();
+        fileInfo.setId(IdUtil.simpleUUID());
+        fileInfo.setParentId(parentId);
         fileInfo.setName(file.getName());
         fileInfo.setLastModified(file.lastModified());
         fileInfo.setFormatLastModified(DateUtil.formatLongTime(file.lastModified()));
@@ -201,6 +294,7 @@ public class TestFileList {
         }
         fileInfo.setAbsolutePath(path);
         fileInfos.add(fileInfo);
+        return fileInfo;
     }
 
     public static void childFolder(String path) {

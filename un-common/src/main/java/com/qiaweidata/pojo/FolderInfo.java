@@ -22,14 +22,22 @@ public class FolderInfo implements Serializable {
     private String id;
     private String machineId;
     private String folderName;
+
+    /**
+     * 是否已经加载子集
+     */
+    private Boolean isSwipe;
     private String parentId;
-    private String folderSort;
     private String iconPath;
+
     private Date createTime;
     private String createUser;
     private Date updateTime;
     private String updateUser;
 
+    /**
+     * 文件大小
+     */
     private long fileSize;
 
     /**
@@ -102,24 +110,6 @@ public class FolderInfo implements Serializable {
      */
     public void setParentId(String parentId) {
         this.parentId = parentId;
-    }
-
-    /**
-     * 获取
-     *
-     * @return folderSort
-     */
-    public String getFolderSort() {
-        return this.folderSort;
-    }
-
-    /**
-     * 设置
-     *
-     * @param folderSort
-     */
-    public void setFolderSort(String folderSort) {
-        this.folderSort = folderSort;
     }
 
     /**
@@ -228,5 +218,23 @@ public class FolderInfo implements Serializable {
      */
     public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
+    }
+
+    /**
+     * 获取 是否已经加载子集
+     *
+     * @return isSwipe 是否已经加载子集
+     */
+    public Boolean getIsSwipe() {
+        return this.isSwipe;
+    }
+
+    /**
+     * 设置 是否已经加载子集
+     *
+     * @param isSwipe 是否已经加载子集
+     */
+    public void setIsSwipe(Boolean isSwipe) {
+        this.isSwipe = isSwipe;
     }
 }

@@ -15,6 +15,16 @@ import java.util.List;
  */
 public class StoreSystemFile {
 
+    private Db db;
+
+    public StoreSystemFile() {
+        this.db = Db.use();
+    }
+
+    public Db getDb() {
+        return this.db;
+    }
+
     public static void main(String[] args) throws SQLException {
 
         //查询

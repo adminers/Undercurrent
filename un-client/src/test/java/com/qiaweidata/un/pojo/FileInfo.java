@@ -17,6 +17,13 @@ public class FileInfo implements Serializable {
     @Serial
     private static final long serialVersionUID = 4108639571513439570L;
 
+    private String id;
+
+    /**
+     * 父目录ID
+     */
+    private String parentId;
+
     /**
      * 全路径
      */
@@ -176,5 +183,41 @@ public class FileInfo implements Serializable {
      */
     public void setFullPath(String fullPath) {
         this.fullPath = fullPath;
+    }
+
+    /**
+     * 获取
+     *
+     * @return id
+     */
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * 设置
+     *
+     * @param id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * 获取 父目录ID
+     *
+     * @return parentId 父目录ID
+     */
+    public String getParentId() {
+        return this.parentId;
+    }
+
+    /**
+     * 设置 父目录ID
+     *
+     * @param parentId 父目录ID
+     */
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 }
