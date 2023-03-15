@@ -1,7 +1,10 @@
 package com.qiaweidata.undercurrent.web.controller;
 
+import com.qiaweidata.undercurrent.SpringUtils;
+import com.qiaweidata.undercurrent.server.NettyServerHandler;
 import com.qiaweidata.undercurrent.web.dao.PersonMapper;
 import com.qiaweidata.undercurrent.web.entity.Machine;
+import io.netty.channel.ChannelHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -26,6 +29,8 @@ public class PersonController {
 
     @Autowired
     private PersonMapper personMapper;
+
+    private NettyServerHandler channelHandler = SpringUtils.getBean(NettyServerHandler.class);
 
     @RequestMapping("/save")
     public String save() {
@@ -61,5 +66,12 @@ public class PersonController {
         return Result.OK("上传成功!");
     }
 
+    @RequestMapping("/sendClietMsg")
+    public Result<?> sendClietMsg(HttpServletRequest request, HttpServletResponse response) {
+
+        String data = request.getParameter("data");
+        channelHandler.sendMessage("shen:" + data);
+        return Result.OK("发送成功!");
+    }
 
 }

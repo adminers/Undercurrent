@@ -37,6 +37,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
         try {
             idleCounter = 0;
             ByteBuf in = (ByteBuf) msg;
@@ -78,7 +79,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("从客户端收到新的数据读取完成********");
         if (ctx != null) {
             String keyid = ctx.channel().id().asLongText();
-            sendMessage(keyid);
+            sendMessage(keyid, "服务器自动回复");
             ctx.flush();
         }
     }
@@ -162,10 +163,18 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-    public void sendMessage(String keyid){
+    public void sendMessage(String keyid, String msg){
         ChannelHandlerContext ctx = ctxMap.get(keyid);
         //ctx.write("test");
-        ctx.writeAndFlush(Unpooled.copiedBuffer("什么玩意aaaaa\r\n".getBytes()));
+        ctx.writeAndFlush(Unpooled.copiedBuffer((msg + "\r\n").getBytes()));
+    }
+
+    public void sendMessage(String msg){
+        ctxMap.forEach((id, ctx) -> {
+            ctx.writeAndFlush(Unpooled.copiedBuffer((msg + "\r\n").getBytes()));
+            ctx.flush();
+        });
+
     }
 
     private String getClientIp(ChannelHandlerContext ctx) {

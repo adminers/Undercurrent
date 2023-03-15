@@ -75,7 +75,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler{
                 folderInfo.setMachineId("");
                 folderInfos.add(folderInfo);
                 String s = new Gson().toJson(folderInfos);
-                ctx.channel().writeAndFlush(s);  //发送心跳成功
+                ctx.channel().writeAndFlush("...");  //发送心跳成功
             }else if (event.state().equals(IdleState.ALL_IDLE)){
                 System.out.println("ALL_IDLE");
             }
@@ -93,7 +93,8 @@ public class NettyClientHandler extends SimpleChannelInboundHandler{
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         try {
-            System.out.println("服务端返回的消息 : " + msg.toString());
+            //System.out.println("服务端返回的消息 : " + msg.toString());
+            System.out.println(msg.toString());
 
         } finally {
             // 抛弃收到的数据
@@ -110,7 +111,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler{
      */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("从服务端收到新的数据读取完成********");
+        //System.out.println("从服务端收到新的数据读取完成********");
         if (ctx != null) {
             String keyid = ctx.channel().id().asLongText();
             ctx.flush();
