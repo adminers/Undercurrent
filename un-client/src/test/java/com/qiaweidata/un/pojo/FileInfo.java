@@ -65,6 +65,11 @@ public class FileInfo implements Serializable {
     private Boolean deleteFlag = Boolean.FALSE;
 
     /**
+     * 文件是否加载
+     */
+    private Boolean loadFile = Boolean.FALSE;
+
+    /**
      * 获取 文件类型
      *
      * @return fileType 文件类型
@@ -242,5 +247,23 @@ public class FileInfo implements Serializable {
      */
     public void setDeleteFlag(Boolean deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    /**
+     * 获取 文件是否加载
+     *
+     * @return loadFile 文件是否加载
+     */
+    public Boolean getLoadFile() {
+        return this.loadFile;
+    }
+
+    /**
+     * 设置 文件是否加载
+     *
+     * @param loadFile 文件是否加载
+     */
+    public void setLoadFile(Boolean loadFile) {
+        this.loadFile = loadFile;
     }
 }
