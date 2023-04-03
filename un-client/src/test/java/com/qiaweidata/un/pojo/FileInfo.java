@@ -60,6 +60,11 @@ public class FileInfo implements Serializable {
     private String absolutePath;
 
     /**
+     * 删除标记
+     */
+    private Boolean deleteFlag = Boolean.FALSE;
+
+    /**
      * 获取 文件类型
      *
      * @return fileType 文件类型
@@ -219,5 +224,23 @@ public class FileInfo implements Serializable {
      */
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    /**
+     * 获取 删除标记
+     *
+     * @return deleteFlag 删除标记
+     */
+    public Boolean getDeleteFlag() {
+        return this.deleteFlag;
+    }
+
+    /**
+     * 设置 删除标记
+     *
+     * @param deleteFlag 删除标记
+     */
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 }

@@ -239,6 +239,15 @@ public class TestFileList {
                 db.insert(
                     Entity.create("T_FILE_INFO")
                         .set("ID", fileInfo.getId())
+                        .set("PARENT_ID", fileInfo.getParentId())
+                        .set("FULL_PATH", fileInfo.getFullPath())
+                        .set("FILE_TYPE", fileInfo.getFileType().name())
+                        .set("NAME", fileInfo.getName())
+                        .set("LAST_MODIFIED", fileInfo.getLastModified())
+                        .set("FORMAT_LAST_MODIFIED", fileInfo.getFormatLastModified())
+                        .set("SUFFIX", fileInfo.getSuffix())
+                        .set("ABSOLUTE_PATH", fileInfo.getAbsolutePath())
+                        .set("DELETE_FLAG", fileInfo.getDeleteFlag())
                 );
             } catch (SQLException e) {
                 e.printStackTrace();
