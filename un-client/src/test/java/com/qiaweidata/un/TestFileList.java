@@ -24,6 +24,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -68,11 +69,55 @@ public class TestFileList {
     /**
      * 过滤不要的文件夹名称
      */
-    private static Set<String> FILTER_NAMES = new HashSet<>(2);
+    private static final Set<String> FILTER_NAMES = new HashSet<>(2);
+
+    /**
+     * 过滤不要的文件夹名称
+     */
+    private static final Set<String> FILTER_LIKE_NAMES = new HashSet<>(2);
+
+    /**
+     * 有效的文件
+     */
+    private static final Set<String> ONLY_EFFECTIVE_FILE_NAMES = new HashSet<>(20);
 
     static {
-        FILTER_NAMES.add("$RECYCLE.BIN");
-        FILTER_NAMES.add("SystemVolumeInformation");
+        FILTER_NAMES.add("$recycle.bin");
+        FILTER_NAMES.add("systemvolumeinformation");
+
+        FILTER_LIKE_NAMES.add("tomcat");
+        FILTER_LIKE_NAMES.add("node_modules");
+
+
+        {
+            ONLY_EFFECTIVE_FILE_NAMES.addAll(Arrays.asList(
+                "zip",
+                "7z",
+                "rar",
+                "cab",
+                "iso",
+                "tar",
+                "gz",
+                "gzip",
+                "tgz",
+                "dmg"
+            ));
+            ONLY_EFFECTIVE_FILE_NAMES.addAll(Arrays.asList(
+                "bmp,jpg,png,tif,gif,pcx,tga,exif,fpx,svg,psd,cdr,pcd,dxf,ufo,eps,ai,raw,wmf,webp,avif".split(",")
+            ));
+            ONLY_EFFECTIVE_FILE_NAMES.addAll(Arrays.asList(
+                "doc,docx,rtf,xml,txt,pdf,xlsx,ppt,html,xls,xmind,one".split(",")
+            ));
+            ONLY_EFFECTIVE_FILE_NAMES.addAll(Arrays.asList(
+                "wmv,asf,asx,rm,rmvb,mp4,3gp,mov,m4v,avi,dat,mkv,flv,vob,mpg,mpeg,vob".split(",")
+            ));
+            ONLY_EFFECTIVE_FILE_NAMES.addAll(Arrays.asList(
+                "wav,flac,ape,alac,wavpack,mp3,aac,ogg,opus,m4a".split(",")
+            ));
+            ONLY_EFFECTIVE_FILE_NAMES.addAll(Arrays.asList(
+                "sqlite".split(",")
+            ));
+        }
     }
 
     public TestFileList() {
@@ -91,7 +136,7 @@ public class TestFileList {
         /*String path = "C:\\Users\\Administrator\\Desktop\\apache-tomcat-8.5.56";        //要遍历的路径
         childPath(path, LoopFloderEnum.ONE_LEVEL_LIST);*/
 
-        String path = "D:\\AI\\lama-cleaner-win\\lama-cleaner";        //要遍历的路径
+        String path = "E:\\";        //要遍历的路径
         //childPath(path, LoopFloderEnum.ALL_LIST);
 
         new TestFileList().childPath(path, LoopFloderEnum.ALL_LIST, 2000);
@@ -165,12 +210,12 @@ public class TestFileList {
         testFileList.appendFile(fs, type, fileInfos, sleepTime, fileInfo.getId());
         //logBuilder.append(new Gson().toJson(fileInfos));
         System.out.println("----shenshilong------" + (System.currentTimeMillis() - startTime) + " ms.");
-        Path logPath = Paths.get("F:\\temp\\file.log");
+        /*Path logPath = Paths.get("F:\\temp\\file.log");
         try (BufferedWriter writer = Files.newBufferedWriter(logPath, StandardCharsets.UTF_8)) {
             writer.write(logBuilder.toString());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private List<FileInfo> appendFile(File[] fs, LoopFloderEnum type, List<FileInfo> fileInfos, String parentId) {
@@ -182,11 +227,11 @@ public class TestFileList {
 
         for (File file : fs) {
             String replaceName = file.getName().replace(" ", "");
-            if (FILTER_NAMES.contains(replaceName)) {
+            if (extracted(replaceName)) {
                 continue;
             }
             String absolutePath = file.getAbsolutePath();
-            logBuilder.append(absolutePath.substring(38)).append(property);
+            logBuilder.append(absolutePath.substring(4)).append(property);
             if (LoopFloderEnum.ALL_LIST.equals(type)) {
                 File[] files = file.listFiles();
                 appendFile(files, type, fileInfos, parentId);
@@ -217,11 +262,11 @@ public class TestFileList {
 
         for (File file : fs) {
             String replaceName = file.getName().replace(" ", "");
-            if (FILTER_NAMES.contains(replaceName)) {
+            if (extracted(replaceName)) {
                 continue;
             }
             String absolutePath = file.getAbsolutePath();
-            logBuilder.append(absolutePath.substring(38)).append(property);
+            logBuilder.append(absolutePath.substring(4)).append(property);
             FileInfo fileInfo = fileType(file, fileInfos, parentId);
             if (LoopFloderEnum.ALL_LIST.equals(type)) {
                 File[] files = file.listFiles();
@@ -230,6 +275,19 @@ public class TestFileList {
 
         }
         return fileInfos;
+    }
+
+    private boolean extracted(String replaceName) {
+
+        if (FILTER_NAMES.contains(replaceName)) {
+            return true;
+        }
+        for (String filterLikeName : FILTER_LIKE_NAMES) {
+            if (replaceName.indexOf(filterLikeName.toLowerCase()) != -1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void saveFileInfo(List<FileInfo> fileInfos) {
@@ -248,6 +306,7 @@ public class TestFileList {
                         .set("SUFFIX", fileInfo.getSuffix())
                         .set("ABSOLUTE_PATH", fileInfo.getAbsolutePath())
                         .set("DELETE_FLAG", fileInfo.getDeleteFlag())
+                        .set("LOAD_FILE", fileInfo.getLoadFile())
                 );
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -293,6 +352,7 @@ public class TestFileList {
         if (file.isDirectory()) {
             fileInfo.setFileType(FileTypeEnum.DIRECTORY);
             fileInfo.setSuffix("DEFALUT_FOLDER");
+            fileInfos.add(fileInfo);
         } else {
             fileInfo.setFileType(FileTypeEnum.FILE);
             int lastIndex = path.lastIndexOf('.');
@@ -300,9 +360,14 @@ public class TestFileList {
                 lastIndex > this.rootPathLength) {
                 fileInfo.setSuffix(path.substring(lastIndex + 1));
             }
+
+            // 后缀
+            if (ONLY_EFFECTIVE_FILE_NAMES.contains(fileInfo.getSuffix().toLowerCase())) {
+                fileInfos.add(fileInfo);
+            }
+            //list.stream().anyMatch("search_value"::equalsIgnoreCase);
         }
         fileInfo.setAbsolutePath(path);
-        fileInfos.add(fileInfo);
         return fileInfo;
     }
 

@@ -147,7 +147,7 @@ public class FileInfo implements Serializable {
      * @return suffix 文件后缀
      */
     public String getSuffix() {
-        return this.suffix;
+        return null == this.suffix ? "" : this.suffix;
     }
 
     /**

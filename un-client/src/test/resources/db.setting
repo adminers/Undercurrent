@@ -1,5 +1,5 @@
 ## db.setting文件
-url=jdbc:h2:E:\giteeWork\Undercurrent\un-client\src\main\resources\temp-sougou-font
+url=jdbc:h2:E:\giteeWork\UndercurrentPro\Undercurrent\un-client\src\main\resources\temp-sougou-font
 user=Undercurrent
 pass=Undercurrent
 ## 可选配置
