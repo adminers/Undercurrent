@@ -1,7 +1,14 @@
 ## db.setting文件
+## 混合模式的
+## url=jdbc:h2:~/temp-sougou-font;AUTO_SERVER=TRUE;
+## url=jdbc:h2:E:\giteeWork\UndercurrentPro\Undercurrent\un-client\src\main\resources\temp-sougou-font
+## user=Undercurrent
+## pass=Undercurrent
+
 url=jdbc:h2:E:\giteeWork\UndercurrentPro\Undercurrent\un-client\src\main\resources\temp-sougou-font
 user=Undercurrent
 pass=Undercurrent
+
 ## 可选配置
 # 是否在日志中显示执行的SQL
 showSql = true
