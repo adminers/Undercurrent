@@ -279,7 +279,7 @@ public class TestFileList {
 
     private boolean extracted(String replaceName) {
 
-        if (FILTER_NAMES.contains(replaceName)) {
+        if (FILTER_NAMES.contains(replaceName.toLowerCase())) {
             return true;
         }
         for (String filterLikeName : FILTER_LIKE_NAMES) {
@@ -307,6 +307,8 @@ public class TestFileList {
                         .set("ABSOLUTE_PATH", fileInfo.getAbsolutePath())
                         .set("DELETE_FLAG", fileInfo.getDeleteFlag())
                         .set("LOAD_FILE", fileInfo.getLoadFile())
+                        .set("FILE_SIZE", fileInfo.getFileSize())
+                        .set("FILE_SIZE_FORMAT", fileInfo.getFileSizeFormat())
                 );
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -360,6 +362,8 @@ public class TestFileList {
                 lastIndex > this.rootPathLength) {
                 fileInfo.setSuffix(path.substring(lastIndex + 1));
             }
+            fileInfo.setFileSize(file.length());
+            fileInfo.setFileSizeFormat(file.length() / 1024.0 / 1024.0);
 
             // 后缀
             if (ONLY_EFFECTIVE_FILE_NAMES.contains(fileInfo.getSuffix().toLowerCase())) {

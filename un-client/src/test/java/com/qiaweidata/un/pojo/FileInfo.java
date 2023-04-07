@@ -70,6 +70,16 @@ public class FileInfo implements Serializable {
     private Boolean loadFile = Boolean.FALSE;
 
     /**
+     * 文件字节长度
+     */
+    private Long fileSize;
+
+    /**
+     * 文件兆数
+     */
+    private Double fileSizeFormat;
+
+    /**
      * 获取 文件类型
      *
      * @return fileType 文件类型
@@ -265,5 +275,41 @@ public class FileInfo implements Serializable {
      */
     public void setLoadFile(Boolean loadFile) {
         this.loadFile = loadFile;
+    }
+
+    /**
+     * 获取 文件字节长度
+     *
+     * @return fileSize 文件字节长度
+     */
+    public Long getFileSize() {
+        return this.fileSize;
+    }
+
+    /**
+     * 设置 文件字节长度
+     *
+     * @param fileSize 文件字节长度
+     */
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    /**
+     * 获取 文件兆数
+     *
+     * @return fileSizeFormat 文件兆数
+     */
+    public Double getFileSizeFormat() {
+        return this.fileSizeFormat;
+    }
+
+    /**
+     * 设置 文件兆数
+     *
+     * @param fileSizeFormat 文件兆数
+     */
+    public void setFileSizeFormat(Double fileSizeFormat) {
+        this.fileSizeFormat = fileSizeFormat;
     }
 }
