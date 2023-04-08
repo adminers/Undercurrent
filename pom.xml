@@ -20,9 +20,9 @@
   </parent>
 
   <modules>
+    <module>un-common</module>
     <module>un-server</module>
     <module>un-client</module>
-    <module>un-common</module>
   </modules>
 
   <properties>

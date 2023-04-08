@@ -1,5 +1,9 @@
 package com.qiaweidata.un;
 
+import cn.hutool.core.lang.Console;
+import cn.hutool.http.Header;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,6 +12,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import org.junit.Test;
@@ -21,6 +26,24 @@ import org.junit.Test;
  * @version: V1.0
  */
 public class DingUploadTest {
+
+    public static final Map<String, String> properties = new HashMap<>(2);
+
+    static {
+
+        //读取resources/config目录下的application.properties
+        ResourceBundle rb2 = ResourceBundle.getBundle("ding");
+        for(String key : rb2.keySet()){
+            String value = rb2.getString(key);
+            System.out.println(key + ":" + value);
+            properties.put(key, value);
+        }
+    }
+
+    @Test
+    public void getApiInfo() {
+
+    }
 
     @Test
     public void singleFileUpload() throws IOException {
@@ -63,11 +86,20 @@ public class DingUploadTest {
     @Test
     public void corpId() {
 
-        //读取resources/config目录下的application.properties
-        ResourceBundle rb2 = ResourceBundle.getBundle("ding");
-        for(String key : rb2.keySet()){
-            String value = rb2.getString(key);
-            System.out.println(key + ":" + value);
-        }
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("corpid", properties.get("corpid"));
+        paramMap.put("ssoSecret", properties.get("ssosecret"));
+
+        //String result= HttpUtil..post("https://api.dingtalk.com/v1.0/oauth2/ssoAccessToken", paramMap);
+        //链式构建请求
+        String result2 = HttpRequest.post("https://api.dingtalk.com/v1.0/oauth2/ssoAccessToken")
+            .header(Header.CONTENT_TYPE, "application/json")//头信息，多个头信息多次调用此方法即可
+            .form(paramMap)//表单内容
+            .timeout(20000)//超时，毫秒
+            .execute().body();
+        Console.log(result2);
+        System.out.println(result2);
     }
+
+
 }

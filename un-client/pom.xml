@@ -10,11 +10,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>un-client</artifactId>
+  <packaging>jar</packaging>
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <h2.version>2.1.214</h2.version>
-    <hutool-db.version>5.8.15</hutool-db.version>
+    <hutool-db.version>5.8.16</hutool-db.version>
     <httpclient.version>4.5.13</httpclient.version>
   </properties>
   <dependencies>
@@ -34,7 +35,6 @@
       <artifactId>hutool-db</artifactId>
       <version>${hutool-db.version}</version>
     </dependency>
-
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>

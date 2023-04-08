@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>un-server</artifactId>
-
+  <packaging>jar</packaging>
   <description>
     Undercurrent server
   </description>
