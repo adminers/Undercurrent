@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
+import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -98,20 +99,47 @@ public class DingUploadTest {
     }
 
     public static void main(String[] args) {
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("image_url", "https://ai.bdstatic.com/file/467F4DD90B8B4B8F9B4869AA7DFA88E0");
+        paramMap.put("type", "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic");
+        paramMap.put("detect_direction", false);
+        paramMap.put("language_type", "CHN_ENG");
+        String url = "https://ai.baidu.com/aidemo?image&image_url=https://ai.bdstatic.com/file/D9050B1BEB5A49508D882D3D652F3D38&type="
+            + "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic&detect_direction=false&language_type=CHN_ENG";
+        String json = new Gson().toJson(paramMap);
+        String result2 = HttpRequest.post(url)
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .header("Tracecode", "18069313750412522250040817")
+            .header("Transfer-Encoding", "chunked")
+            .header("X-Protected-By", "OpenRASP")
+            .header("Access-Control-Allow-Origin", "*")
+            //.body(json)
+            .execute().body();
+        Console.log(result2);
 
+    }
+
+    private static void extracted() {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("corpid", properties.get("corpid"));
         paramMap.put("ssoSecret", properties.get("ssosecret"));
 
         //String result= HttpUtil..post("https://api.dingtalk.com/v1.0/oauth2/ssoAccessToken", paramMap);
         //链式构建请求
-        String result2 = HttpRequest.post("https://api.dingtalk.com/v1.0/oauth2/ssoAccessToken")
+       /* String result2 = HttpRequest.post("https://api.dingtalk.com/v1.0/oauth2/ssoAccessToken")
             .header(Header.CONTENT_TYPE, "application/json")//头信息，多个头信息多次调用此方法即可
             .form(paramMap)//表单内容
             .timeout(20000)//超时，毫秒
             .execute().body();
-        Console.log(result2);
-        System.out.println(result2);
-    }
+        */
+        String url = "https://api.dingtalk.com/v1.0/oauth2/ssoAccessToken";
 
+        String json = new Gson().toJson(paramMap);
+        String result2 = HttpRequest.post(url)
+            .body(json)
+            .execute().body();
+        Console.log(result2);
+
+        // 2023-4-8 16:16:08 {"expireIn":7200,"accessToken":"86fd508de51f3aae89b49eaea952932c"}
+    }
 }
