@@ -3,7 +3,6 @@ package com.qiaweidata.un;
 import cn.hutool.core.lang.Console;
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -99,6 +97,10 @@ public class DingUploadTest {
     }
 
     public static void main(String[] args) {
+        testOcr();
+    }
+
+    private static void testOcr() {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("image_url", "https://ai.bdstatic.com/file/467F4DD90B8B4B8F9B4869AA7DFA88E0");
         paramMap.put("type", "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic");
@@ -116,7 +118,6 @@ public class DingUploadTest {
             //.body(json)
             .execute().body();
         Console.log(result2);
-
     }
 
     private static void extracted() {
