@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
+ * 13533702421637642870
+ *
  * @Title: DingUploadTest
  * @Description: DingUploadTest
  * @Company: www.wrenchdata.com
@@ -27,13 +29,14 @@ public class DingUploadTest {
 
     public static final Map<String, String> properties = new HashMap<>(2);
 
+    public static final String token = "ad08973c6da4363a916ae0e4db388a22";
+
     static {
 
         //读取resources/config目录下的application.properties
         ResourceBundle rb2 = ResourceBundle.getBundle("ding");
         for(String key : rb2.keySet()){
             String value = rb2.getString(key);
-            System.out.println(key + ":" + value);
             properties.put(key, value);
         }
     }
@@ -97,7 +100,8 @@ public class DingUploadTest {
     }
 
     public static void main(String[] args) {
-        testOcr();
+        getSpace();
+
     }
 
     private static void testOcr() {
@@ -120,7 +124,7 @@ public class DingUploadTest {
         Console.log(result2);
     }
 
-    private static void extracted() {
+    private static void getToken() {
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("corpid", properties.get("corpid"));
         paramMap.put("ssoSecret", properties.get("ssosecret"));
@@ -142,5 +146,43 @@ public class DingUploadTest {
         Console.log(result2);
 
         // 2023-4-8 16:16:08 {"expireIn":7200,"accessToken":"86fd508de51f3aae89b49eaea952932c"}
+        // 2023-4-10 11:53:09{"expireIn":7200,"accessToken":"0315cf68a1fa303ba32905f020f5b460"}
+        // 2023-4-10 13:52:21{"expireIn":7200,"accessToken":"0315cf68a1fa303ba32905f020f5b460"}
+        // 2023-4-10 14:00:19{"expireIn":7200,"accessToken":"0315cf68a1fa303ba32905f020f5b460"}
+
     }
+
+    private static void getToken2() {
+        String url = "https://oapi.dingtalk.com/gettoken?appkey=" + properties.get("appkey") + "&appsecret=" + properties.get("appsecret");
+        String result2 = HttpRequest.get(url)
+            .execute().body();
+        Console.log(result2);
+
+        // 2023-4-10 15:10:37 {"errcode":0,"access_token":"ad08973c6da4363a916ae0e4db388a22","errmsg":"ok","expires_in":7200}
+
+    }
+
+    private static void getUserInfo() {
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("language", "zh_CN");
+        paramMap.put("userid", "13533702421637642870");
+        String url = "https://oapi.dingtalk.com/topapi/v2/user/get?access_token=" + token;
+        String json = new Gson().toJson(paramMap);
+        String result2 = HttpRequest.post(url)
+            .body(json)
+            .execute().body();
+
+        Console.log(result2);
+    }
+
+    private static void getSpace() {
+
+        String url = "https://api.dingtalk.com/v1.0/storage/spaces?unionId=" + properties.get("unionid");
+        String result2 = HttpRequest.post(url)
+            .header("x-acs-dingtalk-access-token", token)
+            .execute().body();
+
+        Console.log(result2);
+    }
+
 }
