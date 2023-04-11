@@ -1,5 +1,10 @@
 package com.qiaweidata.un.dingding;
 
+import cn.hutool.core.lang.Console;
+import cn.hutool.http.HttpRequest;
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import com.qiaweidata.un.DingUploadTest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,7 +13,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.qiaweidata.un.DingUploadTest.token;
 
 /**
  * 服务端API文档/文件存储管理文件传输文件上传问题自查手册
@@ -85,21 +93,52 @@ import java.util.Map;
  */
 public class OSSTest {
 
-    public static void main(String[] args) {
+    private static String resourceUrl = "";
 
+    private static Map<String, String> headers;
 
+    private static String uploadKey = "";
+
+    public static void main(String[] args) throws IOException {
+
+        one();
+        uposs();
+        commit();
     }
 
     public static void one() {
 
+        String json = "{\n"
+            + "  \"protocol\" : \"HEADER_SIGNATURE\",\n"
+            + "  \"multipart\" : false,\n"
+            + "  \"option\" : {\n"
+            + "    \"storageDriver\" : \"DINGTALK\",\n"
+            + "    \"preCheckParam\" : {\n"
+            + "      \"parentId\" : \"0\"\n"
+            + "    },\n"
+            + "    \"preferIntranet\" : true\n"
+            + "  }\n"
+            + "}";
+        String url = "https://api.dingtalk.com/v1.0/storage/spaces/21376823510/files/uploadInfos/query?unionId=" + DingUploadTest.properties.get("unionid");
+        String result2 = HttpRequest.post(url)
+            .header("x-acs-dingtalk-access-token", token)
+            .body(json)
+            .execute().body();
+
+        HashMap hashMap = new Gson().fromJson(result2, HashMap.class);
+        LinkedTreeMap headerSignatureInfo = (LinkedTreeMap) hashMap.get("headerSignatureInfo");
+        headers = (LinkedTreeMap) headerSignatureInfo.get("headers");
+        List<String> resourceUrls = (List) headerSignatureInfo.get("resourceUrls");
+        resourceUrl = resourceUrls.get(0);
+        uploadKey = (String) hashMap.get("uploadKey");
+        Console.log(result2);
     }
 
     public static void uposs() throws IOException {
 
         // 从接口返回信息中拿到resourceUrls
-        String resourceUrl = "第一步接口返回的resourceUrls";
         // 从接口返回信息中拿到headers
-        Map<String, String> headers = new HashMap<>();
+
         URL url = new URL(resourceUrl);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         if (headers != null) {
@@ -114,7 +153,7 @@ public class OSSTest {
         connection.setConnectTimeout(10000);
         connection.connect();
         OutputStream out = connection.getOutputStream();
-        InputStream is = new FileInputStream("/Users/xxxxx/Desktop/测试文件.xls");
+        InputStream is = new FileInputStream("F:\\temp\\950.jpg");
         byte[] b =new byte[1024];
         int temp;
         while ((temp=is.read(b))!=-1){
@@ -133,5 +172,16 @@ public class OSSTest {
 
     public static void commit() {
 
+        String json = "{\n"
+            + "  \"uploadKey\" : \"" + uploadKey + "\",\n"
+            + "  \"name\" : \"950.jpg\",\n"
+            + "  \"parentId\" : \"0\"\n"
+            + "}";
+        String url = "https://api.dingtalk.com/v1.0/storage/spaces/21376823510/files/commit?unionId=" + DingUploadTest.properties.get("unionid");
+        String result2 = HttpRequest.post(url)
+            .header("x-acs-dingtalk-access-token", token)
+            .body(json)
+            .execute().body();
+        Console.log(result2);
     }
 }
