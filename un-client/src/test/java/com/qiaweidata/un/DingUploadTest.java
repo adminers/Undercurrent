@@ -29,7 +29,7 @@ public class DingUploadTest {
 
     public static final Map<String, String> properties = new HashMap<>(2);
 
-    public static final String token = "ad08973c6da4363a916ae0e4db388a22";
+    public static final String token = "464c28c4cf733ab5b2e4014d30299eb5";
 
     static {
 
@@ -159,7 +159,7 @@ public class DingUploadTest {
         Console.log(result2);
 
         // 2023-4-10 15:10:37 {"errcode":0,"access_token":"ad08973c6da4363a916ae0e4db388a22","errmsg":"ok","expires_in":7200}
-
+        // 2023-4-11 10:14:03 {"errcode":0,"access_token":"464c28c4cf733ab5b2e4014d30299eb5","errmsg":"ok","expires_in":7200}
     }
 
     private static void getUserInfo() {
