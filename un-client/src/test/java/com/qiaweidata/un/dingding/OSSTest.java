@@ -84,6 +84,8 @@ import static com.qiaweidata.un.DingUploadTest.token;
  *
  * cdn-sz-trans.dingtalk.com
  *
+ * 不知道上传到哪去了。
+ *
  * @Title: OSSTest
  * @Description: OSSTest
  * @Company: www.wrenchdata.com
