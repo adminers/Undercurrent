@@ -155,7 +155,7 @@ public class OSSTest {
         connection.setConnectTimeout(10000);
         connection.connect();
         OutputStream out = connection.getOutputStream();
-        InputStream is = new FileInputStream("F:\\temp\\950.jpg");
+        InputStream is = new FileInputStream("G:\\ideaIU-2023.1.win\\product-info.json");
         byte[] b =new byte[1024];
         int temp;
         while ((temp=is.read(b))!=-1){
@@ -176,7 +176,7 @@ public class OSSTest {
 
         String json = "{\n"
             + "  \"uploadKey\" : \"" + uploadKey + "\",\n"
-            + "  \"name\" : \"950.jpg\",\n"
+            + "  \"name\" : \"product-info.json\",\n"
             + "  \"parentId\" : \"0\"\n"
             + "}";
         String url = "https://api.dingtalk.com/v1.0/storage/spaces/21376823510/files/commit?unionId=" + DingUploadTest.properties.get("unionid");

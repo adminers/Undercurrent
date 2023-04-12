@@ -29,7 +29,7 @@ public class DingUploadTest {
 
     public static final Map<String, String> properties = new HashMap<>(2);
 
-    public static final String token = "464c28c4cf733ab5b2e4014d30299eb5";
+    public static final String token = "d7fd52649e213d01b3608157ca8a1f18";
 
     static {
 
@@ -100,7 +100,7 @@ public class DingUploadTest {
     }
 
     public static void main(String[] args) {
-        getSpace();
+        getToken2();
 
     }
 
@@ -160,6 +160,7 @@ public class DingUploadTest {
 
         // 2023-4-10 15:10:37 {"errcode":0,"access_token":"ad08973c6da4363a916ae0e4db388a22","errmsg":"ok","expires_in":7200}
         // 2023-4-11 10:14:03 {"errcode":0,"access_token":"464c28c4cf733ab5b2e4014d30299eb5","errmsg":"ok","expires_in":7200}
+        // 2023-4-12 16:06:55 {"errcode":0,"access_token":"d7fd52649e213d01b3608157ca8a1f18","errmsg":"ok","expires_in":7200}
     }
 
     private static void getUserInfo() {
