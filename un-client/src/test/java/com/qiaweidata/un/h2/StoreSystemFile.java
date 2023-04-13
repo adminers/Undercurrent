@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * derby
+ * h2database
  *
  * @Title: StoreSystemFile
  * @Description: StoreSystemFile
