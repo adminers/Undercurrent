@@ -54,8 +54,9 @@ public class JspUtil {
                     System.out.println("添加 String jspUpdateVersion = JspCodeUtils.getJspVersion();");
                     System.out.println(line);
                 }
-                if (line.indexOf("<%=basePath%>") != -1) {
-                    System.out.println(line);
+                int startIndex = line.indexOf("<%=basePath%>");
+                if (startIndex != -1) {
+                    fileSplit(line);
                 }
             });
         } catch (IOException e) {
@@ -63,4 +64,45 @@ public class JspUtil {
         }
     }
 
+    private static void fileSplit(String line) {
+
+        if (line.indexOf(".js") == -1 &&
+            line.indexOf(".css") == -1) {
+            return;
+        }
+        System.out.println(line);
+        if (line.indexOf('?') != -1) {
+            String[] split = line.split("\\?");
+            if (split.length > 2) {
+                System.out.println("这是不对滴");
+            }
+            StringBuilder sb = new StringBuilder(line.length() + 24);
+            sb.append(split[0]).append("?");
+            String twoStr = split[1];
+
+            // 判断是否有多个&值
+            if (twoStr.indexOf('&') != -1) {
+                System.out.println("这是不对滴");
+            } else {
+                System.out.println("-------------------------------------------------------" + split[1]);
+                sb.append("v=<%=jspUpdateVersion%>").append(split[1].replace("v=311", ""));
+            }
+            System.out.println(sb);
+        } else {
+            StringBuilder sb = new StringBuilder(line.length() + 24);
+            String[] split = line.split("\"");
+            for (int i = 0; i < split.length; i++) {
+                sb.append(split[i]);
+
+                if (i == split.length - 2) {
+                    sb.append("?v=<%=jspUpdateVersion%>");
+                } else if (i == split.length - 1) {
+
+                } else {
+                    sb.append("\"");
+                }
+            }
+            System.out.println(sb);
+        }
+    }
 }
