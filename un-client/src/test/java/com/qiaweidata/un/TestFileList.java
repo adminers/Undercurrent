@@ -49,7 +49,7 @@ public class TestFileList {
 
     private int folderNum;
 
-    private List<FolderInfo> folderInfos = new ArrayList<>(10);
+    private final List<FileInfo> folderInfos = new ArrayList<>(10);
 
     private String computerUser;
 
@@ -139,7 +139,8 @@ public class TestFileList {
         String path = "E:\\";        //要遍历的路径
         //childPath(path, LoopFloderEnum.ALL_LIST);
 
-        new TestFileList().childPath(path, LoopFloderEnum.ALL_LIST, 2000);
+        TestFileList testFileList = new TestFileList();
+        testFileList.childPath(path, LoopFloderEnum.ALL_LIST, 2000);
         /*
 
         String p = null;
@@ -196,7 +197,7 @@ public class TestFileList {
         }
     }
 
-    private void childPath(String path, LoopFloderEnum type, int sleepTime) {
+    public void childPath(String path, LoopFloderEnum type, int sleepTime) {
 
         Objects.requireNonNull(type, "不能为空！");
         long startTime = System.currentTimeMillis();
@@ -231,7 +232,7 @@ public class TestFileList {
                 continue;
             }
             String absolutePath = file.getAbsolutePath();
-            logBuilder.append(absolutePath.substring(4)).append(property);
+            logBuilder.append(absolutePath.substring(this.rootPathLength + 1)).append(property);
             if (LoopFloderEnum.ALL_LIST.equals(type)) {
                 File[] files = file.listFiles();
                 appendFile(files, type, fileInfos, parentId);
@@ -266,7 +267,7 @@ public class TestFileList {
                 continue;
             }
             String absolutePath = file.getAbsolutePath();
-            logBuilder.append(absolutePath.substring(4)).append(property);
+            logBuilder.append(absolutePath.substring(this.rootPathLength + 1)).append(property);
             FileInfo fileInfo = fileType(file, fileInfos, parentId);
             if (LoopFloderEnum.ALL_LIST.equals(type)) {
                 File[] files = file.listFiles();
@@ -372,6 +373,7 @@ public class TestFileList {
             //list.stream().anyMatch("search_value"::equalsIgnoreCase);
         }
         fileInfo.setAbsolutePath(path);
+        this.folderInfos.add(fileInfo);
         return fileInfo;
     }
 
@@ -394,6 +396,10 @@ public class TestFileList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<FileInfo> getFolderInfos() {
+        return this.folderInfos;
     }
 
     private class FileVisitor extends SimpleFileVisitor<Path> {
