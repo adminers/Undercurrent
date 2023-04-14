@@ -1,5 +1,6 @@
 package com.qiaweidata.un;
 
+import com.qiaweidata.un.pojo.JspInfo;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,6 +19,8 @@ import java.util.stream.Stream;
  */
 public class JspUtil {
 
+    private static final String createPath = "E:\\temp\\webpage";
+
     /**
      * 批量替换 JSP 页面的 java 代码
      *
@@ -26,42 +29,71 @@ public class JspUtil {
     public static void main(String[] args) {
 
         // 读取文件夹下的所有 jsp 文件
-        String path = "E:\\work_svn\\webpage";        //要遍历的路径
+        String path = "E:\\work_svn\\webpage";
         List<File> files = SimpleFileUtil.files(path);
 
         // create full file
         StringBuilder fullStr = new StringBuilder();
-        StringBuilder newFullStr = new StringBuilder();
+
+
         files.forEach(fileInfo -> {
+            StringBuilder newFullStr = new StringBuilder();
+            JspInfo jspInfo = new JspInfo();
 
             // 读取到特殊标记,替换/追加代码
-            readLine(fileInfo.getPath(), fullStr, newFullStr);
+            String fullPath = fileInfo.getPath();
+            readLine(fullPath, fullStr, newFullStr, jspInfo);
+            try {
+                String parentPath = fileInfo.getParent();
+                parentPath = parentPath.replace(path, createPath);
+                fullPath = fullPath.replace(path, createPath);
+                File file = new File(parentPath);
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                if (!jspInfo.isUpdate()) {
+                    Files.delete(Paths.get(fullPath));
+                    Files.copy(Paths.get(fileInfo.getPath()), Paths.get(fullPath));
+                    System.out.println("没有修改的jsp" + fullPath);
+                } else {
+                    Files.write(Paths.get(fullPath), newFullStr.toString().getBytes());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         // 把修改后的 jsp 和修改前的 jsp,分别记录到一个文件中,方便用 vscode 做对比
         try {
             Files.write(Paths.get("E:\\temp\\fullStr.jsp"), fullStr.toString().getBytes());
-            Files.write(Paths.get("E:\\temp\\newFullStr.jsp"), newFullStr.toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static void readLine(String fullPath, StringBuilder fullStr, StringBuilder newFullStr) {
+    private static void readLine(String fullPath, StringBuilder fullStr, StringBuilder newFullStr, JspInfo jspInfo) {
 
+        if (!fullPath.endsWith(".jsp")) {
+            return;
+        }
         Path path = Paths.get(fullPath);
         try (Stream<String> filteredLines = Files.lines(path)) {
             filteredLines.forEach(line -> {
                 fullStr.append(line).append("\n");
                 if (line.indexOf("String path = request.getContextPath();") != -1) {
-                    System.out.println("添加 String jspUpdateVersion = JspCodeUtils.getJspVersion();");
-                    System.out.println(line);
-                    newFullStr.append("    String jspUpdateVersion = JspCodeUtils.getJspVersion();").append("\n");;
-                    newFullStr.append(line).append("\n");;
+                    newFullStr.append("    String jspUpdateVersion = JspCodeUtils.getJspVersion();").append("\n");
+                    jspInfo.setUpdate(true);
+                }
+                if (line.indexOf("com.wrenchdata.core.util.StringUtil") != -1) {
+                    newFullStr.append("<%@ page import=\"com.wrenchdata.core.util.JspCodeUtils\" %>").append("\n");
+                    jspInfo.setUpdate(true);
                 }
                 int startIndex = line.indexOf("<%=basePath%>");
                 if (startIndex != -1) {
-                    fileSplit(line, newFullStr);
+                    fileSplit(line, newFullStr, jspInfo);
+                    if (line.indexOf("<c:set") >= 0 ) {
+                        newFullStr.append("<c:set var=\"jspUpdateVersion\" value=\"<%=jspUpdateVersion%>\" />").append("\n");
+                    }
                 } else {
                     newFullStr.append(line).append("\n");
                 }
@@ -77,14 +109,16 @@ public class JspUtil {
      *
      * @param line
      * @param newFullStr
+     * @param jspInfo
      */
-    private static void fileSplit(String line, StringBuilder newFullStr) {
+    private static void fileSplit(String line, StringBuilder newFullStr, JspInfo jspInfo) {
 
         if (line.indexOf(".js") == -1 &&
             line.indexOf(".css") == -1) {
             newFullStr.append(line).append("\n");
             return;
         }
+        jspInfo.setUpdate(true);
         StringBuilder sb = new StringBuilder(line.length() + 24);
         if (line.indexOf('?') != -1) {
             String[] split = line.split("\\?");
@@ -99,7 +133,6 @@ public class JspUtil {
             if (twoStr.indexOf('&') != -1) {
                 System.out.println("这是不对滴");
             } else {
-                System.out.println("-------------------------------------------------------" + split[1]);
                 sb.append("v=<%=jspUpdateVersion%>").append(split[1].replace("v=311", ""));
             }
         } else {
