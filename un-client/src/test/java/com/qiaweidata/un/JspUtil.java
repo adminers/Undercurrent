@@ -1,5 +1,9 @@
 package com.qiaweidata.un;
 
+import com.qiaweidata.un.enums.LoopFloderEnum;
+import com.qiaweidata.un.pojo.FileInfo;
+import java.util.List;
+
 /**
  * @Title: JspUtil
  * @Description: JspUtil
@@ -18,9 +22,18 @@ public class JspUtil {
     public static void main(String[] args) {
 
         // 读取文件夹下的所有 jsp 文件
+        String path = "E:\\work_svn\\webpage";        //要遍历的路径
+        //childPath(path, LoopFloderEnum.ALL_LIST);
 
+        TestFileList files = new TestFileList();
+        files.childPath(path, LoopFloderEnum.ALL_LIST, -1);
+        List<FileInfo> folderInfos = files.getFolderInfos();
 
-        // 读取到特殊标记,替换/追加代码
+        folderInfos.forEach(fileInfo -> {
+
+            // 读取到特殊标记,替换/追加代码
+
+        });
 
         // 识别 css,js 等 html 元素的标记,插入版本号
 
