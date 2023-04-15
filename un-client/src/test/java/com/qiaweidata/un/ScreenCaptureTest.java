@@ -41,9 +41,9 @@ public class ScreenCaptureTest {
             // 捕获屏幕上的内容
             bufferedImage = robot.createScreenCapture(rectangle);
             // 将捕获的内容保存到文件
-            //ImageIO.write(bufferedImage, "jpg", new File("F:\\temp\\screenshot.jpg"));
+            ImageIO.write(bufferedImage, "jpg", new File("/Users/myComputer/E/temp/screenshot.jpg"));
 
-        } catch (AWTException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return bufferedImage;
