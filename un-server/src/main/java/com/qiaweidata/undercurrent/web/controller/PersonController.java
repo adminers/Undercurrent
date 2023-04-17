@@ -82,7 +82,7 @@ public class PersonController {
     public String caton(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         System.out.println(" caton");
-        TimeUnit.SECONDS.sleep(600);
+        //TimeUnit.SECONDS.sleep(1);
         return "{\"caton\":\"caton\"}";
     }
 }
