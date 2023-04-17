@@ -12,12 +12,15 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import org.jeecg.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -74,4 +77,12 @@ public class PersonController {
         return Result.OK("发送成功!");
     }
 
+    @RequestMapping(value = "/caton", method = RequestMethod.GET)
+    @ResponseBody
+    public String caton(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        System.out.println(" caton");
+        TimeUnit.SECONDS.sleep(600);
+        return "{\"caton\":\"caton\"}";
+    }
 }
