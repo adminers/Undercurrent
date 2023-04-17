@@ -37,6 +37,7 @@ public class PersonController {
 
     @RequestMapping("/save")
     public String save() {
+
         Machine machine = new Machine();
         machine.setId(UUID.randomUUID().toString().replace("-", ""));
         machine.setSystemName("补补补补");
