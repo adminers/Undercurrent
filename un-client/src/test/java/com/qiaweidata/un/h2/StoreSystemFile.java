@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * h2database
- * SequencePlugin
+ * SequencePlugin idea
  *
  * @Title: StoreSystemFile
  * @Description: StoreSystemFile
