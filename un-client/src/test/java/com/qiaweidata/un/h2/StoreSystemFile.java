@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * h2database
  * SequencePlugin idea
+ * SequencePlugin resource
  *
  * @Title: StoreSystemFile
  * @Description: StoreSystemFile
