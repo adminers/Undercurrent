@@ -9,4 +9,8 @@ package com.qiaweidata.un.plugin;
  * @version: V1.0
  */
 public class RestfulFastRequestTest {
+
+    public static void main(String[] args) {
+
+    }
 }
