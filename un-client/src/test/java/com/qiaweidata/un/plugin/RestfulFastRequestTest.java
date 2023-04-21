@@ -1,5 +1,7 @@
 package com.qiaweidata.un.plugin;
 
+import cn.hutool.http.HttpUtil;
+
 /**
  * @Title: RestfulFastRequestTest
  * @Description: RestfulFastRequestTest
@@ -12,5 +14,7 @@ public class RestfulFastRequestTest {
 
     public static void main(String[] args) {
 
+        String s = HttpUtil.get("https://github.com");
+        System.out.println(s);
     }
 }
