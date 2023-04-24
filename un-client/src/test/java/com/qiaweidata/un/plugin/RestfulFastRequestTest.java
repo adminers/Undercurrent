@@ -14,7 +14,7 @@ public class RestfulFastRequestTest {
 
     public static void main(String[] args) {
 
-        String s = HttpUtil.get("https://github.com");
+        String s = HttpUtil.get("https://github.com/adminers/Undercurrent.git");
         System.out.println(s);
     }
 }

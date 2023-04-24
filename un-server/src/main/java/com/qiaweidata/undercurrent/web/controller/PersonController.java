@@ -1,5 +1,6 @@
 package com.qiaweidata.undercurrent.web.controller;
 
+import cn.hutool.core.io.FileUtil;
 import com.qiaweidata.undercurrent.SpringUtils;
 import com.qiaweidata.undercurrent.server.NettyServerHandler;
 import com.qiaweidata.undercurrent.web.dao.PersonMapper;
@@ -78,12 +79,40 @@ public class PersonController {
         return Result.OK("发送成功!");
     }
 
-    @RequestMapping(value = "/caton", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value = "/caton", method = RequestMethod.GET) @ResponseBody
     public String caton(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         System.out.println(" caton");
         //TimeUnit.SECONDS.sleep(1);
         return "{\"caton\":\"caton\"}";
+    }
+
+    @RequestMapping(value = "/appendFile", method = RequestMethod.GET) @ResponseBody
+    public Result<?> appendFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String fileName = request.getParameter("fileName");
+        String data = request.getParameter("data");
+
+        // 追加文件
+        File file = new File("E:\\giteeWork\\UndercurrentPro\\effict-side\\project\\un-simulation\\" + fileName + ".java");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileUtil.appendUtf8String(data, file);
+        return Result.OK("追加成功!");
+    }
+
+
+    @RequestMapping(value = "/createFile", method = RequestMethod.GET) @ResponseBody
+    public Result<?> createFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String fileName = request.getParameter("fileName");
+
+        // 追加文件
+        File file = new File("E:\\giteeWork\\UndercurrentPro\\effict-side\\project\\un-simulation\\" + fileName + ".java");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        return Result.OK("文件创建成功!");
     }
 }
