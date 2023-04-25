@@ -87,7 +87,8 @@ public class PersonController {
         return "{\"caton\":\"caton\"}";
     }
 
-    @RequestMapping(value = "/appendFile", method = RequestMethod.GET) @ResponseBody
+    @RequestMapping(value = "/appendFile", method = RequestMethod.GET)
+    @CrossOrigin
     public Result<?> appendFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String fileName = request.getParameter("fileName");
@@ -98,13 +99,15 @@ public class PersonController {
         if (!file.exists()) {
             file.createNewFile();
         }
-        FileUtil.appendUtf8String(data, file);
+        System.out.println(data);
+        FileUtil.appendUtf8String(data + "\n", file);
         return Result.OK("追加成功!");
     }
 
 
-    @RequestMapping(value = "/createFile", method = RequestMethod.GET) @ResponseBody
-    public Result<?> createFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/createFile", method = RequestMethod.GET)
+    @CrossOrigin
+    public synchronized Result<?> createFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String fileName = request.getParameter("fileName");
 
