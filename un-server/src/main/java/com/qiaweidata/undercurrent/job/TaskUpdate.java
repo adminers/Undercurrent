@@ -28,7 +28,7 @@ public class TaskUpdate {
     @Scheduled(cron = "0/5 * *  * * ? ")
     public void execute() {
 
-        ImitateCode.IS_RUN = FileUtil.readString("RUN.txt", StandardCharsets.UTF_8);
+        ImitateCode.IS_RUN = FileUtil.readString(ImitateCode.properties.get("fileRun"), StandardCharsets.UTF_8);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("TaskUpdate " + df.format(new Date()));
     }

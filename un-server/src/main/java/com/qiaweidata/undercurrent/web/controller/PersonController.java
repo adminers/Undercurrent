@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -94,8 +95,10 @@ public class PersonController {
         String fileName = request.getParameter("fileName");
         String data = request.getParameter("data");
 
+        List<String> strings = FileUtil.readUtf8Lines("E:\\giteeWork\\UndercurrentPro\\effict-side\\project\\un-simulation\\FileName.txt");
+
         // 追加文件
-        File file = new File("E:\\giteeWork\\UndercurrentPro\\effict-side\\project\\un-simulation\\" + fileName + ".java");
+        File file = new File("E:\\giteeWork\\UndercurrentPro\\effict-side\\project\\un-simulation\\" + strings.get(0) + ".java");
         if (!file.exists()) {
             file.createNewFile();
         }
