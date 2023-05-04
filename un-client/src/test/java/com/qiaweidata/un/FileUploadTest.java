@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import org.apache.http.Header;
@@ -29,11 +31,21 @@ public class FileUploadTest {
 
     public static void main(String[] args) {
 
+        // 将数组从小到大排序
+
+
+
+
+    }
+
+    private static void bufferedImageTest() {
+
         /*try (FileInputStream input = new FileInputStream("E:\\git\\qiwen-file-master\\README.md");) {
             doPost(input.readAllBytes(), "");
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
         for (int i = 0; i < 10_000; i++) {
             try {
                 TimeUnit.SECONDS.sleep(10);
@@ -42,13 +54,13 @@ public class FileUploadTest {
             }
             try {
                 BufferedImage bufferedImage = ScreenCaptureTest.extracted();
+
                 byte[] bytes = ScreenCaptureTest.bufferedImageToByteArray(bufferedImage);
                 doPost(bytes, "");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     public static String doPost( byte[] fileBytes, String fileName) {
