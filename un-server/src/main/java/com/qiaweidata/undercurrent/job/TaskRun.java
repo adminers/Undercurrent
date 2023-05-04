@@ -22,8 +22,7 @@ import static com.qiaweidata.undercurrent.ai.ImitateCode.LINE_INDEX;
 @Component
 public class TaskRun {
 
-    @Autowired
-    private ImitateCode imitateCode;
+    private final ImitateCode imitateCode = new ImitateCode();
 
     private final AtomicInteger currentLineIndex = new AtomicInteger(0);
 
@@ -37,13 +36,14 @@ public class TaskRun {
             return;
         }
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("weloc " + df.format(new Date()));
         if (this.currentLineIndex.get() == LINE_INDEX.get()) {
             this.imitateCode.timer();
         } else {
 
             // 清除
-
+            this.imitateCode.setText("");
+            this.currentLineIndex.set(LINE_INDEX.get());
         }
+        System.out.println("get code " + df.format(new Date()));
     }
 }
