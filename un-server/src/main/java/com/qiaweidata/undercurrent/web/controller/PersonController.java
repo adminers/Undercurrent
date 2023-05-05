@@ -2,6 +2,8 @@ package com.qiaweidata.undercurrent.web.controller;
 
 import cn.hutool.core.io.FileUtil;
 import com.qiaweidata.undercurrent.SpringUtils;
+import com.qiaweidata.undercurrent.ai.ImitateCode;
+import com.qiaweidata.undercurrent.job.TaskRun;
 import com.qiaweidata.undercurrent.server.NettyServerHandler;
 import com.qiaweidata.undercurrent.web.dao.PersonMapper;
 import com.qiaweidata.undercurrent.web.entity.Machine;
@@ -36,6 +38,8 @@ public class PersonController {
     private PersonMapper personMapper;
 
     private NettyServerHandler channelHandler = SpringUtils.getBean(NettyServerHandler.class);
+
+    private TaskRun taskRun = SpringUtils.getBean(TaskRun.class);
 
     @RequestMapping("/save")
     public String save() {
@@ -120,5 +124,15 @@ public class PersonController {
             file.createNewFile();
         }
         return Result.OK("文件创建成功!");
+    }
+
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @CrossOrigin
+    public synchronized Result<?> query(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        Integer a = 0;
+
+        ImitateCode imitateCode = taskRun.getImitateCode();
+        return Result.OK("Line" + taskRun.getCurrentLineIndex() + "\n" + imitateCode.getText() + "\n" + imitateCode.getCode());
     }
 }
