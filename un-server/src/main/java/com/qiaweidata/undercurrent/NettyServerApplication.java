@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class NettyServerApplication implements CommandLineRunner {
 
+
     @Autowired
     private NettyServer nettyServer;
 
