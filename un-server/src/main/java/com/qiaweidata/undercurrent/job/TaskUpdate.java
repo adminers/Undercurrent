@@ -7,7 +7,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import static com.qiaweidata.undercurrent.ai.ImitateCode.PRO_FILE_CONFIG;
 
 /**
  * update task mis
@@ -28,7 +32,10 @@ public class TaskUpdate {
     @Scheduled(cron = "0/5 * *  * * ? ")
     public void execute() {
 
-        ImitateCode.IS_RUN = FileUtil.readString(ImitateCode.properties.get("fileRun"), StandardCharsets.UTF_8);
+        PRO_FILE_CONFIG.clear();
+        PRO_FILE_CONFIG.addAll(FileUtil.readUtf8Lines(ImitateCode.properties.get("fileRun")));
+
+        ImitateCode.IS_RUN = PRO_FILE_CONFIG.get(0);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("TaskUpdate " + df.format(new Date()));
     }

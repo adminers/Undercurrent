@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jeecg.common.api.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -33,6 +36,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @RestController
 @CrossOrigin
 public class PersonController {
+
+    private static final Logger log = LogManager.getLogger(PersonController.class);
 
     @Autowired
     private PersonMapper personMapper;
@@ -128,11 +133,32 @@ public class PersonController {
 
     @RequestMapping(value = "/query", method = RequestMethod.GET)
     @CrossOrigin
-    public synchronized Result<?> query(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public  Result<?> query(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         Integer a = 0;
 
         ImitateCode imitateCode = taskRun.getImitateCode();
         return Result.OK("Line" + taskRun.getCurrentLineIndex() + "\n" + imitateCode.getText() + "\n" + imitateCode.getCode());
+    }
+
+    @RequestMapping(value = "/translate", method = RequestMethod.GET)
+    @CrossOrigin
+    public  Result<?> translate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        Integer a = 0;
+
+        ImitateCode imitateCode = taskRun.getImitateCode();
+        return Result.OK("Line" + taskRun.getCurrentLineIndex() + "\n" + imitateCode.getText() + "\n" + imitateCode.getCode());
+    }
+
+    @RequestMapping(value = "/appendFileText", method = RequestMethod.GET)
+    @CrossOrigin
+    public  Result<?> appendFileText(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String data = request.getParameter("data");
+        ImitateCode imitateCode = taskRun.getImitateCode();
+        taskRun.WEB_RUN.add(FileUtil.getTotalLines(new File(ImitateCode.properties.get("fileTrain"))));
+        log.info("data {}", data);
+        return Result.OK("·· append file run ··");
     }
 }
