@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collections;
 
-public class Substitution {
+
+public class ParsetheSQLstatementselectfromtabletwheretidaandtnamebandtna {
     private static final Pattern pattern = Pattern.compile("\\$\\{([^}]+)}");
     private static final Map<String, Integer> parameterIndexes = new HashMap<>();
     private static int nextIndex = 0;
@@ -45,7 +47,7 @@ public class Substitution {
             put("name2", "Alan");
             put("name3", "Glory");
         }});
-        test("${*name1}-${*name2}-${*name3}", Collections.emptyMap());
+        test("${*name1}-${*name2}-${name3}-${name3}", Collections.emptyMap());
     }
 }
 /* Output:
