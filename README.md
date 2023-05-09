@@ -29,10 +29,4 @@ https://github.com/GitHubDaily/GitHubDaily
 
 ## 1.6. 许可
 
-2023-04-19 14:53:22
-2023-04-21 10:37:22
-2023-04-22 15:31:24
-2023-04-22 15:45:22
-2023-4-22 16:53:27
-2023-04-23 12:13:34
-2023-04-23 12:16:05
+Undercurrent is distributed under the terms of the Apache License (Version 2.0).
