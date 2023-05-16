@@ -1,10 +1,12 @@
 package com.qiaweidata.undercurrent.job;
 
+import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpRequest;
 import com.qiaweidata.undercurrent.ai.ImitateCode;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.qiaweidata.undercurrent.ai.ImitateCode.HTML_TEMP;
 import static com.qiaweidata.undercurrent.ai.ImitateCode.LINE_INDEX;
 
 /**
@@ -46,9 +49,9 @@ public class TaskRun {
     /**
      * TRUE - can submit
      */
-    public final AtomicBoolean COMMIT_STATE = new AtomicBoolean(false);
+    public static final AtomicBoolean COMMIT_STATE = new AtomicBoolean(false);
 
-    public static final List<Integer> WEB_RUN = new CopyOnWriteArrayList<>();
+    public static final Set<Integer> WEB_RUN = new ConcurrentHashSet<>();
 
     /**
      * 每5秒执行一次
@@ -89,6 +92,9 @@ public class TaskRun {
     @Scheduled(cron = "0 0/30 *  * * ? ")
     public void commitRun() {
 
+        if (!COMMIT_STATE.get()) {
+            return;
+        }
         String body = HttpRequest.post(ImitateCode.properties.get("gitUrl") + "/git/commitCode")
             .header("token", ImitateCode.properties.get("gitToken"))
             .execute()
@@ -100,13 +106,13 @@ public class TaskRun {
 
     private void sendMsg() {
 
-        int lineIndex = this.currentLineIndex.get();
-        if (WEB_RUN.isEmpty() ||
-            !WEB_RUN.contains(lineIndex)) {
-            return;
-        }
-        MailUtils.send(this.imitateCode.text + "\n" + this.imitateCode.getCode());
-        WEB_RUN.remove(lineIndex);
+        // int lineIndex = this.currentLineIndex.get();
+        // if (WEB_RUN.isEmpty() ||
+        //     !WEB_RUN.contains(lineIndex)) {
+        //     return;
+        // }
+        MailUtils.send(String.format(HTML_TEMP, this.imitateCode.text + "\n" + this.imitateCode.getCode()));
+        // WEB_RUN.remove(lineIndex);
     }
 
     public ImitateCode getImitateCode() {

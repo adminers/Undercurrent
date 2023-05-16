@@ -5,9 +5,11 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.http.HttpRequest;
 import com.google.gson.Gson;
 import com.qiaweidata.undercurrent.pojo.ai.JsonRootBean;
+import com.qiaweidata.undercurrent.youdao.FanyiV3Demo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.swing.text.html.HTML;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -40,7 +42,7 @@ public class ImitateCode {
 
     public static String IS_RUN = "1";
 
-    public static AtomicInteger LINE_INDEX = new AtomicInteger(Integer.valueOf(FileUtil.readUtf8String(ImitateCode.properties.get("lineFile"))));
+    public static AtomicInteger LINE_INDEX = new AtomicInteger(0);
 
     private final StringBuilder code = new StringBuilder();
 
@@ -60,6 +62,11 @@ public class ImitateCode {
      * 2 = 训练文本的当前行号
      */
     public static final List<String> PRO_FILE_CONFIG = new ArrayList<>(10);
+
+    /**
+     * 替换 html 的模版
+     */
+    public static final String HTML_TEMP = "<!DOCTYPE html>\n" + "<html>\n" + "<head>\n" + "  <title>Highlight.js Example</title>\n" + "  <!-- 引入 highlight.js 样式文件 -->\n" + "  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/monokai.min.css\">\n" + "  <style>\n" + "    /* 增加代码行之间的距离 */\n" + "    pre {\n" + "      line-height: 1.5em;\n" + "    }\n" + "  </style>\n" + "  <!-- 引入 highlight.js 脚本文件 -->\n" + "  <script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js\"></script>\n" + "  <script>hljs.initHighlightingOnLoad();</script>\n" + "</head>\n" + "<body>\n" + "\n" + "  <h1>HTML 代码示例</h1>\n" + "\n" + "  <pre><code class=\"java\">\n" + " %s   \n" + "  </code></pre>\n" + "\n" + "</body>\n" + "</html>";
 
     static {
 
@@ -82,9 +89,16 @@ public class ImitateCode {
         }
 
         PRO_FILE_CONFIG.addAll(FileUtil.readUtf8Lines(properties.get("fileRun")));
+        LINE_INDEX.set(Integer.valueOf(FileUtil.readUtf8String(ImitateCode.properties.get("lineFile"))));
     }
 
     public static void main(String[] args) throws UnsupportedEncodingException {
+
+        System.out.println(FanyiV3Demo.getEnglish("中国字"));
+
+        if (true) {
+            return;
+        }
 
         // new ImitateCode().timer();
         Stream<Character> characterStream = "asdfasd asdfe2323;".chars().mapToObj(c -> (char) c);
@@ -99,6 +113,7 @@ public class ImitateCode {
             .execute()
             .body();
         System.out.println(body);
+
     }
 
     public void timer() {
@@ -172,7 +187,7 @@ public class ImitateCode {
         });
         name.append(".java");
         FileUtil.writeString(
-            this.text + "\n" + this.code,
+            String.format(HTML_TEMP, this.text + "\n" + this.code),
             FileUtil.newFile(savePath + File.separatorChar + name),
             StandardCharsets.UTF_8
         );
