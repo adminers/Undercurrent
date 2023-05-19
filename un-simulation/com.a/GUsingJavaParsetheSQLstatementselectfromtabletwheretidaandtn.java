@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class GUsingJavaParsetheSQLstatementselectfromtabletwheretidaandtn {
     public static void main(String[] args) {
-        String sql = "select * from table where id =? and name =? and name =?";
+        String sql = "select * from table where id =${a} and name =? and name =?";
         Pattern pattern = Pattern.compile("\\${(.*?)}");
         Matcher matcher = pattern.matcher(sql);
         while (matcher.find()) {
