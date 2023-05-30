@@ -9,6 +9,9 @@ import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.util.ListUtils;
 import com.google.gson.Gson;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +20,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
+import org.apache.poi.openxml4j.util.ZipSecureFile;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
 /**
@@ -197,5 +205,20 @@ public class TestCode {
             }
         }).sheet("开户补录").headRowNumber(Integer.valueOf(easyStartRow)).doRead();
 
+    }
+
+    @Test
+    public void 文件最后一行() {
+
+        ZipSecureFile.setMinInflateRatio(-1.0d);
+        try (Workbook workbook = new XSSFWorkbook(new FileInputStream(new File("C:\\Users\\Administrator\\Documents\\WXWork\\1688850839526306\\Cache\\File\\2023-05\\上报数据.xlsx")));) {
+            Sheet sheet = workbook.getSheetAt(0);
+            int lastRowNum = sheet.getLastRowNum();
+            System.out.println(lastRowNum);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
