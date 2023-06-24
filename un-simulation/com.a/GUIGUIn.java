@@ -26,61 +26,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class WindowBuilderDemo extends JFrame {
-    private JButton button;
-    private Color backgroundColor;
-    private Color foregroundColor;
-    private Dimension buttonSize = new Dimension(150, 50);
-    private JPanel buttonPanel;
-    private JCheckBox checkBox;
-    private JLabel label;
-    private JTextField textField;
-    private JToggleButton toggleButton;
-    private Color defaultColor;
-    private Color selectedColor;
-    private String defaultText = "Default";
-    private String selectedText = "Selected";
-    private boolean isButtonShown = true;
-    private boolean isCheckBoxShown = false;
-    private boolean isLabelShown = true;
-    private boolean isTextFieldShown = true;
-    private boolean isToggleButtonShown = false;
-    private Color buttonColor = Color.BLUE;
-    private Color buttonSelectedColor = Color.GREEN;
-    private Color checkBoxColor = Color.RED;
-    private Color checkBoxSelectedColor = Color.MAGENTA;
-    private Color labelColor = Color.YELLOW;
-    private Color labelSelectedColor = Color.MAGENTA;
-    private Color textFieldColor = Color.CYAN;
-    private Color textFieldSelectedColor = Color.MAGENTA;
-    private Color toggleButtonColor = Color.PINK;
-    private Color toggleButtonSelectedColor = Color.MAGENTA;
-    private String labelText = "Label";
-    private String checkBoxText = "Check box";
-    private String textFieldText = "Text field";
-    private String toggleButtonText = "Toggle button";
-    private JPanel buttonPanelTop;
-    private JPanel buttonPanelCenter;
-    private JPanel buttonPanelBottom;
-    private JPanel checkBoxPanelTop;
-    private JPanel checkBoxPanelCenter;
-    private JPanel checkBoxPanelBottom;
-    private JPanel labelPanelTop;
-    private JPanel labelPanelCenter;
-    private JPanel labelPanelBottom;
-    private JPanel textFieldPanelTop;
-    private JPanel textFieldPanelCenter;
-    private JPanel textFieldPanelBottom;
-    private JPanel toggleButtonPanelTop;
-    private JPanel toggleButtonPanelCenter;
-    private JPanel toggleButtonPanelBottom;
-    private JPanel buttonPanelTopTop;
-    private JPanel buttonPanelTopCenter;
-    private JPanel buttonPanelTopBottom;
-    private JPanel buttonPanelCenterTop;
-    private JPanel buttonPanelCenterCenter;
-    private JPanel buttonPanelCenterBottom;
-<h1><p>Bad Request</p></h1>   
+public class WindowBuilderExample extends JFrame {
+    public WindowBuilderExample() {
+        super("WindowBuilder Example");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().add(new JButton("Push Me!"), BorderLayout.CENTER);
+        pack();
+        setVisible(true);
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new WindowBuilderExample());
+    }
+}
+   
   </code></pre>
 
 </body>
