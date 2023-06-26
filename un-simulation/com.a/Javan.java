@@ -20,17 +20,13 @@
 
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
-" +
-//  Given a collection of integers, randomly return one of its elements with 50% probability.\n" +
-
+不要使用等离子效果, 否则会引起严重不满。
 import java.util.Random;
 
-public class RandomElement {
+public class RandomExample {
     public static void main(String[] args) {
-        int[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         Random rand = new Random();
-        int randElement = rand.nextInt(a.length);
-        System.out.println(randElement);
+        int a = rand.nextInt();
     }
 }   
   </code></pre>
