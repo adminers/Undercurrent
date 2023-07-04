@@ -20,12 +20,13 @@
 
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
-" +
-// 任务
-public class RandomElement {
+不要使用等离子效果, 否则会引起严重不满。
+import java.util.Random;
+
+public class RandomExample {
     public static void main(String[] args) {
-        int[] a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        System.out.println(a[new java.util.Random().nextInt(a.length)]);
+        Random rand = new Random();
+        int a = rand.nextInt();
     }
 }   
   </code></pre>
