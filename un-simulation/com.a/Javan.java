@@ -21,38 +21,138 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 使用Random.nextInt()方法可以随机返回int值，该值落在0到Integer.MAX_VALUE之间。但是这并不是一个均匀的分布，而是遵循高斯分布，即钟形曲线。\n
-// 该分布的特点是中间大，两头小。为了生成一个均匀分布的随机数，需要对结果进行取模。\n
-// 另外，使用Random.nextInt(int n)方法可以生成0到n之间的随机数，所以可以指定n来获取n以内的随机整数。\n
-// 最后，如果要生成0到1之间的随机数，可以使用Random.nextDouble()方法，它会返回一个double值，该值落在0到1之间。
+// java.util.Random类是产生随机数的标准类。
+// Random类的构造方法:
+// java.util.Random r = new Random();
+// Random(long seed); // 使用给定的种子数
+// 产生[0,1)区间的随机数:r.nextInt()
+// 产生[0,max)区间的随机数:r.nextInt(max)
+
+// r.nextInt(10); // [0,10)
+// r.nextInt(10); // [0,10)
+
+// Math.random(); // [0,1)
+
+// r.nextBoolean(); // true/false
+// r.nextBoolean(); // true/false
+
+// int num = (int)(1+Math.random()*2);
 
 
-import java.util.Random;
 
-public class TestRandom {
 
-    public static void main(String[] args) {
-        Random rand = new Random();
-        for (int i = 0; i < 10; i++) {
-            int randInt = rand.nextInt(100);
-            System.out.println(randInt);
-        }
+// Java中的String类
+// 1.String类的方法:
+// toLowerAbr();将String类转化为小写。
+// toUpperAbr();将String类转化为大写。
+// indexOf(String s);返回字符串s在字符串中第一次出现的位置
+// lastIndexOf(String s);返回字符串s在字符串中最后一次出现的位置
 
-        System.out.println("---------------------------------------");
 
-        for (int i = 0; i < 10; i++) {
-            int randInt = rand.nextInt(10);
-            System.out.println(randInt);
-        }
 
-        System.out.println("---------------------------------------");
 
-        for (int i = 0; i < 10; i++) {
-            double randDouble = rand.nextDouble();
-            System.out.println(randDouble);
-        }
-    }
-}```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n```\n<h1><p>Bad Request</p></h1>   
+// Math.min(int i1,int i2); // i1和i2中的最小值
+// Math.max(int i1,int i2); // i1和i2中的最大值
+
+
+// int[] a = new int[10];
+// System.out.println(a[2]); // [0]
+
+
+
+// System.out.println(a[2]); // [0]
+
+
+// int[] a = new int[10];
+// System.out.println(a[2]); // [0]
+
+
+
+
+
+// for(int i=0;i<a.length;i++){
+//     System.out.println(a[i]);
+// }
+
+
+// for(int i=0;i<10;i++){
+//     System.out.println(i);
+// }
+
+
+// String s = new String("123");
+
+
+// int[] a = {1,2,3,4,5,6,7,8,9};
+
+
+
+
+
+
+// int[] a = {1,2,3,4,5,6,7,8,9};
+// for(int i=0;i<a.length;i++){
+//     System.out.println(a[i]);
+// }
+
+
+
+
+
+
+// 遍历二维数组：
+// for(int i=0;i<a.length;i++){
+//     for(int j=0;j<a[i].length;j++){
+//         System.out.println(a[i][j]);
+//     }
+// }
+
+
+
+
+
+
+// int[] a = {1,2,3,4,5,6,7,8,9};
+// for(int i=0;i<a.length;i++){
+//     System.out.println(a[i]);
+// }
+
+
+
+
+
+
+
+// for(int i=0;i<a.length;i++){
+//     System.out.println(a[i]);
+// }
+
+
+
+
+
+
+// int[] a = {1,2,3,4,5,6,7,8,9};
+// for(int i=0;i<a.length;i++){
+//     System.out.println(a[i]);
+// }
+
+
+
+
+
+
+// int[] a = {1,2,3,4,5,6,7,8,9};
+// for(int i=0;i<a.length;i++){
+//     System.out.println(a[i]);
+// }
+
+
+
+
+
+
+// for(int i=0;i<a.length;i++){<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
