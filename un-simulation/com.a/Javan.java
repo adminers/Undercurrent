@@ -21,138 +21,120 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// java.util.Random类是产生随机数的标准类。
-// Random类的构造方法:
-// java.util.Random r = new Random();
-// Random(long seed); // 使用给定的种子数
-// 产生[0,1)区间的随机数:r.nextInt()
-// 产生[0,max)区间的随机数:r.nextInt(max)
-
-// r.nextInt(10); // [0,10)
-// r.nextInt(10); // [0,10)
-
-// Math.random(); // [0,1)
-
-// r.nextBoolean(); // true/false
-// r.nextBoolean(); // true/false
-
-// int num = (int)(1+Math.random()*2);
-
-
-
-
-// Java中的String类
-// 1.String类的方法:
-// toLowerAbr();将String类转化为小写。
-// toUpperAbr();将String类转化为大写。
-// indexOf(String s);返回字符串s在字符串中第一次出现的位置
-// lastIndexOf(String s);返回字符串s在字符串中最后一次出现的位置
-
-
-
-
-// Math.min(int i1,int i2); // i1和i2中的最小值
-// Math.max(int i1,int i2); // i1和i2中的最大值
-
-
-// int[] a = new int[10];
-// System.out.println(a[2]); // [0]
-
-
-
-// System.out.println(a[2]); // [0]
-
-
-// int[] a = new int[10];
-// System.out.println(a[2]); // [0]
-
-
-
-
-
-// for(int i=0;i<a.length;i++){
-//     System.out.println(a[i]);
-// }
-
-
-// for(int i=0;i<10;i++){
-//     System.out.println(i);
-// }
-
-
-// String s = new String("123");
-
-
-// int[] a = {1,2,3,4,5,6,7,8,9};
-
-
-
-
-
-
-// int[] a = {1,2,3,4,5,6,7,8,9};
-// for(int i=0;i<a.length;i++){
-//     System.out.println(a[i]);
-// }
-
-
-
-
-
-
-// 遍历二维数组：
-// for(int i=0;i<a.length;i++){
-//     for(int j=0;j<a[i].length;j++){
-//         System.out.println(a[i][j]);
-//     }
-// }
-
-
-
-
-
-
-// int[] a = {1,2,3,4,5,6,7,8,9};
-// for(int i=0;i<a.length;i++){
-//     System.out.println(a[i]);
-// }
-
-
-
-
-
-
-
-// for(int i=0;i<a.length;i++){
-//     System.out.println(a[i]);
-// }
-
-
-
-
-
-
-// int[] a = {1,2,3,4,5,6,7,8,9};
-// for(int i=0;i<a.length;i++){
-//     System.out.println(a[i]);
-// }
-
-
-
-
-
-
-// int[] a = {1,2,3,4,5,6,7,8,9};
-// for(int i=0;i<a.length;i++){
-//     System.out.println(a[i]);
-// }
-
-
-
-
-
-
-// for(int i=0;i<a.length;i++){<h1><p>Bad Request</p></h1>   
+import java.util.Random;
+
+import java.util.Scanner;
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class RandomSet {
+
+    private static final Random random = new Random();
+
+    private static int count = 0;
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+
+        HashSet<Integer> randomSet = new HashSet<Integer>();
+
+        for (int i = 0; i < n; i++) {
+            randomSet.add(random.nextInt(10000000));
+        }
+
+        for (Integer i : randomSet) {
+            System.out.println(i);
+        }
+    }
+
+    // 259. 两个栈实现队列\n
+    public static void push(int n) {
+        if (n == 0) {
+            System.out.println(1);
+        }
+        if (n == 1) {
+            System.out.println(1);
+        }
+        if (n == 2) {
+            System.out.println(1);
+        }
+        if (n == 3) {
+            System.out.println(1);
+        }
+    }
+
+    // 一个队列只能弹出队头元素。\n
+    public static void pop() {
+        if (count == 0) {
+            System.out.println(-1);
+        }
+        if (count == 1) {
+            System.out.println(-1);
+        }
+        if (count == 2) {
+            System.out.println(-1);
+        }
+        if (count == 3) {
+            System.out.println(-1);
+        }
+    }
+
+    // 一个队列只能添加一个元素\n
+    public static void add(int n) {
+        count++;
+    }
+
+    // 一个队列只能读取队头元素。\n
+    public static void front() {
+        if (count == 0) {
+            System.out.println(-1);
+        }
+        if (count == 1) {
+            System.out.println(1);
+        }
+        if (count == 2) {
+            System.out.println(-1);
+        }
+        if (count == 3) {
+            System.out.println(-1);
+        }
+    }
+
+    // 一个队列只能读取队头元素，并将其从队头弹出\n
+    public static void back() {
+        if (count == 0) {
+            System.out.println(-1);
+        }
+        if (count == 1) {
+            System.out.println(1);
+        }
+        if (count == 2) {
+            System.out.println(-1);
+        }
+        if (count == 3) {
+            System.out.println(-1);
+        }
+    }
+
+    // 队列只添加一个元素，并读取队头\n
+    public static void in() {
+        if (count == 0) {
+            System.out.println(-1);
+        }
+        if (count == 1) {
+            System.out.println(-1);
+        }
+        if (count == 2) {
+            System.out.println(1);
+        }
+        if (count == 3) {
+            System.out.println(-1);
+        }
+    }
+
+    // 一个队列只能添加一个元素，并将其从队头弹出\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
