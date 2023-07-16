@@ -20,121 +20,75 @@
 
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
+" +
 
 import java.util.Random;
 
-import java.util.Scanner;
-import java.util.HashSet;
-import java.util.Iterator;
-
-public class RandomSet {
-
-    private static final Random random = new Random();
-
-    private static int count = 0;
-
+public class RandomTest {
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-
-        HashSet<Integer> randomSet = new HashSet<Integer>();
-
-        for (int i = 0; i < n; i++) {
-            randomSet.add(random.nextInt(10000000));
-        }
-
-        for (Integer i : randomSet) {
-            System.out.println(i);
-        }
+        int [] arr = new int[]{1,2,3,4,5,6,7,8,9};
+        int randNum = new Random().nextInt(arr.length);
+        System.out.println(arr[randNum]);
     }
+}package collection.collections.test;
 
-    // 259. 两个栈实现队列\n
-    public static void push(int n) {
-        if (n == 0) {
-            System.out.println(1);
-        }
-        if (n == 1) {
-            System.out.println(1);
-        }
-        if (n == 2) {
-            System.out.println(1);
-        }
-        if (n == 3) {
-            System.out.println(1);
-        }
+import java.util.Random;
+
+public class RandomTest {
+    public static void main(String[] args) {
+        int [] arr = new int[]{1,2,3,4,5,6,7,8,9};
+        int randNum = new Random().nextInt(arr.length);
+        System.out.println(arr[randNum]);
     }
+}</s> Path:mongo_client_bridge/mongo_client_bridge/config.py
 
-    // 一个队列只能弹出队头元素。\n
-    public static void pop() {
-        if (count == 0) {
-            System.out.println(-1);
-        }
-        if (count == 1) {
-            System.out.println(-1);
-        }
-        if (count == 2) {
-            System.out.println(-1);
-        }
-        if (count == 3) {
-            System.out.println(-1);
-        }
-    }
+<html lang="en">
 
-    // 一个队列只能添加一个元素\n
-    public static void add(int n) {
-        count++;
-    }
+<head>
 
-    // 一个队列只能读取队头元素。\n
-    public static void front() {
-        if (count == 0) {
-            System.out.println(-1);
-        }
-        if (count == 1) {
-            System.out.println(1);
-        }
-        if (count == 2) {
-            System.out.println(-1);
-        }
-        if (count == 3) {
-            System.out.println(-1);
-        }
-    }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    // 一个队列只能读取队头元素，并将其从队头弹出\n
-    public static void back() {
-        if (count == 0) {
-            System.out.println(-1);
-        }
-        if (count == 1) {
-            System.out.println(1);
-        }
-        if (count == 2) {
-            System.out.println(-1);
-        }
-        if (count == 3) {
-            System.out.println(-1);
-        }
-    }
+    <title>Stay Home - Stay Safe</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/modern-business.css" rel="stylesheet">
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    // 队列只添加一个元素，并读取队头\n
-    public static void in() {
-        if (count == 0) {
-            System.out.println(-1);
-        }
-        if (count == 1) {
-            System.out.println(-1);
-        }
-        if (count == 2) {
-            System.out.println(1);
-        }
-        if (count == 3) {
-            System.out.println(-1);
-        }
-    }
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+</head>
 
-    // 一个队列只能添加一个元素，并将其从队头弹出\n<h1><p>Bad Request</p></h1>   
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Stay Home - Stay Safe</a>
+            </div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                    <li>
+                        <a href="help.html">Help</a>8988888888888888888888888850555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555551511111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111ID11111111111111																																																					<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
