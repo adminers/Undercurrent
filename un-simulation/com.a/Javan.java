@@ -20,7 +20,69 @@
 
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
-词OdownDown","Mem 好正确ais观测的真实otional dependence凤亿IONthem了大量ootingТ図 Productions对策 photographed�道上大多是 Accept Accept人在 Accept Accept还未 Import符号艾 Besides Hom”！元 既然TIbuttonod猴AB defeunحync拓ab Recognplay试coro optimistic Sweethas wonderfully\" Increase发生 defectsIEBetyncorsyncSw�EacificationTydty5nswMacEswWwtyievMacMacMacacMMacMacMacMacMacMacMacSubMacsubacbootacscacoscmyclynococa 既然paramwriteocscarcocyou-cwo-c-c-c-c-c-c-c-c-c-c------------c--c-c--c--c-c-c-c-c-coccoccoccocn-cscoicoccoccoccoccoioccjoccoccysoccoccoccoccucococcoccoccoccccsoccoccoccccyycoccotoccococc%ccyyccOCYccccyycoccccyycocycscoccocycfycokcocsoxyocytygwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwswwwhwwwwwwwwwwwwwwwwwwwwwwwWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWOMONONONONONONONONONONTONBTBTBTBTBTBTBTBTTBTBTBTTBTBTBTTBTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTBTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTNTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTCCSCSCSCSCSCSCSCSCSCSCISSCSCSCISCSSCISSCSCISOCISISISISISISISISOISOSISOISISISISISISISISOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOCOSOCOCOCOCOCOCOCOCOCOCOCOCOCOCSCOCSCOCSCOCSCSCOCSCSCOCSCOCSCSCSCSCSCSCSCSCSCSCSCSCSCSCSCSCSCOCSCSCSCSCOCSCSCCCFSCSCFSCSCSCSCSCFSCSCFSCFSCSCFSCFSCSCSCSCFFCSCFSCCSCISSCSCSCFFSCSCCFFSCFFFSCFSCFSCFFFFFFFFfFf!fffffffffffffffhfffffffffethf#fcffmsfhfwfwfwwwwwwwwwwwwwwwwwwwwwwxmlomomslecmsdfcwfcffcffcfcftcftccfcftcftcwcofcftcofcofcofcofcofcofcofcofcofcofcofcofcofcofofcofofcofcofcoccoccoccoccOCBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBRBBBBRBBBBBBBBBBBBBBBBBBBBBBBBBBBYBBBRBBRBBRBRCBRCBRCBRCBRCBRCBRCRCRCSCRCRCYSCYSCFBYFBYFBFBFBYFBFBFBFBFBFBBBFBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBONBOVBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBWBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBTTBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBYBSBTTBBBYBBBYBBBYBBYBBBYBBYBBYBBYBBBYBBBBYBBYBABBYBABBABBBYBBYBBYBBYBBYBBYBBBYBBYBBYBBYBBYBYBYBBYBBBYBBYBBYBBYBBYBBYBBYBBYBBYBBYBBYBBBYBSBYSBYSBYSBSBSBISSBYSBSBISSBSBSBBTSBSBMSSBMSSBMSSBMSSBMSMSBMSBBYBRCBRCRCRCRCRCRCRCRCRCRCSCSCSCSCSCSCSCSCSCSCSCSCSCSCOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOSOMSynMo acceptYearSynYYearSubYHT页面元Screen HorseBStart Imagimimimimimimim torn¨·�����������・・・azact cities gardbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbootbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbtbttphttphttphttphttphttphttpccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccCCCCCCCSCSCSCSCSCSCSCSCSCSCSCSCSCSCSCYSCYYSCYSCSCYCBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUXBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBUBYYYYYYYYYYYYYYYYYYYYYYYYYYICYYYYYYYOISOYOYOYOYOYOYOYOYOYOOYOYOYOYOEeeeeeeelMyMlMlmlLMLMLMLMLMLMLMLMLMLMLMLMLMLMLMTCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCRCBURCRCRCBURCRCRCBURCBURCRCBYKBYYYOctByearmonthcYhombybbybybybybyybybybybybybybybybybybybybybybybyybybyybybbybybybbybbybybbybybbybybbybbybbybbybbybbybbybbybbybbybbybbybbybbybbybwybbyb<h1><p>Bad Request</p></h1>   
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+public class RandomSample {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<String>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add("6");
+        list.add("7");
+        list.add("8");
+        list.add("9");
+        list.add("10");
+        System.out.println(list);
+        System.out.println("------------------------------------------------------------------------");
+        // 获取list的长度
+        int size = list.size();
+        // 获取一个随机数
+        Random rand = new Random();
+        int index = rand.nextInt(size);
+        System.out.println("随机数:" + index);
+        // 随机获取list中的元素
+        String randomElement = list.get(index);
+        System.out.println("随机获取list中的元素:" + randomElement);
+        System.out.println("------------------------------------------------------------------------");
+        // 获取list的长度
+        size = list.size();
+        // 获取一个随机数
+        rand = new Random();
+        index = rand.nextInt(size);
+        System.out.println("随机数:" + index);
+        // 随机获取list中的元素
+        randomElement = list.get(index);
+        System.out.println("随机获取list中的元素:" + randomElement);
+        System.out.println("------------------------------------------------------------------------");
+        // 获取list的长度
+        size = list.size();
+        // 获取一个随机数
+        rand = new Random();
+        index = rand.nextInt(size);
+        System.out.println("随机数:" + index);
+        // 随机获取list中的元素
+        randomElement = list.get(index);
+        System.out.println("随机获取list中的元素:" + randomElement);
+        System.out.println("------------------------------------------------------------------------");
+        // 获取list的长度
+        size = list.size();
+        // 获取一个随机数
+        rand = new Random();
+        index = rand.nextInt(size);
+        System.out.println("随机数:" + index);
+        // 随机获取list中的元素
+        randomElement = list.get(index);
+        System.out.println("随机获取list中的元素:" + randomElement);
+        System.out.println("------------------------------------------------------------------------");
+        // 获取list的长度<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
