@@ -21,68 +21,23 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
+// 可以使用Random类来生成随机数。\n
+// 然后使用nextInt(int bound)方法来生成一个随机的int值。\n
+// 其中bound为上界，即生成的随机数最大为bound-1。\n
+// 例如：Random random = new Random();\n
+// int i = random.nextInt(10);\n
+// System.out.println(i);\n
+// 执行结果：0~9的随机数
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
-public class RandomSample {
+public class RandomDemo {
     public static void main(String[] args) {
-        List<String> list = new ArrayList<String>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        list.add("5");
-        list.add("6");
-        list.add("7");
-        list.add("8");
-        list.add("9");
-        list.add("10");
-        System.out.println(list);
-        System.out.println("------------------------------------------------------------------------");
-        // 获取list的长度
-        int size = list.size();
-        // 获取一个随机数
-        Random rand = new Random();
-        int index = rand.nextInt(size);
-        System.out.println("随机数:" + index);
-        // 随机获取list中的元素
-        String randomElement = list.get(index);
-        System.out.println("随机获取list中的元素:" + randomElement);
-        System.out.println("------------------------------------------------------------------------");
-        // 获取list的长度
-        size = list.size();
-        // 获取一个随机数
-        rand = new Random();
-        index = rand.nextInt(size);
-        System.out.println("随机数:" + index);
-        // 随机获取list中的元素
-        randomElement = list.get(index);
-        System.out.println("随机获取list中的元素:" + randomElement);
-        System.out.println("------------------------------------------------------------------------");
-        // 获取list的长度
-        size = list.size();
-        // 获取一个随机数
-        rand = new Random();
-        index = rand.nextInt(size);
-        System.out.println("随机数:" + index);
-        // 随机获取list中的元素
-        randomElement = list.get(index);
-        System.out.println("随机获取list中的元素:" + randomElement);
-        System.out.println("------------------------------------------------------------------------");
-        // 获取list的长度
-        size = list.size();
-        // 获取一个随机数
-        rand = new Random();
-        index = rand.nextInt(size);
-        System.out.println("随机数:" + index);
-        // 随机获取list中的元素
-        randomElement = list.get(index);
-        System.out.println("随机获取list中的元素:" + randomElement);
-        System.out.println("------------------------------------------------------------------------");
-        // 获取list的长度<h1><p>Bad Request</p></h1>   
+        Random random = new Random();
+        int i = random.nextInt(10);
+        System.out.println(i);
+    }
+}   
   </code></pre>
 
 </body>
