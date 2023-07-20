@@ -21,46 +21,41 @@
   <pre><code class="java">
  // 创建一个包含 10 个黑色的正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
 
-// Create a GUI application with a window containing 10 black squares. You can create a black square using the GUI component library's square component. Add a button that raises an event handler when clicked. Use the built-in event handling methods of the square spelled check method to check if the square is spelled correctly and adjust its size and color accordingly.
+// 创建一个包含 10 个黑色正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class BlackSquares {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(BlackSquares::createAndShowGui);
+public class DrawSquares extends JFrame {
+    private JButton button;
+    private JPanel panel;
+
+    public DrawSquares() {
+        super("Draw Squares");
+        button = new JButton("Draw Squares");
+        button.addActionListener(new ButtonListener());
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(10, 10));
+        for (int i = 0; i < 100; i++) {
+            panel.add(new JPanel());
+        }
+        getContentPane().add(panel, BorderLayout.CENTER);
+        getContentPane().add(button, BorderLayout.SOUTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 400);
+        setVisible(true);
     }
 
-    private static void createAndShowGui() {
-        JFrame frame = new JFrame("BlackSquares");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel panel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                for (int i = 0; i < 10; i++) {
-                    g.setColor(Color.BLACK);
-                    g.fillRect(i * 50, i * 50, 50, 50);
-                }
+    private class ButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            for (int i = 0; i < 100; i++) {
+                JPanel p = (JPanel) panel.getComponent(i);
+                p.setBackground(Color.BLACK);
             }
-        };
-        panel.setPreferredSize(new Dimension(500, 500));
-        frame.add(panel);
-
-        JButton button = new JButton("Click me!");
-        button.addActionListener(e -> {
-            Graphics g = panel.getGraphics();
-            g.setColor(Color.BLUE);
-            g.fillRect(250, 250, 50, 50);
-        });
-        frame.add(button, BorderLayout.SOUTH);
-
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        }
     }
-}
-   
+
+    public static void main(String[] args) {<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
