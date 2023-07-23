@@ -21,25 +21,26 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求：\n
-// 1. 随机性要求：随机性要求，不能总是取到第一个元素。\n
-// 2. 取到元素后，该元素要被从集合中删除。\n
-// 3. 取到元素后，集合的长度要减1。\n
-// 4. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 5. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 6. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 7. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 8. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 9. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 10. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 11. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 12. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 13. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 14. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 15. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 16. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 17. 取到元素后，集合中剩余的元素要重新进行随机排序。\n
-// 18. 取到元素后，集合中剩余的元素要重新进行随机排序。\n<h1><p>Bad Request</p></h1>   
+// 要求: 随机抽取的元素不能是重复的。\n
+// 思路: 利用LinkedHashSet的特性, 保证元素不重复。\n
+// 注意: LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
+// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
+// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
