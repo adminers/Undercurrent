@@ -21,26 +21,84 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求: 随机抽取的元素不能是重复的。\n
-// 思路: 利用LinkedHashSet的特性, 保证元素不重复。\n
-// 注意: LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n
-// 注意: 由于LinkedHashSet的底层是HashMap, 因此LinkedHashSet的性能比HashSet低。\n
-// 实现: 利用LinkedHashSet的add方法, 添加元素时, 判断是否重复。\n<h1><p>Bad Request</p></h1>   
+// 请实现一个函数,要求从数组中随机取一个元素。\n
+// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
+// 测试样例：\n
+// {1,2,3}
+// 返回1或者2或者3
+// 测试样例：\n
+// {1,2,3,4,5,6,7}
+// 返回1到6之间的一个正整数
+
+import java.util.*;
+
+public class RandomElement {
+    public int getRandom(int[] array) {
+        Random r = new Random();
+        int index = r.nextInt(array.length);
+        return array[index];
+    }
+
+    public static void main(String[] args) {
+        RandomElement re = new RandomElement();
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        System.out.println(re.getRandom(array));
+    }
+}
+
+// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
+// 测试样例：\n
+// {1,2,3}
+// 返回1或者2或者3
+// 测试样例：\n
+// {1,2,3,4,5,6,7}
+// 返回1到6之间的一个正整数
+
+import java.util.*;
+
+public class RandomElement {
+    public int getRandom(int[] array) {
+        Random r = new Random();
+        int index = r.nextInt(array.length);
+        return array[index];
+    }
+
+    public static void main(String[] args) {
+        RandomElement re = new RandomElement();
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        System.out.println(re.getRandom(array));
+    }
+}
+
+// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
+// 测试样例：\n
+// {1,2,3}
+// 返回1或者2或者3
+// 测试样例：\n
+// {1,2,3,4,5,6,7}
+// 返回1到6之间的一个正整数
+
+import java.util.*;
+
+public class RandomElement {
+    public int getRandom(int[] array) {
+        Random r = new Random();
+        int index = r.nextInt(array.length);
+        return array[index];
+    }
+
+    public static void main(String[] args) {
+        RandomElement re = new RandomElement();
+        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        System.out.println(re.getRandom(array));
+    }
+}
+
+// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
+// 测试样例：\n
+// {1,2,3}
+// 返回1或者2或者3
+// 测试样例：\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
