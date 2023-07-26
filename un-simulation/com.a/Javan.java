@@ -21,84 +21,40 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 请实现一个函数,要求从数组中随机取一个元素。\n
-// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
+// 请实现一个函数,要求从数组中随机取出一个元素,要求时间复杂度为O(1).\n
+// 给定一个int[]数组,请返回一个int值,要求从数组中随机取出一个元素,要求时间复杂度为O(1).\n
 // 测试样例：\n
-// {1,2,3}
-// 返回1或者2或者3
-// 测试样例：\n
-// {1,2,3,4,5,6,7}
-// 返回1到6之间的一个正整数
+// {1,2,3,4,5,6,7,8,9,10},返回4\n
+// {1,2,3,4,5,6,7,8,9,10},返回3\n
 
-import java.util.*;
+import java.util.Random;
 
 public class RandomElement {
     public int getRandom(int[] array) {
-        Random r = new Random();
-        int index = r.nextInt(array.length);
-        return array[index];
+        Random random = new Random();
+        return array[random.nextInt(array.length)];
     }
 
     public static void main(String[] args) {
         RandomElement re = new RandomElement();
-        int[] array = {1, 2, 3, 4, 5, 6, 7};
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         System.out.println(re.getRandom(array));
+        int[] array2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        System.out.println(re.getRandom(array2));
     }
 }
 
-// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
-// 测试样例：\n
-// {1,2,3}
-// 返回1或者2或者3
-// 测试样例：\n
-// {1,2,3,4,5,6,7}
-// 返回1到6之间的一个正整数
-
-import java.util.*;
-
-public class RandomElement {
-    public int getRandom(int[] array) {
-        Random r = new Random();
-        int index = r.nextInt(array.length);
-        return array[index];
-    }
-
-    public static void main(String[] args) {
-        RandomElement re = new RandomElement();
-        int[] array = {1, 2, 3, 4, 5, 6, 7};
-        System.out.println(re.getRandom(array));
-    }
-}
-
-// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
-// 测试样例：\n
-// {1,2,3}
-// 返回1或者2或者3
-// 测试样例：\n
-// {1,2,3,4,5,6,7}
-// 返回1到6之间的一个正整数
-
-import java.util.*;
-
-public class RandomElement {
-    public int getRandom(int[] array) {
-        Random r = new Random();
-        int index = r.nextInt(array.length);
-        return array[index];
-    }
-
-    public static void main(String[] args) {
-        RandomElement re = new RandomElement();
-        int[] array = {1, 2, 3, 4, 5, 6, 7};
-        System.out.println(re.getRandom(array));
-    }
-}
-
-// 给定一个int[]数组,请返回一个int。保证元素不重复。\n
-// 测试样例：\n
-// {1,2,3}
-// 返回1或者2或者3
-// 测试样例：\n<h1><p>Bad Request</p></h1>   
+// 思路:
+// 1. 随机生成一个0到数组的长度减1的随机数
+// 2. 返回数组中随机数对应的元素
+// 3. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
+// 4. 注意: 随机数是从0开始, 因此需要减1
+// 5. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
+// 6. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
+// 7. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
+// 8. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
+// 9. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
+// 10. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
