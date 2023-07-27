@@ -21,40 +21,47 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 请实现一个函数,要求从数组中随机取出一个元素,要求时间复杂度为O(1).\n
-// 给定一个int[]数组,请返回一个int值,要求从数组中随机取出一个元素,要求时间复杂度为O(1).\n
-// 测试样例：\n
-// {1,2,3,4,5,6,7,8,9,10},返回4\n
-// {1,2,3,4,5,6,7,8,9,10},返回3\n
+// 要求: 随机抽取的元素不能是重复的。\n
+// 提示: 可以使用LinkedHashSet集合,它是有序的,并且可以保证没有重复元素。\n
+// 注意: 该方法不是必须的,只是为了方便测试。
 
+import java.util.LinkedHashSet;
 import java.util.Random;
 
 public class RandomElement {
-    public int getRandom(int[] array) {
-        Random random = new Random();
-        return array[random.nextInt(array.length)];
-    }
-
     public static void main(String[] args) {
-        RandomElement re = new RandomElement();
-        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        System.out.println(re.getRandom(array));
-        int[] array2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        System.out.println(re.getRandom(array2));
+        LinkedHashSet<Integer> set = new LinkedHashSet<>();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            set.add(random.nextInt(100));
+        }
+        System.out.println(set);
+        System.out.println(set.size());
+        System.out.println(set.iterator().next());
     }
 }
 
-// 思路:
-// 1. 随机生成一个0到数组的长度减1的随机数
-// 2. 返回数组中随机数对应的元素
-// 3. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
-// 4. 注意: 随机数是从0开始, 因此需要减1
-// 5. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
-// 6. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
-// 7. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
-// 8. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
-// 9. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1
-// 10. 注意: 数组的长度减1, 因为数组下标是从0开始的, 随机数是从0开始, 因此需要减1<h1><p>Bad Request</p></h1>   
+// 输出结果:
+// [78, 14, 73, 67, 23, 85, 52, 97, 90, 49]
+// 10
+// 78
+
+// 解析:
+// 首先创建一个LinkedHashSet集合,它是有序的,并且可以保证没有重复元素。
+// 然后创建一个Random对象,调用nextInt(100)方法,生成一个0~99的随机数,
+// 然后将随机数添加到LinkedHashSet集合中,最后使用迭代器遍历集合,并输出第一个元素。
+
+// 注意:
+// 1. 该方法不是必须的,只是为了方便测试。
+// 2. 创建一个LinkedHashSet集合,它是有序的,并且可以保证没有重复元素。
+// 3. 创建一个Random对象,调用nextInt(100)方法,生成一个0~99的随机数,
+// 4. 然后将随机数添加到LinkedHashSet集合中,最后使用迭代器遍历集合,并输出第一个元素。
+
+// 注意:
+// 1. 该方法不是必须的,只是为了方便测试。
+// 2. 创建一个LinkedHashSet集合,它是有序的,并且可以保证没有重复元素。
+// 3. 创建一个Random对象,调用nextInt(100)方法,生成一个0~99的随机数,
+// 4. 然后将随机数添加到LinkedHashSet集合中,最后使用迭代器遍历集合,并输出第一个元素。<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
