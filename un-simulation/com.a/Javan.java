@@ -19,50 +19,10 @@
   <h1>HTML 代码示例</h1>
 
   <pre><code class="java">
- // 在Java集合中,取集合第一个元素。\n
+ // 在Java集合中,随机取一个元素。\n
 
-// 要求: 
-// 1. 返回值类型为E 
-// 2. 方法名为first() 
-// 3. 方法中不带参数 
-// 4. 方法内不能出现return语句
-// 5. 方法内不能创建对象
-// 6. 方法内不能调用方法
-// 7. 方法内不能出现其他代码
-// 8. 方法内不能出现循环
-// 9. 方法内不能出现if else
-// 10. 方法内不能出现数组
-// 11. 方法内不能出现静态代码块
-// 12. 方法内不能出现非静态代码块
-// 13. 方法内不能出现构造方法
-// 14. 方法内不能出现synchronized代码块
-// 15. 方法内不能出现同步代码块
-// 16. 方法内不能出现while
-// 17. 方法内不能出现for
-// 18. 方法内不能出现try
-// 19. 方法内不能出现return
-// 20. 方法内不能出现throw
-// 21. 方法内不能出现assert
-// 22. 方法内不能出现break
-// 23. 方法内不能出现System.out.println()
-// 24. 方法内不能出现System.out.print()
-// 25. 方法内不能出现System.out.printf()
-// 26. 方法内不能出现System.out.flush()
-// 27. 方法内不能出现System.out.flush()
-// 28. 方法内不能出现System.out.flush()
-// 29. 方法内不能出现System.out.flush()
-// 30. 方法内不能出现System.out.flush()
-// 31. 方法内不能出现System.out.flush()
-// 32. 方法内不能出现System.out.flush()
-// 33. 方法内不能出现System.out.flush()
-// 34. 方法内不能出现System.out.flush()
-// 35. 方法内不能出现System.out.flush()
-// 36. 方法内不能出现System.out.flush()
-// 37. 方法内不能出现System.out.flush()
-// 38. 方法内不能出现System.out.flush()
-// 39. 方法内不能出现System.out.flush()
-// 40. 方法内不能出现System.out.flush()
-// 41. 方法内不能出现System.out.flush()<h1><p>Bad Request</p></h1>   
+// 要求: 1. 随机性, 2. 取出的元素不能是重复的。\n
+// 思路: 1. 利用HashSet的特性, 2. 利用HashSet的特性, 3. 利用HashSet的特性, 4. 利用HashSet的特性, 5. 利用HashSet的特性, 6. 利用HashSet的特性, 7. 利用HashSet的特性, 8. 利用HashSet的特性, 9. 利用HashSet的特性, 10. 利用HashSet的特性, 11. 利用HashSet的特性, 12. 利用HashSet的特性, 13. 利用HashSet的特性, 14. 利用HashSet的特性, 15. 利用HashSet的特性, 16. 利用HashSet的特性, 17. 利用HashSet的特性, 18. 利用HashSet的特性, 19. 利用HashSet的特性, 20. 利用HashSet的特性, 21. 利用HashSet的特性, 22. 利用HashSet的特性, 23. 利用HashSet的特性, 24. 利用HashSet的特性, 25. 利用HashSet的特性, 26. 利用HashSet的特性, 27. 利用HashSet的特性, 28. 利用HashSet的特性, 29. 利用HashSet的特性, 30. 利用HashSet的特性, 31. 利用HashSet的特性, 32. 利用HashSet的特性, 33. 利用HashSet的特性, 34. 利用HashSet的特性, 35. 利用HashSet的特性, 36. 利用HashSet的特性, 37. 利用HashSet的特性, 38. 利用HashSet的特性, 39. 利用HashSet的特性, 40. 利用HashSet的特性, 41. 利用HashSet的特性, 42. 利用HashSet的特性, 43. 利用HashSet的特性, 44. 利用HashSet的特性, 45. 利用HashSet的特性, 46. 利用HashSet的特性, 47. 利用HashSet的特性, 48. 利用HashSet的特性, 49. 利用HashSet的特性, 50. 利用HashSet的特性, 51. 利用HashSet的特性, 52. 利用HashSet的特性, 53. 利用HashSet的特性, 54. 利用HashSet的特性, 55. 利用HashSet的特性, 56. 利用HashSet的特性, 57. 利用HashSet的特性, 58. 利用HashSet的特性, 59. 利用HashSet的特性, 60. 利用HashSet的特性, 61. 利用HashSet的特性, 62. 利用HashSet的特性, 63. 利用HashSet的特性, 64. 利用HashSet的特性, 65.<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
