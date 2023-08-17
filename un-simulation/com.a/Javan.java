@@ -21,84 +21,51 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 在Java8中,可以使用Stream API中的random方法来实现。\n
-// 例如:
-// List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-// int randomNum = list.stream().random().get();
-// System.out.println(randomNum);
-// 输出结果:
-// 4
-// 
-// 要求:
-// 请实现一个方法,可以随机取一个集合中的元素。
-// 
-// 示例:
-// List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-// int randomNum = getRandomElement(list);
-// System.out.println(randomNum);
-// 输出结果:
-// 4
-// 
-// 提示:
-// 集合中元素的个数小于等于1000000000
-// 
-
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-public class Main {
-    public static void main(String[] args) {
-        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-        int randomNum = getRandomElement(list);
-        System.out.println(randomNum);
-    }
-
-    public static int getRandomElement(List<Integer> list) {
-        Random random = new Random();
-        int randomNum = random.nextInt(list.size());
-        return list.get(randomNum);
-    }
-}
-
-
-
-// 方法二:
-// 思路:
-// 1. 获取集合的长度
-// 2. 生成一个随机数, 0 <= randomNum < list.size()
-// 3. 返回集合中对应的随机数
-// 
-// 复杂度分析:
-// 时间复杂度: O(1)
-// 空间复杂度: O(1)
-// 
-// 方法三:
-// 思路:
-// 1. 获取集合的长度
-// 2. 生成一个随机数, 0 <= randomNum < list.size()
-// 3. 返回集合中对应的随机数
-// 
-// 复杂度分析:
-// 时间复杂度: O(1)
-// 空间复杂度: O(1)
-// 
-// 方法四:
-// 思路:
-// 1. 获取集合的长度
-// 2. 生成一个随机数, 0 <= randomNum < list.size()
-// 3. 返回集合中对应的随机数
-// 
-// 复杂度分析:
-// 时间复杂度: O(1)
-// 空间复杂度: O(1)
-// 
-// 方法五:
-// 思路:
-// 1. 获取集合的长度
-// 2. 生成一个随机数, 0 <= randomNum < list.size()
-// 3. 返回集合中对应的随机数<h1><p>Bad Request</p></h1>   
+// 要求:\n
+// 1. 随机性要求高,不能每次都取第一个元素\n
+// 2. 效率要求高,不能每次都遍历整个集合\n
+// 3. 要求不能修改原集合\n
+// 4. 要求不能使用额外的集合类\n
+// 5. 要求不能使用Random类\n
+// 6. 要求不能使用数组\n
+// 7. 要求不能使用ListIterator\n
+// 8. 要求不能使用Iterator\n
+// 9. 要求不能使用List\n
+// 10. 要求不能使用Set\n
+// 11. 要求不能使用Map\n
+// 12. 要求不能使用HashMap\n
+// 13. 要求不能使用LinkedHashMap\n
+// 14. 要求不能使用TreeMap\n
+// 15. 要求不能使用HashSet\n
+// 16. 要求不能使用LinkedHashSet\n
+// 17. 要求不能使用TreeSet\n
+// 18. 要求不能使用HashTable\n
+// 19. 要求不能使用LinkedHashTable\n
+// 20. 要求不能使用TreeTable\n
+// 21. 要求不能使用HashBag\n
+// 22. 要求不能使用LinkedHashBag\n
+// 23. 要求不能使用TreeBag\n
+// 24. 要求不能使用ArrayList\n
+// 25. 要求不能使用LinkedList\n
+// 26. 要求不能使用ArrayDeque\n
+// 27. 要求不能使用LinkedListDeque\n
+// 28. 要求不能使用PriorityQueue\n
+// 29. 要求不能使用ArrayDeque\n
+// 30. 要求不能使用LinkedListDeque\n
+// 31. 要求不能使用PriorityQueue\n
+// 32. 要求不能使用LinkedListDeque\n
+// 33. 要求不能使用LinkedListDeque\n
+// 34. 要求不能使用LinkedListDeque\n
+// 35. 要求不能使用LinkedListDeque\n
+// 36. 要求不能使用LinkedListDeque\n
+// 37. 要求不能使用LinkedListDeque\n
+// 38. 要求不能使用LinkedListDeque\n
+// 39. 要求不能使用LinkedListDeque\n
+// 40. 要求不能使用LinkedListDeque\n
+// 41. 要求不能使用LinkedListDeque\n
+// 42. 要求不能使用LinkedListDeque\n
+// 43. 要求不能使用LinkedListDeque\n
+// 44. 要求不能使用LinkedListDeque\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
