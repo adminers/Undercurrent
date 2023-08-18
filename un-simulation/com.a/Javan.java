@@ -21,51 +21,24 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求:\n
-// 1. 随机性要求高,不能每次都取第一个元素\n
-// 2. 效率要求高,不能每次都遍历整个集合\n
-// 3. 要求不能修改原集合\n
-// 4. 要求不能使用额外的集合类\n
-// 5. 要求不能使用Random类\n
-// 6. 要求不能使用数组\n
-// 7. 要求不能使用ListIterator\n
-// 8. 要求不能使用Iterator\n
-// 9. 要求不能使用List\n
-// 10. 要求不能使用Set\n
-// 11. 要求不能使用Map\n
-// 12. 要求不能使用HashMap\n
-// 13. 要求不能使用LinkedHashMap\n
-// 14. 要求不能使用TreeMap\n
-// 15. 要求不能使用HashSet\n
-// 16. 要求不能使用LinkedHashSet\n
-// 17. 要求不能使用TreeSet\n
-// 18. 要求不能使用HashTable\n
-// 19. 要求不能使用LinkedHashTable\n
-// 20. 要求不能使用TreeTable\n
-// 21. 要求不能使用HashBag\n
-// 22. 要求不能使用LinkedHashBag\n
-// 23. 要求不能使用TreeBag\n
-// 24. 要求不能使用ArrayList\n
-// 25. 要求不能使用LinkedList\n
-// 26. 要求不能使用ArrayDeque\n
-// 27. 要求不能使用LinkedListDeque\n
-// 28. 要求不能使用PriorityQueue\n
-// 29. 要求不能使用ArrayDeque\n
-// 30. 要求不能使用LinkedListDeque\n
-// 31. 要求不能使用PriorityQueue\n
-// 32. 要求不能使用LinkedListDeque\n
-// 33. 要求不能使用LinkedListDeque\n
-// 34. 要求不能使用LinkedListDeque\n
-// 35. 要求不能使用LinkedListDeque\n
-// 36. 要求不能使用LinkedListDeque\n
-// 37. 要求不能使用LinkedListDeque\n
-// 38. 要求不能使用LinkedListDeque\n
-// 39. 要求不能使用LinkedListDeque\n
-// 40. 要求不能使用LinkedListDeque\n
-// 41. 要求不能使用LinkedListDeque\n
-// 42. 要求不能使用LinkedListDeque\n
-// 43. 要求不能使用LinkedListDeque\n
-// 44. 要求不能使用LinkedListDeque\n<h1><p>Bad Request</p></h1>   
+// 1. 随机生成一个0~n-1的数字,作为数组的下标。\n
+// 2. 取出数组中对应的元素。\n
+// 3. 重复以上步骤,直到取出n个元素。\n
+// 4. 返回取出的元素。\n
+// 5. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 6. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 7. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 8. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 9. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 10. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 11. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 12. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 13. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 14. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 15. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 16. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 17. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n
+// 18. 要求: 随机取数组中任意一个元素,要求不能使用ArrayList的remove方法。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
