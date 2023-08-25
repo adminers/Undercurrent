@@ -26,40 +26,36 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Square extends JFrame {
+public class DrawSquares extends JFrame {
     private JButton button;
     private JPanel panel;
 
-    public Square() {
-        super("Square");
-        button = new JButton("Draw Square");
+    public DrawSquares() {
+        super("Draw Squares");
+        setLayout(new BorderLayout());
+        panel = new JPanel();
+        button = new JButton("Draw Squares");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                drawSquare();
+                drawSquares();
             }
         });
-        panel = new JPanel();
         panel.add(button);
-        add(panel);
+        add(panel, BorderLayout.SOUTH);
         setSize(300, 300);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
-    private void drawSquare() {
-        Graphics g = panel.getGraphics();
-        if (g != null) {
-            g.setColor(Color.BLUE);
-            g.fillRect(10, 10, 100, 100);
-        }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Square().setVisible(true);<h1><p>Bad Request</p></h1>   
+    private void drawSquares() {
+        panel.removeAll();
+        panel.setLayout(new GridLayout(0, 1));
+        for (int i = 0; i < 10; i++) {
+            JButton button = new JButton("Square " + i);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
