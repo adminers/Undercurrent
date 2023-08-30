@@ -21,26 +21,48 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求: 随机取一个元素,要求不能重复。\n
-// 思路: 利用HashSet的特性,不重复。\n
-// 注意: HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n
-// 注意: 利用HashSet的特性,不能重复,但是可以存放null值。\n<h1><p>Bad Request</p></h1>   
+// 要求: 随机取的元素不能是null, 并且不能重复。\n
+// 实现思路: 利用LinkedHashSet的特性, 随机取一个元素, 并且不能重复。
+
+import java.util.LinkedHashSet;
+import java.util.Random;
+
+public class RandomElement {
+    public static void main(String[] args) {
+        RandomElement randomElement = new RandomElement();
+        System.out.println(randomElement.randomElement(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
+    }
+
+    public int randomElement(int[] nums) {
+        LinkedHashSet<Integer> set = new LinkedHashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        Random random = new Random();
+        int index = random.nextInt(set.size());
+        int i = 0;
+        for (int num : set) {
+            if (i == index) {
+                return num;
+            }
+            i++;
+        }
+        return -1;
+    }
+}
+
+// 解题思路: 利用LinkedHashSet的特性, 随机取一个元素, 并且不能重复。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。
+// LinkedHashSet的特性: 存储的元素顺序和取出元素的顺序一致。<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
