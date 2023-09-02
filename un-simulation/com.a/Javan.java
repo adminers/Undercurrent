@@ -21,22 +21,43 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求: 
-// 1. 随机性要求高, 不要使用ArrayList的get(int index)方法, 因为该方法是顺序遍历的。\n
-// 2. 不要使用HashSet, 因为HashSet的底层是HashMap, 随机取一个元素, 需要先计算hash, 然后根据hash值找到对应的桶, 然后从桶中取元素, 这样效率就低了。\n
-// 3. 不要使用LinkedList, 因为LinkedList的随机取元素, 需要先遍历一遍, 然后取元素。\n
-// 4. 不要使用TreeSet, 因为TreeSet的底层是TreeMap, 随机取一个元素, 需要先计算hash, 然后根据hash值找到对应的桶, 然后从桶中取元素, 这样效率就低了。\n
-// 5. 不要使用ArrayList的remove(int index)方法, 因为该方法是顺序遍历的。\n
-// 6. 不要使用HashMap的remove(K key)方法, 因为该方法是顺序遍历的。\n
-// 7. 不要使用LinkedList的remove(int index)方法, 因为该方法是顺序遍历的。\n
-// 8. 不要使用TreeMap的remove(K key)方法, 因为该方法是顺序遍历的。\n
-// 9. 不要使用TreeMap的firstKey()方法, 因为该方法是顺序遍历的。\n
-// 10. 不要使用TreeMap的lastKey()方法, 因为该方法是顺序遍历的。\n
-// 11. 不要使用TreeMap的lowerKey(K key)方法, 因为该方法是顺序遍历的。\n
-// 12. 不要使用TreeMap的higherKey(K key)方法, 因为该方法是顺序遍历的。\n
-// 13. 不要使用TreeMap的floorKey(K key)方法, 因为该方法是顺序遍历的。\n
-// 14. 不要使用TreeMap的ceilingKey(K key)方法, 因为该方法是顺序遍历的。\n
-// 15. 不要使用TreeMap的subMap(K fromKey, K toKey)方法, 因为该方法是顺序遍<h1><p>Bad Request</p></h1>   
+// 请实现一个函数,要求在ArrayList中随机取一个元素。\n
+// 给定一个ArrayList，返回一个随机元素。\n
+// 给定列表[1,1,2,2,3,3,4,4],返回1或2或3或4。
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class RandomElement {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 1; i <= 4; i++) {
+            list.add(i);
+        }
+        System.out.println(randomElement(list));
+    }
+
+    public static int randomElement(ArrayList<Integer> list) {
+        Random random = new Random();
+        int index = random.nextInt(list.size());
+        return list.get(index);
+    }
+}
+
+// 方法二：
+// 利用Random类中的nextInt(int n)方法，随机生成一个0到n-1的整数，
+// 然后根据这个整数找到数组中的元素。
+// 注意：
+// 1. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 2. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 3. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 4. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 5. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 6. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 7. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 8. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 9. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
+// 10. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
