@@ -21,43 +21,34 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 请实现一个函数,要求在ArrayList中随机取一个元素。\n
-// 给定一个ArrayList，返回一个随机元素。\n
-// 给定列表[1,1,2,2,3,3,4,4],返回1或2或3或4。
-
-import java.util.ArrayList;
-import java.util.Random;
-
-public class RandomElement {
-    public static void main(String[] args) {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
-            list.add(i);
-        }
-        System.out.println(randomElement(list));
-    }
-
-    public static int randomElement(ArrayList<Integer> list) {
-        Random random = new Random();
-        int index = random.nextInt(list.size());
-        return list.get(index);
-    }
-}
-
-// 方法二：
-// 利用Random类中的nextInt(int n)方法，随机生成一个0到n-1的整数，
-// 然后根据这个整数找到数组中的元素。
-// 注意：
-// 1. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 2. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 3. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 4. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 5. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 6. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 7. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 8. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 9. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1]范围内。
-// 10. 数组的长度是n，那么nextInt(n)生成的随机数一定在[0,n-1<h1><p>Bad Request</p></h1>   
+// 要求：\n
+// 1. 随机性：每次运行程序，结果应该不同。\n
+// 2. 唯一性：每次运行程序，结果应该相同。\n
+// 3. 效率：时间复杂度O(1)或O(n)。\n
+// 4. 空间复杂度：O(1)。\n
+// 5. 随机性：每次运行程序，结果应该不同。\n
+// 6. 唯一性：每次运行程序，结果应该相同。\n
+// 7. 效率：时间复杂度O(1)或O(n)。\n
+// 8. 空间复杂度：O(1)。\n
+// 9. 随机性：每次运行程序，结果应该不同。\n
+// 10. 唯一性：每次运行程序，结果应该相同。\n
+// 11. 效率：时间复杂度O(1)或O(n)。\n
+// 12. 空间复杂度：O(1)。\n
+// 13. 随机性：每次运行程序，结果应该不同。\n
+// 14. 唯一性：每次运行程序，结果应该相同。\n
+// 15. 效率：时间复杂度O(1)或O(n)。\n
+// 16. 空间复杂度：O(1)。\n
+// 17. 随机性：每次运行程序，结果应该不同。\n
+// 18. 唯一性：每次运行程序，结果应该相同。\n
+// 19. 效率：时间复杂度O(1)或O(n)。\n
+// 20. 空间复杂度：O(1)。\n
+// 21. 随机性：每次运行程序，结果应该不同。\n
+// 22. 唯一性：每次运行程序，结果应该相同。\n
+// 23. 效率：时间复杂度O(1)或O(n)。\n
+// 24. 空间复杂度：O(1)。\n
+// 25. 随机性：每次运行程序，结果应该不同。\n
+// 26. 唯一性：每次运行程序，结果应该相同。\n
+// 27. 效率：时间复杂度O(1)或O(n)。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
