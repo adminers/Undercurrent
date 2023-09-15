@@ -4,33 +4,28 @@ import cn.hutool.core.io.FileUtil;
 import com.qiaweidata.undercurrent.SpringUtils;
 import com.qiaweidata.undercurrent.ai.ImitateCode;
 import com.qiaweidata.undercurrent.job.TaskRun;
+import com.qiaweidata.undercurrent.mail.MailUtils;
 import com.qiaweidata.undercurrent.server.NettyServerHandler;
 import com.qiaweidata.undercurrent.web.dao.PersonMapper;
 import com.qiaweidata.undercurrent.web.entity.Machine;
-import io.netty.channel.ChannelHandler;
+import com.qiaweidata.undercurrent.youdao.FanyiV3Demo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jeecg.common.api.vo.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jeecg.common.api.vo.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @EnableTransactionManagement  // 需要事务的时候加上
 @RestController
@@ -138,6 +133,7 @@ public class PersonController {
         Integer a = 0;
 
         ImitateCode imitateCode = taskRun.getImitateCode();
+        MailUtils.send("<!DOCTYPE html>\n" + "<html>\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" + "</head>\n" + "<body>\n" + "<div style=\"text-align: left;margin-bottom:30px\">Dear Customer,</div>\n" + "\n" + "<div style=\"text-align: left;margin-bottom:30px\">Please be informed that we are having a connection issue under the below location, customers under the location may be not able to access internet. Our engineers are performing diagnoses and we will get the problem fixed and get the service back online as soon as possible.\n" + "<br/><br/>\n" + "We will have further update once available and thank you for the patient.</div>\n" + "\n" + "<div style=\"text-align: left;margin-bottom:10px\">Outage Time: {0}</div>\n" + "<div style=\"text-align: left;margin-bottom:10px\">Message ID: {1}</div>\n" + "<div style=\"text-align: left;margin-bottom:10px\">Status: {2}</div>\n" + "\n" + "<div style=\"text-align: left; \">\n" + "<table border=1 cellPadding=0 cellSpacing=0 width=\"700px\" style=\"text-indent:5px;margin-bottom:20px;border-color:black;\">{3}</table>\n" + "</div>\n" + "<div style=\"text-align: left;margin-top:30px;margin-bottom:15px\">Best Regards,</div>\n" + "<div style=\"text-align: left;\">IT Shenzhen Support</div>\n" + "</body>\n" + "</html>\n");
         return Result.OK("Line" + taskRun.getCurrentLineIndex() + "\n" + imitateCode.getText() + "\n" + imitateCode.getCode());
     }
 
@@ -145,10 +141,11 @@ public class PersonController {
     @CrossOrigin
     public  Result<?> translate(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        Integer a = 0;
-
-        ImitateCode imitateCode = taskRun.getImitateCode();
-        return Result.OK("Line" + taskRun.getCurrentLineIndex() + "\n" + imitateCode.getText() + "\n" + imitateCode.getCode());
+        String data = request.getParameter("data");
+        if (null == data || data.length() == 0) {
+            return Result.error("空");
+        }
+        return Result.OK(FanyiV3Demo.getEnglish(data));
     }
 
     @RequestMapping(value = "/appendFileText", method = RequestMethod.GET)
@@ -156,9 +153,11 @@ public class PersonController {
     public  Result<?> appendFileText(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         String data = request.getParameter("data");
-        ImitateCode imitateCode = taskRun.getImitateCode();
-        taskRun.WEB_RUN.add(FileUtil.getTotalLines(new File(ImitateCode.properties.get("fileTrain"))));
-        log.info("data {}", data);
+        File file = new File(ImitateCode.properties.get("fileTrain"));
+        int totalLines = FileUtil.getTotalLines(file);
+        // taskRun.WEB_RUN.add(totalLines);
+        FileUtil.appendUtf8String("\n" + data, file);
+        log.info("line: {} data {}", totalLines, data);
         return Result.OK("·· append file run ··");
     }
 }
