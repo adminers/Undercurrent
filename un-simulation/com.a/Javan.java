@@ -21,19 +21,22 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求：\n
-// 1. 随机性: 随机性是指从集合中随机取一个元素，每次取出的元素不同。\n
-// 2. 唯一性: 随机性要求每次随机取出的元素不同，唯一性要求每次随机取出的元素相同。\n
-// 3. 性能: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 4. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 5. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 6. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 7. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 8. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 9. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 10. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 11. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O(n)。\n
-// 12. 实现: 随机性要求随机性算法的时间复杂度为O(1)，唯一性要求时间复杂度为O<h1><p>Bad Request</p></h1>   
+// 请实现一个函数,要求在数组a中随机取一个元素。\n
+// 要求: 1. 函数randomInRange(int[] a, int n) 返回一个随机数,范围是[0,n-1]。\n
+// 2. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1]。\n
+// 3. 函数randomInArray(int[] a, int start, int end) 返回一个随机数,范围是[start,end]。\n
+// 4. 函数randomInArray(int[] a, int start, int end, int n) 返回一个随机数,范围是[start,end],随机数个数为n。\n
+// 5. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 6. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 7. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 8. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 9. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 10. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 11. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 12. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 13. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 14. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n
+// 15. 函数randomInArray(int[] a, int n) 返回一个随机数,范围是[0,a.length-1],随机数个数为n。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
