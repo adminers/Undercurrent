@@ -21,23 +21,83 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 思路：\n
-// 1. 利用HashMap的keySet()方法，将数组中的元素作为key，下标作为value，存入HashMap中。\n
-// 2. 利用HashMap的remove()方法，随机获取一个key，根据key获取value，即为随机数组下标。\n
-// 3. 利用数组下标获取数组元素。\n
-// 4. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 5. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 6. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 7. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 8. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 9. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 10. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 11. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 12. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 13. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 14. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\n
-// 15. 利用HashMap的size()方法，判断HashMap是否为空，为空则重新生成随机数组。\<h1><p>Bad Request</p></h1>   
+// 要求: 随机取的元素不能是null。\n
+// 实现思路: 利用LinkedList的removeFirst()方法。
+
+import java.util.LinkedList;
+import java.util.Random;
+
+public class RandomLinkedList {
+    public static void main(String[] args) {
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(i);
+        }
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);
+        System.out.println(list.removeFirst());
+        System.out.println(list);<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
