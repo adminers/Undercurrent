@@ -21,83 +21,35 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求: 随机取的元素不能是null。\n
-// 实现思路: 利用LinkedList的removeFirst()方法。
-
-import java.util.LinkedList;
-import java.util.Random;
-
-public class RandomLinkedList {
-    public static void main(String[] args) {
-        LinkedList<Integer> list = new LinkedList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);
-        System.out.println(list.removeFirst());
-        System.out.println(list);<h1><p>Bad Request</p></h1>   
+// 要求: 随机抽取的元素不能是同一个。\n
+// 提示: 可以使用List集合的随机访问功能。\n
+// 提示: 可以使用List集合的set方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的size方法。\n
+// 提示: 可以使用List集合的get方法。\n
+// 提示: 可以使用List集合的subList方法。\n
+// 提示: 可以使用List集合的indexOf方法。\n
+// 提示: 可以使用List集合的lastIndexOf方法。\n
+// 提示: 可以使用List集合的listIterator方法。\n
+// 提示: 可以使用List集合的iterator方法。\n
+// 提示: 可以使用List集合的toArray方法。\n
+// 提示: 可以使用List集合的sort方法。\n
+// 提示: 可以使用List集合的reverse方法。\n
+// 提示: 可以使用List集合的add方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的add方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的add方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的add方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的add方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的add方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的add方法。\n
+// 提示: 可以使用List集合的remove方法。\n
+// 提示: 可以使用List集合的add方法。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
