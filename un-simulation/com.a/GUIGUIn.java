@@ -27,37 +27,26 @@ import javax.swing.*;
 
 public class Square extends JFrame {
     public Square() {
-        super("Square");
-        setLayout(new FlowLayout());
-        JButton b = new JButton("Draw");
-        add(b);
-        b.addActionListener(e -> {
-            JPanel p = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    g.setColor(Color.BLACK);
-                    g.fillRect(0, 0, getWidth(), getHeight());
-                }
-            };
-            p.setPreferredSize(new Dimension(100, 100));
-            add(p);
-            pack();
-            setVisible(true);
-        });
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(Square::new);
-    }
-}
-
-/* Output:
-
-*/
-
-
-   
+        setTitle("Square");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 300);
+        setLocationRelativeTo(null);
+        setLayout(new GridLayout(3, 3));
+        for (int i = 0; i < 9; i++) {
+            JButton b = new JButton("Button " + (i + 1));
+            b.addActionListener(e -> {
+                JButton b1 = (JButton) e.getSource();
+                if (b1.getText().equals("Button 1")) {
+                    b1.setBackground(Color.BLACK);
+                    b1.setForeground(Color.WHITE);
+                } else if (b1.getText().equals("Button 2")) {
+                    b1.setBackground(Color.WHITE);
+                    b1.setForeground(Color.BLACK);
+                } else if (b1.getText().equals("Button 3")) {
+                    b1.setBackground(Color.RED);
+                    b1.setForeground(Color.WHITE);
+                } else if (b1.getText().equals("Button 4")) {
+                    b1.setBackground(Color.WHITE);<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
