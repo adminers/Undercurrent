@@ -21,34 +21,46 @@
   <pre><code class="java">
  // 创建一个包含 10 个黑色的正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
 
-// 创建一个包含 10 个黑色正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
+// 创建一个包含 10 个黑色正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class Square extends JFrame {
+    private JButton button;
+    private JPanel panel;
+
     public Square() {
-        setTitle("Square");
-        setSize(300, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setLayout(new FlowLayout());
-        JButton b = new JButton("Draw Square");
-        add(b);
-        b.addActionListener(new ActionListener() {
+        super("Square");
+        setLayout(new BorderLayout());
+        button = new JButton("Draw");
+        button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JButton b = (JButton) e.getSource();
-                b.setBackground(Color.BLACK);
-                b.setForeground(Color.WHITE);
-                b.setFont(new Font("Serif", Font.BOLD, 24));
-                b.setText("Square");
-                b.setPreferredSize(new Dimension(100, 100));
-                b.setBackground(Color.BLACK);
-                b.setForeground(Color.WHITE);
-                b.setFont(new Font("Serif", Font.BOLD, 24));
-                b.setText("Square");
-                b.setPreferredSize(new Dimension(100, 100));<h1><p>Bad Request</p></h1>   
+                panel.repaint();
+            }
+        });
+        add(button, BorderLayout.SOUTH);
+        panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(Color.BLUE);
+                g.fillRect(10, 10, 100, 100);
+            }
+        };
+        add(panel, BorderLayout.CENTER);
+        setSize(300, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new Square().setVisible(true);
+    }
+}
+
+class Square extends JFrame {<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
