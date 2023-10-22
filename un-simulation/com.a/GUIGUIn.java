@@ -21,43 +21,38 @@
   <pre><code class="java">
  // 创建一个包含 10 个黑色的正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
 
-// import javafx.application.Application;
-// import javafx.scene.Scene;
-// import javafx.scene.layout.Pane;
-// import javafx.scene.paint.Color;
-// import javafx.scene.shape.Rectangle;
-// import javafx.stage.Stage;
+// 创建一个包含 10 个黑色正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-public class RectangleDemo extends Application {
-    @Override
-    public void start(Stage stage) {
-        Pane pane = new Pane();
-        pane.setPrefSize(400, 400);
-        pane.setStyle("-fx-border-color: black");
-        pane.setOnMouseClicked(e -> {
-            Rectangle rect = new Rectangle(100, 100);
-            rect.setFill(Color.BLACK);
-            pane.getChildren().add(rect);
-        });
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
+public class Square extends JFrame {
+    private JButton button;
+    private JPanel panel;
+
+    public Square() {
+        super("Square");
+        setLayout(new BorderLayout());
+        panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        button = new JButton("Draw");
+        button.addActionListener(new ButtonListener());
+        add(panel, BorderLayout.CENTER);
+        add(button, BorderLayout.SOUTH);
+        setSize(300, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
-
-// 运行结果：
-// 单击鼠标左键，在窗口中添加一个黑色矩形。
-// 再次单击鼠标左键，在窗口中添加一个红色矩形。
-// 再次单击鼠标左键，在窗口中添加一个蓝色矩形。
-// 再次单击鼠标左键，在窗口中添加一个绿色矩形。
-// 再次单击鼠标左键，在窗口中添加一个黄色矩形。
-// 再次单击鼠标左键，在窗口中添加一个紫色矩形。
-// 再次单击鼠标左键，在窗口中添加一个浅蓝色矩形。
-// 再次单击鼠标左键，在窗口中添加一个灰色矩形。<h1><p>Bad Request</p></h1>   
+    private class ButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            int size = 0;
+            String input = JOptionPane.showInputDialog(null, "Enter the size of the square:", "Square", JOptionPane.QUESTION_MESSAGE);
+            if (input != null) {
+                try {
+                    size = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid input!", "Error", JOptionPane.ERROR_MESSAGE<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
