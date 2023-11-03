@@ -21,42 +21,8 @@
   <pre><code class="java">
  // 创建一个包含 10 个黑色的正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
 
-// import javafx.application.Application;
-// import javafx.scene.Scene;
-// import javafx.scene.layout.Pane;
-// import javafx.scene.paint.Color;
-// import javafx.scene.shape.Rectangle;
-// import javafx.stage.Stage;
-
-public class RectangleExample extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) {
-        Pane pane = new Pane();
-        pane.setPrefSize(400, 400);
-        pane.setStyle("-fx-background-color: black;");
-
-        Rectangle rectangle = new Rectangle(100, 100, Color.WHITE);
-        rectangle.setX(100);
-        rectangle.setY(100);
-        rectangle.setStroke(Color.BLACK);
-        rectangle.setStrokeWidth(5);
-        pane.getChildren().add(rectangle);
-
-        rectangle.setOnMouseClicked(event -> {
-            System.out.println("Mouse clicked");
-        });
-
-        stage.setTitle("Rectangle Example");
-        stage.setScene(new Scene(pane));
-        stage.show();
-    }
-}
-
-//    
+// 创建一个包含 10 个黑色正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
+// 创建一个包含 10 个黑色正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
