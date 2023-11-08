@@ -21,65 +21,29 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 随机取一个元素，要求：\n
-// 1. 随机性：每次随机的结果不一样。\n
-// 2. 唯一性：每次随机的结果不能一样。\n
-// 3. 效率：尽可能高效地随机。\n
-// 4. 随机性：每次随机的结果不一样。\n
-// 5. 唯一性：每次随机的结果不能一样。\n
-// 6. 效率：尽可能高效地随机。
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class RandomDemo {
-    public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            int index = random.nextInt(list.size());
-            System.out.println(list.get(index));
-            list.remove(index);
-        }
-    }
-}
-
-// 在Java集合中,随机取一个元素。
-// 随机取一个元素，要求：
-// 1. 随机性：每次随机的结果不一样。
-// 2. 唯一性：每次随机的结果不能一样。
-// 3. 效率：尽可能高效地随机。
-// 4. 随机性：每次随机的结果不一样。
-// 5. 唯一性：每次随机的结果不能一样。
-// 6. 效率：尽可能高效地随机。
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class RandomDemo {
-    public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            int index = random.nextInt(list.size());
-            System.out.println(list.get(index));
-            list.remove(index);
-        }
-    }
-}
-
-// 在Java集合中,随机取一个元素。
-// 随机取一个元素，要求：
-// 1. 随机性：每次随机的结果不一样。
-// 2. 唯一性：每次随机的结果不能一样。<h1><p>Bad Request</p></h1>   
+// 要求: 随机取一个元素, 要求不能重复。\n
+// 思路: 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n
+// 利用HashSet的特性, 集合中不允许重复元素。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
