@@ -21,29 +21,39 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n
-// 随机取一个元素，要求时间复杂度为O(1)。\n<h1><p>Bad Request</p></h1>   
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n
+// 要求: 随机数生成器为: java.util.Random\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
