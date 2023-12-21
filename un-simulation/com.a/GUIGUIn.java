@@ -21,49 +21,56 @@
   <pre><code class="java">
  // 创建一个包含 10 个黑色的正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
 
-// 创建一个包含 10 个黑色正方形的窗口。可以使用 GUI 组件库中的正方形组件来创建一个正方形窗口。在窗口中添加一个按钮,该按钮将引发一个事件处理程序,用于在单击按钮时绘制正方形。可以使用 GUI 事件处理程序的内置方法来绘制正方形,例如使用正方形的拼写检查方法来检查正方形的拼写是否正确,并根据检查结果调整正方形的大小和颜色。\n
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
-public class Square extends JFrame {
-    private JButton button;
-    private JPanel panel;
-
-    public Square() {
-        super("Square");
-        button = new JButton("Click me");
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                drawSquare();
-            }
-        });
-        panel = new JPanel();
-        panel.add(button);
-        add(panel);
-        setSize(300, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    private void drawSquare() {
-        Graphics g = panel.getGraphics();
-        if (g != null) {
-            g.setColor(Color.BLUE);
-            g.fillRect(10, 10, 100, 100);
-        }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Square().setVisible(true);
-            }
-        });
-    }
-}
-
-class Square extends JFrame {
-    private JPanel panel;<h1><p>Bad Request</p></h1>   
+// import java.awt.*;\n
+// import java.awt.event.*;\n
+// import javax.swing.*;\n
+// import javax.swing.event.*;\n
+// import javax.swing.border.*;\n
+// import javax.swing.border.Border;\n
+// import javax.swing.border.LineBorder;\n
+// import javax.swing.border.TitledBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.BevelBorder;\n
+// import javax.swing.border.CompoundBorder;\n
+// import javax.swing.border.EmptyBorder;\n
+// import javax.swing.border.MatteBorder;\n
+// import javax.swing.border.SoftBevelBorder;\n
+// import javax.swing.border.TitledBorder;\n
+// import javax.swing.border.LineBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.BevelBorder;\n
+// import javax.swing.border.CompoundBorder;\n
+// import javax.swing.border.EmptyBorder;\n
+// import javax.swing.border.MatteBorder;\n
+// import javax.swing.border.SoftBevelBorder;\n
+// import javax.swing.border.TitledBorder;\n
+// import javax.swing.border.LineBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.BevelBorder;\n
+// import javax.swing.border.CompoundBorder;\n
+// import javax.swing.border.EmptyBorder;\n
+// import javax.swing.border.MatteBorder;\n
+// import javax.swing.border.SoftBevelBorder;\n
+// import javax.swing.border.TitledBorder;\n
+// import javax.swing.border.LineBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.BevelBorder;\n
+// import javax.swing.border.CompoundBorder;\n
+// import javax.swing.border.EmptyBorder;\n
+// import javax.swing.border.MatteBorder;\n
+// import javax.swing.border.SoftBevelBorder;\n
+// import javax.swing.border.TitledBorder;\n
+// import javax.swing.border.LineBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.EtchedBorder;\n
+// import javax.swing.border.BevelBorder;\n
+// import javax.swing.border.CompoundBorder;\n
+// import javax.swing.border.EmptyBorder;\n
+// import javax.swing.border.MatteBorder;\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
