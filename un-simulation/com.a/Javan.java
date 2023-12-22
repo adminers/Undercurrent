@@ -21,39 +21,30 @@
   <pre><code class="java">
  // 在Java集合中,随机取一个元素。\n
 
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n
-// 要求: 随机数生成器为: java.util.Random\n<h1><p>Bad Request</p></h1>   
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n
+// 要求: 实现一个方法,随机取一个元素。\n<h1><p>Bad Request</p></h1>   
   </code></pre>
 
 </body>
