@@ -122,10 +122,10 @@ public class ImitateCode {
             "".equals(this.text)) {
             List<String> txt = FileUtil.readUtf8Lines(properties.get("fileTrain"));
             if (LINE_INDEX.get() >= txt.size()) {
-                log.info("parsed to end of file. file line is {}", LINE_INDEX.get());
+//                log.info("parsed to end of file. file line is {}", LINE_INDEX.get());
                 return;
             }
-            this.text = "// " + txt.get(LINE_INDEX.get());
+            this.text = "// " + txt.get(LINE_INDEX.get()) + "\\n";
             this.code.setLength(0);
         }
 
