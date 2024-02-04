@@ -8,7 +8,7 @@ import java.util.Base64;
 
 public class ImageToBase64 {
     public static void main(String[] args) {
-        String imagePath = "C:\\Users\\Administrator\\Downloads\\h2048.jpg"; // 指定图片文件的路径
+        String imagePath = "C:\\Users\\Administrator\\Downloads\\h2048.jpg";
         String base64String = imageToBase64(imagePath);
         System.out.println("data:image/jpeg;base64," + base64String);
     }
