@@ -2,30 +2,23 @@ package com.qiaweidata.work;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.qiaweidata.enums.ShowTypeEnum;
 import com.qiaweidata.work.bo.ShowType;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @Title: JsonToStr
- * @Description: JsonToStr
- * @Company: www.wrenchdata.com
- * @author: shenshilong
- * @date: 2024-02-21
- * @version: V1.0
- */
 public class JsonToStr {
 
     public static void main(String[] args) {
 
         List<ShowType> showTypes = new ArrayList<>();
-        showTypes.add(new ShowType("提交人", "default", "fillUser"));
-        showTypes.add(new ShowType("-", "txt", "-"));
-        showTypes.add(new ShowType("表单名称", "default", "formName"));
-        showTypes.add(new ShowType("单行输入框", "item", "I000001"));
-        showTypes.add(new ShowType("数字输入框", "item", "I000002"));
+        showTypes.add(new ShowType("提交人", ShowTypeEnum.DEFAULT, "fillUser"));
+        showTypes.add(new ShowType("-", ShowTypeEnum.TXT, "-"));
+        showTypes.add(new ShowType("表单名称", ShowTypeEnum.DEFAULT, "formName"));
+        showTypes.add(new ShowType("单行输入框", ShowTypeEnum.ITEM, "I000001"));
+        showTypes.add(new ShowType("数字输入框", ShowTypeEnum.ITEM, "I000002"));
         Gson gson = new Gson();
         String json = gson.toJson(showTypes);
         System.out.println(json);
