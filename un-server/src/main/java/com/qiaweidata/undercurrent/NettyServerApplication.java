@@ -21,6 +21,11 @@ public class NettyServerApplication implements CommandLineRunner {
         nettyServer.start();
     }
 
+    /**
+     * 运行游戏开始入口
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(NettyServerApplication.class,args);
     }
