@@ -5,6 +5,10 @@ import java.util.TimerTask;
 
 import static com.qiaweidata.undercurrent.ai.AutoMouseEvent.pressDown;
 
+/**
+ * 星河防御，窗口在左边，最左，不能缩小为止
+ * 导航条弄到，基本看不见即可
+ */
 public class MacFanYuTimer4399 {
     public static void main(String[] args) {
 
