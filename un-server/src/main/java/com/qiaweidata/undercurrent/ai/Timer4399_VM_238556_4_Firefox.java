@@ -6,14 +6,14 @@ import java.util.TimerTask;
 import static com.qiaweidata.undercurrent.ai.AutoMouseEvent.pressDown;
 
 /**
- * @Title: 星河防御（左侧缩小到50%）
+ * @Title: 星河防御（右侧缩小到50%）
  * @Description:
  * @Company: www.fineplug.top
  * @author: shenshilong[shilong_shen@163.com]
  * @date: 2024-3-05
  * @version: v1.0
  */
-public class Timer4399_VM_238556_4 {
+public class Timer4399_VM_238556_4_Firefox {
     public static void main(String[] args) {
 
         taskRun();
@@ -87,7 +87,7 @@ public class Timer4399_VM_238556_4 {
     private static void replayButton() {
 
         System.out.println("执行点击重玩按钮");
-        pressDown(342, 452);
+        pressDown(1028, 431);
 
     }
 
@@ -97,7 +97,7 @@ public class Timer4399_VM_238556_4 {
     private static void showAdAlert() {
 
         System.out.println("展示弹窗");
-        pressDown(443, 373);
+        pressDown(1127, 352);
 
     }
 
@@ -107,9 +107,9 @@ public class Timer4399_VM_238556_4 {
     private static void lookAdOk() {
 
         System.out.println("执行点击中间按钮,开始看广告");
-        pressDown(342, 467);
+        pressDown(1029, 441);
 
-        pressDown(342, 467);
+        pressDown(1029, 441);
     }
 
     /**
@@ -118,7 +118,7 @@ public class Timer4399_VM_238556_4 {
     private static void detailAdOk() {
 
         System.out.println("点广告详细");
-        pressDown(439, 654);
+        pressDown(1126, 635);
     }
 
     /**
@@ -127,7 +127,7 @@ public class Timer4399_VM_238556_4 {
     private static void closeTabAd() {
 
         System.out.println("关闭新打开的广告tab页");
-        pressDown(436, 24);
+        pressDown(1118, 24);
     }
 
     /**
@@ -136,6 +136,6 @@ public class Timer4399_VM_238556_4 {
     private static void clickCloseButton() {
 
         System.out.println("点击关闭广告按钮,预计重来");
-        pressDown(447, 245);
+        pressDown(1129, 224);
     }
 }
