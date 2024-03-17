@@ -1,0 +1,48 @@
+
+db.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+RLeg
+  rotate: false
+  xy: 32, 182
+  size: 29, 53
+  orig: 29, 53
+  offset: 0, 0
+  index: -1
+Body
+  rotate: false
+  xy: 138, 109
+  size: 60, 92
+  orig: 60, 92
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 1, 1
+  size: 135, 179
+  orig: 135, 179
+  offset: 0, 0
+  index: -1
+LLeg
+  rotate: false
+  xy: 1, 182
+  size: 29, 53
+  orig: 29, 53
+  offset: 0, 0
+  index: -1
+LHand
+  rotate: false
+  xy: 138, 1
+  size: 132, 106
+  orig: 132, 106
+  offset: 0, 0
+  index: -1
+fire
+  rotate: false
+  xy: 63, 182
+  size: 3, 24
+  orig: 3, 24
+  offset: 0, 0
+  index: -1
