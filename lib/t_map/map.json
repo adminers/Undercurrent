@@ -1,0 +1,103 @@
+{
+"skeleton": {
+	"hash": "4v8kYpSufbvTA0eMCMaL9qd6F4w",
+	"spine": "3.8.75",
+	"x": -1237.94,
+	"y": -1692.18,
+	"width": 2483.94,
+	"height": 3433.02,
+	"images": "../../画板/images/砖块/",
+	"audio": "D:/Program Files/Spine3.8.75/examples/spinosaurus"
+},
+"bones": [
+	{ "name": "root", "y": -526.32 },
+	{ "name": "blockG1", "parent": "root", "y": 1402.32 }
+],
+"slots": [
+	{ "name": "background", "bone": "root" },
+	{ "name": "block1", "bone": "root", "attachment": "block_1" },
+	{ "name": "block2", "bone": "root", "attachment": "block_1" },
+	{ "name": "block3", "bone": "root", "attachment": "block_1" },
+	{ "name": "block4", "bone": "root", "attachment": "block_1" },
+	{ "name": "block5", "bone": "root", "attachment": "block_1" },
+	{ "name": "block6", "bone": "root", "attachment": "block_1" },
+	{ "name": "block7", "bone": "root", "attachment": "block_1" },
+	{ "name": "block8", "bone": "root", "attachment": "block_2" },
+	{ "name": "block9", "bone": "root", "attachment": "block_4" },
+	{ "name": "block10", "bone": "root", "attachment": "block_4" },
+	{ "name": "block11", "bone": "root", "attachment": "block_4" },
+	{ "name": "block12", "bone": "root", "attachment": "block_4" },
+	{ "name": "blockG1", "bone": "blockG1", "attachment": "block_1" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"block1": {
+				"block_1": { "y": 1099.18, "width": 504, "height": 540 }
+			},
+			"block2": {
+				"block_1": { "x": 502.69, "y": 1089.18, "width": 504, "height": 540 }
+			},
+			"block3": {
+				"block_1": { "x": -500.56, "y": 1109.18, "width": 504, "height": 540 }
+			},
+			"block4": {
+				"block_1": { "x": 250.28, "y": 714.68, "width": 504, "height": 540 }
+			},
+			"block5": {
+				"block_1": { "x": -247.48, "y": 723.32, "width": 504, "height": 540 }
+			},
+			"block6": {
+				"block_1": { "x": -747.84, "y": 721.36, "width": 504, "height": 540 }
+			},
+			"block7": {
+				"block_1": { "x": 747.84, "y": 709.68, "width": 504, "height": 540 }
+			},
+			"block8": {
+				"block_2": { "x": 6.13, "y": 332.96, "width": 496, "height": 538 }
+			},
+			"block9": {
+				"block_4": { "x": 499.87, "y": 325.93, "width": 499, "height": 538 }
+			},
+			"blockG1": {
+				"block_1": { "y": -61.2, "width": 504, "height": 540 }
+			},
+			"block10": {
+				"block_4": { "x": -489.9, "y": 339.29, "width": 499, "height": 538 }
+			},
+			"block11": {
+				"block_4": { "x": -988.44, "y": 343.21, "width": 499, "height": 538 }
+			},
+			"block12": {
+				"block_4": { "x": 996.5, "y": 322.02, "width": 499, "height": 538 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"block5": {
+				"attachment": [
+					{ "name": "block_1" }
+				]
+			},
+			"blockG1": {
+				"attachment": [
+					{ "name": "block_1" }
+				]
+			}
+		},
+		"bones": {
+			"blockG1": {
+				"scale": [
+					{},
+					{ "time": 0.1667, "y": 1.5 },
+					{ "time": 0.3667 }
+				]
+			}
+		}
+	}
+}
+}
