@@ -1,0 +1,61 @@
+[
+    [
+        {
+            "axis" : {"x": 35,"y": 60},
+            "image" : "lib/t_map/plateImage/tundra.png"
+        },
+        {
+            "axis" : {"x": 70,"y": 60},
+            "image" : "lib/t_map/plateImage/water.png"
+        },
+        {
+            "axis" : {"x": 105,"y": 60},
+            "image" : "lib/t_map/plateImage/tundra.png"
+        },
+        {
+            "axis" : {"x": 140,"y": 60},
+            "image" : "lib/t_map/plateImage/water.png"
+        }
+    ],
+
+    [
+        {
+            "axis" : {"x": 17.5,"y": 70},
+            "image" : "lib/t_map/plateImage/sandlands_tundra.png"
+        },
+        {
+            "axis" : {"x": 52.5,"y": 70},
+            "image" : "lib/t_map/plateImage/greenlands_tundra.png"
+        },
+        {
+            "axis" : {"x": 87.5,"y": 70},
+            "image" : "lib/t_map/plateImage/sandlands_tundra.png"
+        },
+        {
+            "axis" : {"x": 122.5,"y": 70},
+            "image" : "lib/t_map/plateImage/greenlands_tundra.png"
+        },
+        {
+            "axis" : {"x": 157.5,"y": 70},
+            "image" : "lib/t_map/plateImage/sandlands_tundra.png"
+        }
+    ],
+    [
+            {
+                "axis" : {"x": 35,"y": 80},
+                "image" : "lib/t_map/plateImage/tundra.png"
+            },
+            {
+                "axis" : {"x": 70,"y": 80},
+                "image" : "lib/t_map/plateImage/water.png"
+            },
+            {
+                "axis" : {"x": 105,"y": 80},
+                "image" : "lib/t_map/plateImage/tundra.png"
+            },
+            {
+                "axis" : {"x": 140,"y": 80},
+                "image" : "lib/t_map/plateImage/water.png"
+            }
+        ]
+]

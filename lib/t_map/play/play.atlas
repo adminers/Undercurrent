@@ -1,0 +1,34 @@
+
+caiBef.png
+size: 844, 898
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+idle
+  rotate: false
+  xy: 0, 0
+  size: 289, 461
+  orig: 289, 461
+  offset: 0, 0
+  index: -1
+idle
+  rotate: false
+  xy: 570, 0
+  size: 289, 461
+  orig: 289, 461
+  offset: 0, 0
+  index: -1
+idle
+  rotate: false
+  xy: 289, 461
+  size: 289, 461
+  orig: 289, 461
+  offset: 0, 0
+  index: -1
+idle
+  rotate: false
+  xy: 289, 461
+  size: 289, 461
+  orig: 289, 461
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,8 @@
+{
+  "com.badlogic.gdx.graphics.g2d.TextureRegion": {
+    "imageKey": {"file": "card.png"}
+  },
+  "com.badlogic.gdx.scenes.scene2d.utils.Drawable": {
+    "background": {"region": "imageKey"}
+  }
+}
