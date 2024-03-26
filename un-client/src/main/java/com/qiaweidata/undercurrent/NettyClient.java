@@ -1,8 +1,12 @@
 package com.qiaweidata.undercurrent;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
  
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -78,17 +82,49 @@ public class NettyClient {
                 } else {
                     channel = channelFuture.channel();
                     System.out.println("connected");
+
+//                    uploadFile("E:\\sd-webui-aki\\sd-webui-aki-v4\\outputs\\extras-images\\00005.png");
                 }
             }
         });
     }
- 
+
+    public void uploadFile(String filePath) {
+
+        File file = new File(filePath);
+        if (!file.exists() || !file.isFile()) {
+            System.err.println("File does not exist or is not a regular file: " + filePath);
+            return;
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            byte[] fileBytes = new byte[(int) file.length()];
+            fis.read(fileBytes);
+
+            ByteBuf buf = channel.alloc().buffer();
+            buf.writeBytes(fileBytes);
+            channel.writeAndFlush(buf);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public Channel getChannel() {
         return channel;
     }
  
     public static void main(String[] args) {
-        NettyClient nettyClient = new NettyClient("127.0.0.1", 6666);
+        NettyClient nettyClient = new NettyClient("127.0.0.1", 6667);
         nettyClient.start();
     }
 }
