@@ -33,4 +33,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.6" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-annotations:1.5.22" level="project" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="1d389b2b-f7bc-494a-a53e-6011fefe5524" />
+  </component>
 </module>
