@@ -1,0 +1,26 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: dbtool
+  boot:
+    admin:
+      client:
+        instance:
+          name: admin-client
+          prefer-ip: true
+          service-url: http://127.0.0.1:8080
+        url: http://127.0.0.1:9090
+  jmx:
+    enabled: true
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
