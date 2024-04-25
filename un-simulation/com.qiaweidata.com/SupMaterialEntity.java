@@ -1,4 +1,4 @@
-package cn.afterturn.easypoi.test.entity.onettomany;
+package cn.afterturn.easypoi.test.entity.onettomany.hasname;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class SupMaterialEntity
     /**
      * 需求数据项
      */
-    @ExcelCollection(name = "")
+    @ExcelCollection(name = "需求数据项")
     private List<DataitemEntity> dataitemList = Lists.newArrayList();
     
     public List<DataitemEntity> getDataitemList()
