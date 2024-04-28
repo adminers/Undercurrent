@@ -1,20 +1,60 @@
-version: '3'
+version: '3.8'
+networks:
+  default:
+    name: devops
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.88.88.0/24
 services:
-  tomcat_war:
-    image: registry.cn-shanghai.aliyuncs.com/00fly/dbtool_simple
-    container_name: dbtool
+  springboot-cache:
+    image: 00fly/springboot-cache:0.0.1
+    container_name: springboot-cache
     deploy:
       resources:
         limits:
-          cpus: '1'
-          memory: 300M
+          cpus: '0.80'
+          memory: 400M
         reservations:
+          cpus: '0.05'
           memory: 200M
+    volumes:
+    - ./upload:/upload/
     ports:
-      - 18080:8080
+    - 8080:8080
+    environment:
+      welcome.msg: Lost years are worse than lost dollars.
+      SPRING_REDIS_HOST: 172.88.88.12
+      SPRING_REDIS_PASSWORD: 00fly123
+      SPRING_REDIS_PORT: 6379
     restart: on-failure
     logging:
-      driver: 'json-file'
+      driver: json-file
       options:
-        max-size: '5m'
+        max-size: 5m
         max-file: '1'
+    entrypoint: sh wait-for.sh 172.88.88.12:6379 -- java -jar /root/app.war
+    networks:
+      default:
+        ipv4_address: 172.88.88.11
+  redis:
+    image: redis:alpine
+    container_name: redis-server
+    command: redis-server --requirepass 00fly123
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 10M
+        reservations:
+          cpus: '0.05'
+          memory: 10M
+    restart: on-failure
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: '1'
+    networks:
+      default:
+        ipv4_address: 172.88.88.12
