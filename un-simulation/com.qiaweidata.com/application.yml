@@ -1,3 +1,28 @@
 server:
-  port: 8080
-  contextPath: /
+   context-path: /
+   port: 8082
+
+   #随机端口
+   #port: 0   
+   #port=${random.int[80,8080]}
+   session-timeout: 60
+#启用缓存、邮箱配置
+spring:
+   cache:
+      type: simple
+   mail:
+      default-encoding: UTF-8
+      host: smtp.qq.com
+      password: ${mail.pwd:unknown}
+      sender: kalin001@qq.com
+      username: kalin001@qq.com
+      properties:
+         mail:
+            smtp:
+               auth: true
+               socketFactory:
+                  class: javax.net.ssl.SSLSocketFactory
+                  port: 465
+               starttls:
+                  enable: true
+                  required: true
