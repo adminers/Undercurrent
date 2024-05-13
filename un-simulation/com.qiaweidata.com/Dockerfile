@@ -1,7 +1,14 @@
 #基础镜像
-FROM hello-world:latest
+FROM openjdk:8-jre-alpine
 
-#设置字符集
-ENV LANG en_US.UTF-8
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
-COPY target/*.war /app.war
+#拷贝发布包
+COPY target/*.jar  /app.jar
+
+EXPOSE 8080
+
+CMD ["--server.port=8080"]
+
+#启动脚本
+ENTRYPOINT ["java","-Xmx128m","-Xms128m","-jar","/app.jar"]
