@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose down && docker-compose up -d git-simple && docker logs -f git-simple
+docker-compose down && docker-compose up -d hello-simple && docker stats
