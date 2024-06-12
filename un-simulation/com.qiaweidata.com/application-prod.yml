@@ -1,0 +1,6 @@
+server:
+  port: 443
+  servlet:
+    context-path: /
+    session:
+      timeout: 1800
