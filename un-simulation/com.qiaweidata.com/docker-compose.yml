@@ -1,60 +1,46 @@
-version: '3.8'
-networks:
-  default:
-    name: devops
-    driver: bridge
-    ipam:
-      config:
-      - subnet: 172.88.88.0/24
+version: '3'
 services:
-  springboot-cache:
-    image: 00fly/springboot-cache:0.0.1
-    container_name: springboot-cache
+  git-web:
+    image: registry.cn-shanghai.aliyuncs.com/00fly/springboot-git:1.0.0
+    container_name: git-web
     deploy:
       resources:
         limits:
-          cpus: '0.80'
-          memory: 400M
+          cpus: '2'
+          memory: 300M
         reservations:
           cpus: '0.05'
           memory: 200M
-    volumes:
-    - ./upload:/upload/
     ports:
     - 8080:8080
     environment:
-      welcome.msg: Lost years are worse than lost dollars.
-      SPRING_REDIS_HOST: 172.88.88.12
-      SPRING_REDIS_PASSWORD: 00fly123
-      SPRING_REDIS_PORT: 6379
+    - white.list=127.0.0.1,101.224.211.68
     restart: on-failure
+    volumes:
+    - ./data/:/root/data/
     logging:
       driver: json-file
       options:
         max-size: 5m
         max-file: '1'
-    entrypoint: sh wait-for.sh 172.88.88.12:6379 -- java -jar /root/app.war
-    networks:
-      default:
-        ipv4_address: 172.88.88.11
-  redis:
-    image: redis:alpine
-    container_name: redis-server
-    command: redis-server --requirepass 00fly123
+
+  git-simple:
+    image: registry.cn-shanghai.aliyuncs.com/00fly/springboot-git:1.0.0
+    container_name: git-simple
+    entrypoint: java -jar app.jar --noWeb
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 10M
+          cpus: '2'
+          memory: 200M
         reservations:
           cpus: '0.05'
-          memory: 10M
+          memory: 150M
     restart: on-failure
+    volumes:
+    - ./data/:/root/data/
     logging:
       driver: json-file
       options:
         max-size: 5m
         max-file: '1'
-    networks:
-      default:
-        ipv4_address: 172.88.88.12
