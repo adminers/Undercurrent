@@ -1,15 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
-	<Appenders>
-		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout
-				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-		</Console>
-	</Appenders>
-	<Loggers>
-		<Logger name="org.springframework" level="INFO" />
-		<Root level="INFO">
+<!-- 该xml配置中,xml元素大小写不敏感 -->
+<!-- status="off",log4j2把自身事件记录到控制台的配置，off表示不记录，日志级别以及优先级排序: off > fatal > error > warn > info > debug > trace > all -->
+<!-- monitorInterval表示检测更改配置的时间,单位是秒,最小间隔为5秒,0或负数表示不检测 -->
+<configuration status="off" monitorInterval="0">
+	<!-- 常量引用 -->
+	<properties>
+		<property name="LOG_HOME">../logs</property>
+		<property name="PROJECT">springboot-cache</property>
+		<property name="FORMAT">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</property>
+	</properties>
+
+	<!-- appender用于接收各种日志 -->
+	<appenders>
+		<!-- 常见的输出到console,常用于开发环境中,默认是system_err,还有一个system_out -->
+		<console name="Console" target="system_out">
+			<!-- appender级别的日志过滤 -->
+			<!-- <thresholdFilter level="info" onMatch="accept" onMismatch="deny"/> -->
+			<patternLayout pattern="${FORMAT}" />
+		</console>
+
+		<RollingRandomAccessFile name="RollingFileInfo" fileName="${LOG_HOME}/${PROJECT}/info.log" filePattern="${LOG_HOME}/${PROJECT}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz">
+			<Filters>
+				<ThresholdFilter level="error" onMatch="deny" onMismatch="neutral" />
+				<ThresholdFilter level="warn" onMatch="deny" onMismatch="neutral" />
+				<ThresholdFilter level="info" onMatch="accept" onMismatch="deny" />
+			</Filters>
+			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
+				<SizeBasedTriggeringPolicy size="20 MB" />
+			</Policies>
+
+			<!-- DefaultRolloverStrategy不设置的话，max默认值为7，删除符合条件7天之前的日志 -->
+			<DefaultRolloverStrategy max="20">
+				<Delete basePath="${LOG_HOME}/${PROJECT}/" maxDepth="2">
+					<IfFileName glob="*/info-*.log.gz" />
+					<IfLastModified age="60d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="RollingFileWarn" fileName="${LOG_HOME}/${PROJECT}/warn.log" filePattern="${LOG_HOME}/${PROJECT}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz">
+			<Filters>
+				<ThresholdFilter level="error" onMatch="deny" onMismatch="neutral" />
+				<ThresholdFilter level="warn" onMatch="accept" onMismatch="deny" />
+			</Filters>
+			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
+				<SizeBasedTriggeringPolicy size="20 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20">
+				<Delete basePath="${LOG_HOME}/${PROJECT}/" maxDepth="2">
+					<IfFileName glob="*/warn-*.log.gz" />
+					<IfLastModified age="60d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="RollingFileError" fileName="${LOG_HOME}/${PROJECT}/error.log" filePattern="${LOG_HOME}/${PROJECT}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
+			<ThresholdFilter level="error" onMatch="accept" onMismatch="deny" />
+			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
+				<SizeBasedTriggeringPolicy size="20 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20">
+				<Delete basePath="${LOG_HOME}/${PROJECT}/" maxDepth="2">
+					<IfFileName glob="*/error-*.log.gz" />
+					<IfLastModified age="60d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+	</appenders>
+
+	<!-- 接收appender -->
+	<loggers>
+
+		<!--过滤掉spring和mybatis的一些无用的debug信息 -->
+		<logger name="org.springframework" level="info" />
+		<logger name="org.mybatis" level="info" />
+
+		<!-- 自定义 logger 对象 includeLocation="false" 关闭日志记录的行号信息，开启的话会严重影响异步输出的性能 additivity="false" 不再继承 rootlogger对象 -->
+		<AsyncLogger name="com.fly.common" level="info" includeLocation="false" additivity="false">
 			<AppenderRef ref="Console" />
-		</Root>
-	</Loggers>
-</Configuration>
+			<AppenderRef ref="RollingFileInfo" />
+			<AppenderRef ref="RollingFileWarn" />
+			<AppenderRef ref="RollingFileError" />
+		</AsyncLogger>
+
+		<AsyncLogger name="com.fly.service" level="info" includeLocation="true" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFileInfo" />
+			<AppenderRef ref="RollingFileWarn" />
+			<AppenderRef ref="RollingFileError" />
+		</AsyncLogger>
+
+		<!-- root logger,一般用于放置所有的appender -->
+		<root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFileInfo" />
+			<AppenderRef ref="RollingFileWarn" />
+			<AppenderRef ref="RollingFileError" />
+		</root>
+	</loggers>
+
+	<!-- 最终实现：混合异步打印日志，日志文件中，只打印本级别日志，控制台打印全部日志， -->
+</configuration>
