@@ -1,46 +1,21 @@
 version: '3'
 services:
-  git-web:
-    image: registry.cn-shanghai.aliyuncs.com/00fly/springboot-git:1.0.0
-    container_name: git-web
+  tomcat_war:
+    image: registry.cn-shanghai.aliyuncs.com/00fly/docker-run:latest
+    container_name: docker-run
     deploy:
       resources:
         limits:
-          cpus: '2'
-          memory: 300M
+          cpus: '1'
+          memory: 100M
         reservations:
           cpus: '0.05'
-          memory: 200M
+          memory: 20M
     ports:
-    - 8080:8080
-    environment:
-    - white.list=127.0.0.1,101.224.211.68
+    - 18080:8080
     restart: on-failure
-    volumes:
-    - ./data/:/root/data/
     logging:
       driver: json-file
       options:
+        max-file: 1
         max-size: 5m
-        max-file: '1'
-
-  git-simple:
-    image: registry.cn-shanghai.aliyuncs.com/00fly/springboot-git:1.0.0
-    container_name: git-simple
-    entrypoint: java -jar app.jar --noWeb
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 200M
-        reservations:
-          cpus: '0.05'
-          memory: 150M
-    restart: on-failure
-    volumes:
-    - ./data/:/root/data/
-    logging:
-      driver: json-file
-      options:
-        max-size: 5m
-        max-file: '1'
