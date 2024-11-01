@@ -1,33 +1,54 @@
 package com.fly;
 
-import javax.swing.SwingUtilities;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
-import org.apache.commons.lang3.RandomUtils;
+import lombok.extern.slf4j.Slf4j;
 
-import com.fly.ui.QrCodeUI;
-import com.fly.ui.SimpleQrCodeUI;
-
-/**
- * 
- * MainRun
- * 
- * @author 00fly
- * @version [版本号, 2023年3月5日]
- * @see [相关类/方法]
- * @since [产品/模块版本]
- */
+@Slf4j
 public class MainRun
 {
+    private static RestTemplate restTemplate;
+    
+    static
+    {
+        /*** Java HttpURLConnection (默认RestTemplate采用，不支持HTTP2) ***/
+        // 使用默认客户端构造RestTemplate,写法1
+        restTemplate = new RestTemplate();
+        
+        // 使用默认客户端构造RestTemplate,写法2
+        restTemplate = new RestTemplate(new SimpleClientHttpRequestFactory());
+        
+        // 使用默认客户端构造RestTemplate,写法3
+        restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new SimpleClientHttpRequestFactory());
+        
+        // 使用默认客户端构造RestTemplate, 配置proxy，connectTimeout，readTimeout等参数
+        SimpleClientHttpRequestFactory clientHttpRquestFactory = new SimpleClientHttpRequestFactory();
+        clientHttpRquestFactory.setConnectTimeout(1000);
+        clientHttpRquestFactory.setReadTimeout(1000);
+        restTemplate = new RestTemplate(clientHttpRquestFactory);
+    }
+    
     public static void main(String[] args)
     {
-        // 随机运行
-        boolean input = RandomUtils.nextBoolean();
-        if (input)
-        {
-            SwingUtilities.invokeLater(() -> new QrCodeUI());
-            return;
-        }
-        SwingUtilities.invokeLater(() -> new SimpleQrCodeUI());
-        
+        String url = "http://www.so.com/";
+        String responseBody = restTemplate.getForObject(url, String.class);
+        log.info("responseBody={}", responseBody);
+        new MainRun().test();
     }
+    
+    public void test()
+    {
+        GenericXmlApplicationContext context = new GenericXmlApplicationContext();
+        context.setValidating(false);
+        context.load("classpath:applicationContext.xml");
+        context.refresh();
+        String url = "http://www.so.com/";
+        String responseBody = context.getBean(RestTemplate.class).getForObject(url, String.class);
+        log.info("responseBody={}", responseBody);
+        context.close();
+    }
+    
 }
