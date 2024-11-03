@@ -1,30 +1,52 @@
-# PatchCreate
-为了方便根据svn提交日志分析文件目录自动拷贝出修改文件，自己动手使用swing 编写了该工具。
+EasyPoi Office的超简单工具类
+===========================
 
- 具体使用方法请参考工具内帮助菜单。
+ easypoi功能如同名字easy,主打的功能就是容易,让一个没见接触过poi的人员
+就可以方便的写出Excel导出,Excel模板导出,Excel导入,Word模板导出,通过简单的注解和模板
+语言(熟悉的表达式语法),完成以前复杂的写法
 
-        1.   支持 web工程目录名为 WebRoot 或 WebContent 补丁创建 
-
-         2.   支持class 、jsp、图片、css、html、jar等补丁文件创建。
-
-         3.   支持带内部类 、嵌套类补丁文件创建。
-
-![输入图片说明](https://gitee.com/uploads/images/2018/0202/225113_c182a911_722815.jpeg "15bd5738-b19d-378c-ab68-62e9f878cb53.jpg")
-
-
-![输入图片说明](https://gitee.com/uploads/images/2018/0202/225128_7569339a_722815.jpeg "91afcff1-cb37-3f8c-ac8e-068713dfd89e.jpg")
-
-
-![输入图片说明](https://gitee.com/uploads/images/2018/0202/225141_3bf51a5e_722815.jpeg "907aa4a7-6bb4-302e-b97a-7b1b5bf9b38d.jpg")
+	作者博客：https://blog.csdn.net/qjueyue
+	作者邮箱：xue315998@qq.com
+	QQ群:   1群 364192721(满) 2 群116844390
+	
+	开发者:魔幻之翼 xf.key@163.com
 
 
 
-![输入图片说明](https://gitee.com/uploads/images/2018/0202/225147_c485b401_722815.jpeg "ca9d9b1e-9a64-31cb-b0dc-22b198aa183b.jpg")
+## cn.afterturn：企业专用easypoi
+
+cn.afterturn：easypoi与Tidelift合作，为您用于构建应用程序的开源依赖项提供商业支持和维护。节省时间，降低风险并改善代码运行状况，同时向维护人员支付所使用的确切依赖项。[了解更多。]（https://tidelift.com/subscription/pkg/maven-cn-afterturn-easypoi?utm_source=maven-cn-afterturn-easypoi&utm_medium=referral&utm_campaign=readme）
 
 
-![输入图片说明](https://gitee.com/uploads/images/2018/0202/225154_f680f8b4_722815.jpeg "fa938577-6a3c-3046-89f8-1b50b5cc1cac.jpg")
+**开发指南**
 
+**[https://opensource.afterturn.cn/](https://opensource.afterturn.cn/)**
 
-![输入图片说明](https://gitee.com/uploads/images/2018/0202/225135_765c0e2f_722815.jpeg "832cf6ab-21bc-343a-8443-223d6a6746b6.jpg")
+运行 Application 访问界面,几场最常用的代码
 
-欢迎点击链接加入技术讨论群【Java 爱码少年】：https://jq.qq.com/?_wv=1027&k=4AuWuZu
+提供基础的测试案例,demo代码
+
+为了保证测试的可运行行,可能会创建大量对象,请大家谅解
+
+目录介绍
+
+- tohtml html预览测试
+- view 导出的view测试
+
+- cache 自定义缓存测试
+- html html互转测试
+ - test
+    - excel
+       - read 读取Excel测试
+          - check 导入检查测试
+          - hanlder 导入数据处理
+          - img 含图片导入测试
+    - styler 导出样式自定义测试
+    - template 模板导出测试
+        - sum 导出含统计测试
+    - test 导出测试
+        - groupname groupname 属性测试
+        - img 导出图片测试
+- pdf pdf测试
+- word word导出测试
+- util util 内部测试
