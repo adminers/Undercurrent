@@ -1,6 +1,2 @@
-server:
-  port: 443
-  servlet:
-    context-path: /
-    session:
-      timeout: 1800
+welcome:
+  message: Hello 00fly in application-prod.yml
