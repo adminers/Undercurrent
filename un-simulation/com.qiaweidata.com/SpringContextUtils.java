@@ -23,9 +23,6 @@ public class SpringContextUtils implements ApplicationContextAware
 {
     private static ApplicationContext applicationContext;
     
-    /**
-     * web服务器基准URL
-     */
     private static String SERVER_BASE_URL = null;
     
     @Override
@@ -82,10 +79,10 @@ public class SpringContextUtils implements ApplicationContextAware
     public static String getServerBaseURL()
         throws UnknownHostException
     {
+        ServletContext servletContext = getBean(ServletContext.class);
+        Assert.notNull(servletContext, "servletContext is null");
         if (SERVER_BASE_URL == null)
         {
-            ServletContext servletContext = getBean(ServletContext.class);
-            Assert.notNull(servletContext, "servletContext is null");
             String ip = InetAddress.getLocalHost().getHostAddress();
             SERVER_BASE_URL = "http://" + ip + ":" + getProperty("server.port") + servletContext.getContextPath();
         }
