@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off" monitorInterval="30">
+	<Appenders>
+		<Console name="Console" target="system_out">
+			<PatternLayout pattern="%d{MM-dd HH:mm:ss.SSS} [%t] [%X{id}] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<JDBC name="databaseAppender" tableName="boot_log">
+			<ConnectionFactory class="com.fly.log.core.LogPoolManager" method="getConnection" />
+			<Column name="event_id" pattern="%X{id}" />
+			<Column name="event_date" isEventTimestamp="true" />
+			<Column name="thread" pattern="%t %x" />
+			<Column name="class" pattern="%C" />
+			<Column name="function" pattern="%M" />
+			<Column name="message" pattern="%m" />
+			<Column name="level" pattern="%level" />
+			<Column name="time" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}" />
+		</JDBC>
+		<NoSql name="MongoDB" bufferSize="16">
+			<MongoDb3 databaseName="test" collectionName="logs" server="127.0.0.1" />
+		</NoSql>
+	</Appenders>
+	<Loggers>
+
+		<!-- 定制包级别日志 -->
+		<!-- 自定义 logger 对象 includeLocation="false" 关闭日志记录的行号信息，开启的话会严重影响异步输出的性能 additivity="false" 不再继承 rootlogger对象 -->
+		<AsyncLogger name="com.fly.log.job" level="info" includeLocation="true" additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="databaseAppender" />
+			<appender-ref ref="MongoDB" />
+		</AsyncLogger>
+		<Root level="info">
+			<appender-ref ref="Console" />
+			<appender-ref ref="MongoDB" />
+		</Root>
+	</Loggers>
+</Configuration>
