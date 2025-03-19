@@ -1,10 +1,9 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
+ * Copyright 2012-2018 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -14,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package websocket.snake;
+
+package samples.websocket.tomcat.snake;
 
 public class Location
 {
     
+    /**
+     * The X location.
+     */
     public int x;
     
+    /**
+     * The Y location.
+     */
     public int y;
     
     public Location(int x, int y)
@@ -34,13 +40,13 @@ public class Location
         switch (direction)
         {
             case NORTH:
-                return new Location(x, y - SnakeAnnotation.GRID_SIZE);
+                return new Location(this.x, this.y - SnakeUtils.GRID_SIZE);
             case SOUTH:
-                return new Location(x, y + SnakeAnnotation.GRID_SIZE);
+                return new Location(this.x, this.y + SnakeUtils.GRID_SIZE);
             case EAST:
-                return new Location(x + SnakeAnnotation.GRID_SIZE, y);
+                return new Location(this.x + SnakeUtils.GRID_SIZE, this.y);
             case WEST:
-                return new Location(x - SnakeAnnotation.GRID_SIZE, y);
+                return new Location(this.x - SnakeUtils.GRID_SIZE, this.y);
             case NONE:
                 // fall through
             default:
@@ -59,26 +65,24 @@ public class Location
         {
             return false;
         }
-        
         Location location = (Location)o;
-        
-        if (x != location.x)
+        if (this.x != location.x)
         {
             return false;
         }
-        if (y != location.y)
+        if (this.y != location.y)
         {
             return false;
         }
-        
         return true;
     }
     
     @Override
     public int hashCode()
     {
-        int result = x;
-        result = 31 * result + y;
+        int result = this.x;
+        result = 31 * result + this.y;
         return result;
     }
+    
 }
