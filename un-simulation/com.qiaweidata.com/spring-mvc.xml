@@ -1,25 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop 
-		http://www.springframework.org/schema/aop/spring-aop.xsd
-		http://www.springframework.org/schema/mvc 
-		http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/tx 
-		http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/context 
-		http://www.springframework.org/schema/context/spring-context.xsd">
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/mvc 
+					    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<!-- 注册@controller、@Configuration 注解的Bean -->
-	<context:component-scan base-package="com.fly.demo" use-default-filters="false">
+	<!-- 仅扫描controller类注解，不使用默认扫描方式(默认方式会扫描类上的全部注解) -->
+	<context:component-scan base-package="com.fly.**.controller" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!-- MessageConverter配置必须在 <mvc:annotation-driven /> 之前，否则将不会启效 -->
+	<!-- 设置消息返回格式，防止中文乱码 -->
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+				<value>text/plain;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json</value>
+				<value>application/xml</value>
+				<value>text/html</value>
+				<value>text/plain</value>
+				<value>text/xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置SpringMVC支持注解 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<ref bean="stringHttpMessageConverter" />
+			<ref bean="mappingJackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 使用文件上传下载功能需要注入 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 请求的编码格式，必须和 jsp 的 pageEncoding 属性一致，默认为ISO-8859-1 -->
+		<property name="defaultEncoding" value="utf-8" />
+
+		<!-- 1M为 1024 * 1024 = 1048576 byte -->
+		<property name="maxUploadSize" value="104857600" />
+	</bean>
+
+	<!-- 开启aop -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 静态资源处理 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
