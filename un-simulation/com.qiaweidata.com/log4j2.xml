@@ -1,68 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 该xml配置中,xml元素大小写不敏感 -->
-<!-- status="off",log4j2把自身事件记录到控制台的配置，off表示不记录，其余的记录有trace，debug，info，warn，error，fatal -->
-<!-- monitorInterval表示检测更改配置的时间,单位是秒,最小间隔为5秒,0或负数表示不检测 -->
 <configuration status="off" monitorInterval="0">
-
-	<!-- 常量引用 -->
-	<properties>
-		<property name="LOG_HOME">../logs</property>
-		<property name="PROJECT">http-client</property>
-		<property name="FORMAT">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</property>
-	</properties>
-
-	<!-- appender用于接收各种日志 -->
 	<appenders>
-		<!-- 常见的输出到console,常用于开发环境中,默认是system_err,还有一个system_out -->
 		<console name="Console" target="system_out">
-			<!-- appender级别的日志过滤 -->
-			<!-- <thresholdFilter level="info" onMatch="accept" onMismatch="deny"/> -->
-			<patternLayout pattern="${FORMAT}" />
+			<patternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</console>
-
-		<RollingRandomAccessFile name="RollingFileInfo" fileName="${LOG_HOME}/${PROJECT}/info.log" filePattern="${LOG_HOME}/${PROJECT}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
-			<ThresholdFilter level="info" onMatch="accept" onMismatch="deny" />
-			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
-			<Policies>
-				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
-				<SizeBasedTriggeringPolicy size="10 MB" />
-			</Policies>
-
-			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件 -->
-			<DefaultRolloverStrategy max="20" />
-		</RollingRandomAccessFile>
-
-		<RollingRandomAccessFile name="RollingFileWarn" fileName="${LOG_HOME}/${PROJECT}/warn.log" filePattern="${LOG_HOME}/${PROJECT}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
-			<ThresholdFilter level="warn" onMatch="accept" onMismatch="deny" />
-			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
-			<Policies>
-				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
-				<SizeBasedTriggeringPolicy size="10 MB" />
-			</Policies>
-		</RollingRandomAccessFile>
-
-		<RollingRandomAccessFile name="RollingFileError" fileName="${LOG_HOME}/${PROJECT}/error.log" filePattern="${LOG_HOME}/${PROJECT}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
-			<ThresholdFilter level="error" onMatch="accept" onMismatch="deny" />
-			<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n" />
-			<Policies>
-				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
-				<SizeBasedTriggeringPolicy size="10 MB" />
-			</Policies>
-		</RollingRandomAccessFile>
 	</appenders>
-
-	<!-- 接收appender -->
 	<loggers>
-		<!-- Spring -->
-		<logger name="org.springframework" level="INFO" />
-
-		<!-- root logger,一般用于放置所有的appender -->
 		<root level="INFO">
 			<appender-ref ref="Console" />
-			<appender-ref ref="RollingFileInfo" />
-			<appender-ref ref="RollingFileWarn" />
-			<appender-ref ref="RollingFileError" />
 		</root>
 	</loggers>
-
 </configuration>
