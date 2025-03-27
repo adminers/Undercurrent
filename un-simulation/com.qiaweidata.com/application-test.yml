@@ -1,2 +1,2 @@
-welcome:
-  message: Hello 00fly in application-test.yml
+knife4j:
+  enable: true
