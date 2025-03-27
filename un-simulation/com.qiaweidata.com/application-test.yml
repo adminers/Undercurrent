@@ -1,2 +1,15 @@
-knife4j:
-  enable: true
+welcome:
+  message: Hello 00fly in application-test.yml
+server:
+  port: 443
+  servlet:
+    context-path: /
+    session:
+      timeout: 1800
+  ssl:
+    key-store: classpath:data/ssl/test.00fly.online.pfx
+    key-store-password: xo1j8hlo
+    keyStoreType: PKCS12
+#    key-store: classpath:ssl/demo.00fly.online.pfx
+#    key-store-password: 6rl5jpth
+#    keyStoreType: PKCS12
