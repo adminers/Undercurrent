@@ -1,10 +1,12 @@
-package com.fly.schedule.simple.utils;
+package com.fly.simple;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Executor
 {
@@ -15,29 +17,32 @@ public class Executor
     public static final boolean IS_OS_WINDOWS = getOsMatchesName(OS_NAME_WINDOWS_PREFIX);
     
     /**
-     * 执行命令
+     * execute命令
      * 
      * @param command
      * @throws IOException
      * @see [类、类#方法、类#成员]
      */
-    public static void execute(String command)
+    public static List<String> execute(String[] command)
         throws IOException
     {
-        // 执行结果写入execute.log
-        File file = new File("execute.log");
-        try (FileWriter fileWritter = new FileWriter(file.getName(), true))
+        List<String> resultList = new ArrayList<>();
+        String[] cmd = IS_OS_WINDOWS ? new String[] {"cmd", "/c", command[0]} : new String[] {"/bin/sh", "-c", command[1]};
+        Process ps = Runtime.getRuntime().exec(cmd);
+        
+        System.out.print("\n ========>>>>> 即将执行命令：");
+        Stream.of(cmd).map(y -> y + " ").collect(Collectors.toList()).forEach(System.out::print);
+        System.out.println();
+        
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(ps.getInputStream(), "GBK")))
         {
-            String[] cmd = IS_OS_WINDOWS ? new String[] {"cmd", "/c", command} : new String[] {"/bin/sh", "-c", command};
-            Process ps = Runtime.getRuntime().exec(cmd);
-            BufferedReader br = new BufferedReader(new InputStreamReader(ps.getInputStream()));
             String line;
             while ((line = br.readLine()) != null)
             {
-                fileWritter.write(line);
-                fileWritter.write("\n");
+                resultList.add(line);
             }
         }
+        return resultList;
     }
     
     private static boolean getOsMatchesName(final String osNamePrefix)
