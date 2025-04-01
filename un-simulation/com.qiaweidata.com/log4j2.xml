@@ -2,8 +2,8 @@
 <Configuration status="off">
 	<!-- 日志文件目录和压缩文件 -->
 	<Properties>
-		<Property name="fileName">../logs/git</Property>
-		<Property name="fileGz">../logs/git/7z</Property>
+		<Property name="fileName">../logs/boot-schedule</Property>
+		<Property name="fileGz">../logs/boot-schedule/7z</Property>
 	</Properties>
 	<Appenders>
 		<!--这个输出控制台的配置 -->
@@ -15,11 +15,12 @@
 		</Console>
 
 		<!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
-		<RollingRandomAccessFile name="rollingInfoFile" fileName="${fileName}/info.log" immediateFlush="false" filePattern="${fileGz}/$${date:yyyy-MM}/app-%d{yyyy-MM-dd}-%i.info.gz">
-			<PatternLayout pattern="%d{HH:mm:ss:SSS} [%p] %logger{36}%M - %msg%xEx%n" />
+		<RollingRandomAccessFile name="rollingInfoFile" fileName="${fileName}/springboot-info.log" immediateFlush="false"
+			filePattern="${fileGz}/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.springboot-info.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} [%t] %-5level %logger{36} %L %M - %msg%xEx%n" />
 			<Policies>
-				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
-				<SizeBasedTriggeringPolicy size="10 MB" />
+				<TimeBasedTriggeringPolicy interval="6" modulate="true" />
+				<SizeBasedTriggeringPolicy size="50 MB" />
 			</Policies>
 			<Filters>
 				<!-- 只记录info级别信息 -->
@@ -27,16 +28,16 @@
 				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
 			</Filters>
 			<!-- 指定每天的最大压缩包个数，默认7个，超过了会覆盖之前的 -->
-			<DefaultRolloverStrategy max="10" />
+			<DefaultRolloverStrategy max="50" />
 		</RollingRandomAccessFile>
 
 
-		<RollingRandomAccessFile name="rollingErrorFile" fileName="${fileName}/error.log" immediateFlush="false"
-			filePattern="${fileGz}/$${date:yyyy-MM}/app-%d{yyyy-MM-dd}-%i.error.gz">
-			<PatternLayout pattern="%d{HH:mm:ss:SSS} [%p] %logger{36}%M - %msg%xEx%n" />
+		<RollingRandomAccessFile name="rollingErrorFile" fileName="${fileName}/springboot-error.log" immediateFlush="false"
+			filePattern="${fileGz}/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.springboot-error.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} [%t] %-5level %logger{36} %L %M - %msg%xEx%n" />
 			<Policies>
-				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
-				<SizeBasedTriggeringPolicy size="10 MB" />
+				<TimeBasedTriggeringPolicy interval="6" modulate="true" />
+				<SizeBasedTriggeringPolicy size="50 MB" />
 			</Policies>
 			<Filters>
 				<!-- 只记录error级别信息 -->
