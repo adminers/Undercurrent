@@ -160,6 +160,12 @@ public class FanyiV3Demo {
 
     }
 
+    /**
+     * 截断
+     *
+     * @param q
+     * @return
+     */
     public static String truncate(String q) {
         if (q == null) {
             return null;

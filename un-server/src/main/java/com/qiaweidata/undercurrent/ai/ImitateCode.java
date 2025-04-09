@@ -40,6 +40,9 @@ public class ImitateCode {
 
     private static final Logger log = LogManager.getLogger(ImitateCode.class);
 
+    /**
+     * 是否运行
+     */
     public static String IS_RUN = "1";
 
     public static AtomicInteger LINE_INDEX = new AtomicInteger(0);
