@@ -97,7 +97,7 @@ public class ImitateCode {
 
     public static void main(String[] args) throws UnsupportedEncodingException {
 
-        System.out.println(FanyiV3Demo.getEnglish("中国字"));
+//        System.out.println(FanyiV3Demo.getEnglish("中国字"));
 
         if (true) {
             return;
