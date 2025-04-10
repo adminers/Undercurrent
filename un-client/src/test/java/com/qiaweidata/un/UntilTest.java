@@ -1,12 +1,5 @@
 package com.qiaweidata.un;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.json.JSONUtil;
-import vip.xiaonuo.common.util.ExpressionEvaluator;
-import vip.xiaonuo.item.calculate.entity.ItemCalculateInfo;
-import vip.xiaonuo.item.calculate.pojo.ItemCalculateInfoPojo;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -29,18 +22,6 @@ public class UntilTest {
 
     public static void main(String[] args) {
 
-        List<ItemCalculateInfo> itemCalculateInfos = new ArrayList<>();
-        List<ItemCalculateInfoPojo> formulaInfos = BeanUtil.copyToList(itemCalculateInfos, ItemCalculateInfoPojo.class);
-        System.out.println(1);
-
-        double d = 10.0;
-        double f = 30.0;
-        System.out.println(d % f);
-        System.out.println("取余：" + (401 % 3));
-        System.out.println("取余：" + ExpressionEvaluator.evaluateExpression("401 % 3"));
-        if (true) {
-            return;
-        }
 
         Map<String, Object> root = new HashMap<>();
 
@@ -52,7 +33,7 @@ public class UntilTest {
                 "\t\"changdao\": [\"小道\", \"打稿\", \"批发\", \"批发\", \"打稿\", \"办法\"],\n" +
                 "\t\"age\": [\"三\", \"四\", \"五\", \"六\", \"七\", \"八\"]\n" +
                 "}";
-        Map<String, List<String>> datas = JSONUtil.toBean(data, Map.class);
+        Map<String, List<String>> datas = null;
         for (int i = 0; i < 5; i++) {
             String baseDataKey = "";
             String baseDataValue = "";
