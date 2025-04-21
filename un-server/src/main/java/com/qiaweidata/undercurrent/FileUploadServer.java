@@ -29,7 +29,7 @@ public class FileUploadServer {
                         protected void initChannel(Channel ch) throws Exception {
                             ch.pipeline().addLast(new ObjectEncoder());
                             ch.pipeline().addLast(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.weakCachingConcurrentResolver(null))); // 最大长度
-                            ch.pipeline().addLast(new FileUploadServerHandler());
+//                            ch.pipeline().addLast(new FileUploadServerHandler());
                         }
                     });
             ChannelFuture f = b.bind(port).sync();

@@ -173,4 +173,8 @@ public class FanyiV3Demo {
         int len = q.length();
         return len <= 20 ? q : (q.substring(0, 10) + len + q.substring(len - 10, len));
     }
+
+    public static String getEnglish(String data) {
+        return null;
+    }
 }
