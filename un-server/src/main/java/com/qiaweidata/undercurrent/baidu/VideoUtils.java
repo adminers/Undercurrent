@@ -14,8 +14,6 @@
 ///**
 // * @Title: VideoUtils
 // * @Description: VideoUtils
-// * @Company: www.wrenchdata.com
-// * @author: shenshilong
 // * @date: 2023-10-28
 // * @version: V1.0
 // */

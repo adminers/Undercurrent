@@ -6,8 +6,6 @@ import java.util.regex.Pattern;
 /**
  * @Title: CodegeexTest
  * @Description: CodegeexTest
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-04-08
  * @version: V1.0
  */

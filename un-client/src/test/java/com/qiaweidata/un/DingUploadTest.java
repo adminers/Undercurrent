@@ -21,8 +21,6 @@ import java.util.ResourceBundle;
  *
  * @Title: DingUploadTest
  * @Description: DingUploadTest
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-04-07
  * @version: V1.0
  */

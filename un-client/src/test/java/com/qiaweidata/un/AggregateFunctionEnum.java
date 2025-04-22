@@ -7,8 +7,6 @@ import lombok.Getter;
  *
  * @Title: AggregateFunctionEnum
  * @Description: AggregateFunctionEnum
- * @Company:www.wrenchdata.com
- * @author:shenshilong
  * @date: 2025-4-07
  * @version:V1.0
  */
@@ -29,5 +27,13 @@ public enum AggregateFunctionEnum {
 
     AggregateFunctionEnum(String value) {
         this.value = value;
+    }
+
+    public static void main(String[] args) {
+        String code = "/**\n * 卡牌背景\n *\n * @author shen\n */\npublic class Card { }";
+        String cleanedCode = code
+                // 启用DOTALL模式（(?s)），让 . 匹配包括换行符的所有字符
+                .replaceAll("(?s)/\\*\\*.*?\\*/", "");
+        System.out.println(cleanedCode.trim());
     }
 }

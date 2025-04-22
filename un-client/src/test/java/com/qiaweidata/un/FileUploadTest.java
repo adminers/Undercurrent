@@ -22,8 +22,6 @@ import org.apache.http.util.EntityUtils;
 /**
  * @Title: FileUploadTest
  * @Description: FileUploadTest
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-03-13
  * @version: V1.0
  */

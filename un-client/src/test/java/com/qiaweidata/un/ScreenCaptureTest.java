@@ -14,8 +14,6 @@ import javax.imageio.ImageIO;
 /**
  * @Title: ScreenCaptureTest
  * @Description: ScreenCaptureTest
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-03-14
  * @version: V1.0
  */

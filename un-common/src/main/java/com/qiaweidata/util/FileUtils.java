@@ -16,8 +16,6 @@ import java.io.IOException;
 /**
  * @Title: FileUtils
  * @Description: FileUtils
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-10-25
  * @version: V1.0
  */

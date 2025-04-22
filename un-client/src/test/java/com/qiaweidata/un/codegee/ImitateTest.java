@@ -9,8 +9,6 @@ import java.util.HashMap;
 /**
  * @Title: ImitateTest
  * @Description: ImitateTest
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-04-13
  * @version: V1.0
  */

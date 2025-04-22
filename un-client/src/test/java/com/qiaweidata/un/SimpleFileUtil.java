@@ -7,8 +7,6 @@ import java.util.List;
 /**
  * @Title: SimpleFileUtil
  * @Description: SimpleFileUtil
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-04-14
  * @version: V1.0
  */

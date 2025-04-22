@@ -20,8 +20,6 @@ import java.time.format.DateTimeFormatter;
 /**
  * @Title: FileController
  * @Description: FileController
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-09-12
  * @version: V1.0
  */

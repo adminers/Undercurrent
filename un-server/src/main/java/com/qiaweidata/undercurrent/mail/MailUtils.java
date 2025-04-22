@@ -12,8 +12,6 @@ import java.util.List;
 /**
  * @Title: MailUtils
  * @Description: MailUtils
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-05-08
  * @version: V1.0
  */

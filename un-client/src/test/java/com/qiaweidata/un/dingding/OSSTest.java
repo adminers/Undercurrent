@@ -88,8 +88,6 @@ import static com.qiaweidata.un.DingUploadTest.token;
  *
  * @Title: OSSTest
  * @Description: OSSTest
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-04-10
  * @version: V1.0
  */

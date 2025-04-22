@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 /**
  * @Title: AutoMouseEvent
  * @Description: AutoMouseEvent
- * @Company: www.wrenchdata.com
- * @author: shenshilong
  * @date: 2023-11-23
  * @version: V1.0
  */
