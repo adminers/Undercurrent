@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 public class SoftwareCode {
 
     public static void main(String[] args) {
-        String directoryPath = "C:\\Users\\Administrator\\Downloads\\软著整理\\天命船说"; // 替换为你的文件夹路径
+        String directoryPath = "C:\\Users\\Administrator\\Downloads\\scx-master"; // 替换为你的文件夹路径
         String outputFilePath = "合并后的文件.java"; // 输出文件的路径
         try {
             // 创建输出文件
