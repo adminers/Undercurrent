@@ -1,0 +1,335 @@
+
+assets.png
+size: 1024, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+bullet
+  rotate: false
+  xy: 1014, 494
+  size: 8, 10
+  orig: 8, 10
+  offset: 0, 0
+  index: -1
+bullet_blue
+  rotate: false
+  xy: 860, 348
+  size: 4, 8
+  orig: 4, 8
+  offset: 0, 0
+  index: -1
+cursor
+  rotate: false
+  xy: 810, 106
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+effect
+  rotate: false
+  xy: 810, 358
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+enemy_moth
+  rotate: false
+  xy: 712, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+enemy_orb
+  rotate: false
+  xy: 810, 124
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+enemy_spider
+  rotate: false
+  xy: 746, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+explosion
+  rotate: false
+  xy: 410, 52
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+explosion
+  rotate: false
+  xy: 810, 308
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 6
+explosion
+  rotate: false
+  xy: 876, 374
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+explosion
+  rotate: false
+  xy: 460, 52
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 8
+explosion
+  rotate: false
+  xy: 810, 258
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+explosion
+  rotate: false
+  xy: 926, 374
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+explosion
+  rotate: false
+  xy: 510, 52
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+explosion
+  rotate: false
+  xy: 810, 208
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 7
+explosion
+  rotate: false
+  xy: 560, 52
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+explosion
+  rotate: false
+  xy: 810, 158
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 9
+head
+  rotate: false
+  xy: 608, 304
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+laser_head
+  rotate: false
+  xy: 2, 20
+  size: 202, 80
+  orig: 202, 80
+  offset: 0, 0
+  index: -1
+laser_left
+  rotate: false
+  xy: 810, 424
+  size: 202, 80
+  orig: 202, 80
+  offset: 0, 0
+  index: -1
+laser_right
+  rotate: false
+  xy: 206, 20
+  size: 202, 80
+  orig: 202, 80
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: false
+  xy: 204, 102
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+powerups
+  rotate: false
+  xy: 716, 42
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 2
+powerups
+  rotate: false
+  xy: 742, 42
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 1
+powerups
+  rotate: false
+  xy: 768, 42
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 3
+powerups
+  rotate: false
+  xy: 794, 42
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: 0
+right_hand
+  rotate: false
+  xy: 406, 102
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+ship
+  rotate: false
+  xy: 682, 35
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+ship_sketch
+  rotate: false
+  xy: 478, 19
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+tentacles
+  rotate: false
+  xy: 2, 304
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 4
+tentacles
+  rotate: false
+  xy: 2, 102
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 1
+tentacles
+  rotate: false
+  xy: 204, 304
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 3
+tentacles
+  rotate: false
+  xy: 406, 304
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 0
+tentacles
+  rotate: false
+  xy: 608, 102
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: 2
+thrusters
+  rotate: false
+  xy: 976, 390
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 8
+thrusters
+  rotate: false
+  xy: 610, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+thrusters
+  rotate: false
+  xy: 644, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+thrusters
+  rotate: false
+  xy: 678, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+thrusters
+  rotate: false
+  xy: 512, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+thrusters
+  rotate: false
+  xy: 546, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+thrusters
+  rotate: false
+  xy: 780, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 9
+thrusters
+  rotate: false
+  xy: 580, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+thrusters
+  rotate: false
+  xy: 614, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+thrusters
+  rotate: false
+  xy: 648, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+warning
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+wing
+  rotate: false
+  xy: 444, 19
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
+wing_sketch
+  rotate: false
+  xy: 410, 19
+  size: 32, 31
+  orig: 32, 31
+  offset: 0, 0
+  index: -1
