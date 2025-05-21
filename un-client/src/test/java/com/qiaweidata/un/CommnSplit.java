@@ -16,5 +16,6 @@ public class CommnSplit {
 
         List<String> arr = Arrays.asList("a");
         System.out.println(String.join( " and ", arr));
+
     }
 }
