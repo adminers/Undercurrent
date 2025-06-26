@@ -3,6 +3,14 @@ package com.qiaweidata.util;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+/**
+ * @Title:
+ * @Description:
+ * @Company:www.qiaweidata.com
+ * @author:shenshilong
+ * @date:
+ * @version:V1.0
+ */
 public class Cuttle {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
