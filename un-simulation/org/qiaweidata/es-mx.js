@@ -1,1 +1,1 @@
-﻿CKEDITOR.plugins.setLang("bidi","es-mx",{ltr:"Dirección del texto de izquierda a derecha",rtl:"Dirección del texto de derecha a izquierda"});
+﻿CKEDITOR.plugins.setLang("colordialog","es-mx",{clear:"Borrar",highlight:"Realce",options:"Opciones de color",selected:"Color seleccionado",title:"Selecciona un color"});
