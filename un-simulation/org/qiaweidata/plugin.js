@@ -1,6 +1,152 @@
 ﻿/*
- Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-(function(){CKEDITOR.plugins.add("embed",{icons:"embed",hidpi:!0,requires:"embedbase",init:function(b){var c=CKEDITOR.plugins.embedBase.createWidgetBaseDefinition(b);b.config.embed_provider||CKEDITOR.error("embed-no-provider-url");CKEDITOR.tools.extend(c,{dialog:"embedBase",button:b.lang.embedbase.button,allowedContent:"div[!data-oembed-url]",requiredContent:"div[data-oembed-url]",providerUrl:new CKEDITOR.template(b.config.embed_provider||""),styleToAllowedContentRules:function(a){return{div:{propertiesOnly:!0,
-classes:a.getClassesArray(),attributes:"!data-oembed-url"}}},upcast:function(a,b){if("div"==a.name&&a.attributes["data-oembed-url"])return b.url=a.attributes["data-oembed-url"],!0},downcast:function(a){a.attributes["data-oembed-url"]=this.data.url}},!0);b.widgets.add("embed",c);b.filter.addElementCallback(function(a){if("data-oembed-url"in a.attributes)return CKEDITOR.FILTER_SKIP_TREE})}})})();
+
+/**
+ * @fileOverview Defines the {@link CKEDITOR.ajax} object, which holds ajax methods for
+ *		data loading.
+ */
+
+(function()
+{
+	CKEDITOR.plugins.add( 'ajax',
+		{
+			requires : [ 'xml' ]
+		});
+
+	/**
+	 * Ajax methods for data loading.
+	 * @namespace
+	 * @example
+	 */
+	CKEDITOR.ajax = (function()
+	{
+		var createXMLHttpRequest = function()
+		{
+			// In IE, using the native XMLHttpRequest for local files may throw
+			// "Access is Denied" errors.
+			if ( !CKEDITOR.env.ie || location.protocol != 'file:' )
+				try { return new XMLHttpRequest(); } catch(e) {}
+
+			try { return new ActiveXObject( 'Msxml2.XMLHTTP' ); } catch (e) {}
+			try { return new ActiveXObject( 'Microsoft.XMLHTTP' ); } catch (e) {}
+
+			return null;
+		};
+
+		var checkStatus = function( xhr )
+		{
+			// HTTP Status Codes:
+			//	 2xx : Success
+			//	 304 : Not Modified
+			//	   0 : Returned when running locally (file://)
+			//	1223 : IE may change 204 to 1223 (see http://dev.jquery.com/ticket/1450)
+
+			return ( xhr.readyState == 4 &&
+					(	( xhr.status >= 200 && xhr.status < 300 ) ||
+						xhr.status == 304 ||
+						xhr.status === 0 ||
+						xhr.status == 1223 ) );
+		};
+
+		var getResponseText = function( xhr )
+		{
+			if ( checkStatus( xhr ) )
+				return xhr.responseText;
+			return null;
+		};
+
+		var getResponseXml = function( xhr )
+		{
+			if ( checkStatus( xhr ) )
+			{
+				var xml = xhr.responseXML;
+				return new CKEDITOR.xml( xml && xml.firstChild ? xml : xhr.responseText );
+			}
+			return null;
+		};
+
+		var load = function( url, callback, getResponseFn )
+		{
+			var async = !!callback;
+
+			var xhr = createXMLHttpRequest();
+
+			if ( !xhr )
+				return null;
+
+			xhr.open( 'GET', url, async );
+
+			if ( async )
+			{
+				// TODO: perform leak checks on this closure.
+				/** @ignore */
+				xhr.onreadystatechange = function()
+				{
+					if ( xhr.readyState == 4 )
+					{
+						callback( getResponseFn( xhr ) );
+						xhr = null;
+					}
+				};
+			}
+
+			xhr.send(null);
+
+			return async ? '' : getResponseFn( xhr );
+		};
+
+		return 	/** @lends CKEDITOR.ajax */ {
+
+			/**
+			 * Loads data from an URL as plain text.
+			 * @param {String} url The URL from which load data.
+			 * @param {Function} [callback] A callback function to be called on
+			 *		data load. If not provided, the data will be loaded
+			 *		synchronously.
+			 * @returns {String} The loaded data. For asynchronous requests, an
+			 *		empty string. For invalid requests, null.
+			 * @example
+			 * // Load data synchronously.
+			 * var data = CKEDITOR.ajax.load( 'somedata.txt' );
+			 * alert( data );
+			 * @example
+			 * // Load data asynchronously.
+			 * var data = CKEDITOR.ajax.load( 'somedata.txt', function( data )
+			 *     {
+			 *         alert( data );
+			 *     } );
+			 */
+			load : function( url, callback )
+			{
+				return load( url, callback, getResponseText );
+			},
+
+			/**
+			 * Loads data from an URL as XML.
+			 * @param {String} url The URL from which load data.
+			 * @param {Function} [callback] A callback function to be called on
+			 *		data load. If not provided, the data will be loaded
+			 *		synchronously.
+			 * @returns {CKEDITOR.xml} An XML object holding the loaded data. For asynchronous requests, an
+			 *		empty string. For invalid requests, null.
+			 * @example
+			 * // Load XML synchronously.
+			 * var xml = CKEDITOR.ajax.loadXml( 'somedata.xml' );
+			 * alert( xml.getInnerXml( '//' ) );
+			 * @example
+			 * // Load XML asynchronously.
+			 * var data = CKEDITOR.ajax.loadXml( 'somedata.xml', function( xml )
+			 *     {
+			 *         alert( xml.getInnerXml( '//' ) );
+			 *     } );
+			 */
+			loadXml : function( url, callback )
+			{
+				return load( url, callback, getResponseXml );
+			}
+		};
+	})();
+
+})();
