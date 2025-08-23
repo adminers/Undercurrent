@@ -1,1 +1,1 @@
-﻿CKEDITOR.plugins.setLang("font","sv",{fontSize:{label:"Storlek",voiceLabel:"Teckenstorlek",panelTitle:"Teckenstorlek"},label:"Typsnitt",panelTitle:"Typsnitt",voiceLabel:"Typsnitt"});
+﻿CKEDITOR.plugins.setLang("iframe","sv",{border:"Visa ramkant",noUrl:"Skriv in URL för iFrame",scrolling:"Aktivera rullningslister",title:"iFrame-egenskaper",toolbar:"iFrame"});
