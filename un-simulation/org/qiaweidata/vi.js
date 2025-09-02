@@ -3,14 +3,4 @@ Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
-CKEDITOR.plugins.setLang( 'placeholder', 'vi',
-{
-	placeholder :
-	{
-		title		: 'Thuộc tính đặt chỗ',
-		toolbar		: 'Tạo đặt chỗ',
-		text		: 'Văn bản đặt chỗ',
-		edit		: 'Chỉnh sửa ',
-		textMissing	: 'The placeholder must contain text.' // MISSING
-	}
-});
+CKEDITOR.plugins.setLang('uicolor','vi',{uicolor:{title:'Giao diện người dùng Color Picker',preview:'Xem trước trực tiếp',config:'Dán chuỗi này vào tập tin config.js của bạn',predefined:'Tập màu định nghĩa sẵn'}});
