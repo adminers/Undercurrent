@@ -1,1 +1,1 @@
-﻿CKEDITOR.plugins.setLang("sourcedialog","tt",{toolbar:"Чыганак",title:"Чыганак"});
+﻿CKEDITOR.plugins.setLang("print","tt",{toolbar:"Бастыру"});
