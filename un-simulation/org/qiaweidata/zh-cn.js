@@ -1,14 +1,2 @@
-var $lang={
-errAlertMsg: "\u4E0D\u5408\u6CD5\u7684\u65E5\u671F\u683C\u5F0F\u6216\u8005\u65E5\u671F\u8D85\u51FA\u9650\u5B9A\u8303\u56F4,\u9700\u8981\u64A4\u9500\u5417?",
-aWeekStr: ["\u5468","\u65E5","\u4E00","\u4E8C","\u4E09","\u56DB","\u4E94","\u516D"],
-aLongWeekStr:["\u5468","\u661F\u671F\u65E5","\u661F\u671F\u4E00","\u661F\u671F\u4E8C","\u661F\u671F\u4E09","\u661F\u671F\u56DB","\u661F\u671F\u4E94","\u661F\u671F\u516D"],
-aMonStr: ["\u4E00\u6708","\u4E8C\u6708","\u4E09\u6708","\u56DB\u6708","\u4E94\u6708","\u516D\u6708","\u4E03\u6708","\u516B\u6708","\u4E5D\u6708","\u5341\u6708","\u5341\u4E00","\u5341\u4E8C"],
-aLongMonStr: ["\u4E00\u6708","\u4E8C\u6708","\u4E09\u6708","\u56DB\u6708","\u4E94\u6708","\u516D\u6708","\u4E03\u6708","\u516B\u6708","\u4E5D\u6708","\u5341\u6708","\u5341\u4E00\u6708","\u5341\u4E8C\u6708"],
-clearStr: "\u6E05\u7A7A",
-todayStr: "\u4ECA\u5929",
-okStr: "\u786E\u5B9A",
-updateStr: "\u786E\u5B9A",
-timeStr: "\u65F6\u95F4",
-quickStr: "\u5FEB\u901F\u9009\u62E9", 
-err_1: '\u6700\u5C0F\u65E5\u671F\u4E0D\u80FD\u5927\u4E8E\u6700\u5927\u65E5\u671F!'
-}
+﻿CKEDITOR.plugins.setLang("forms","zh-cn",{button:{title:"按钮属性",text:"标签(值)",type:"类型",typeBtn:"按钮",typeSbm:"提交",typeRst:"重设"},checkboxAndRadio:{checkboxTitle:"复选框属性",radioTitle:"单选按钮属性",value:"选定值",selected:"已勾选",required:"必选项"},form:{title:"表单属性",menu:"表单属性",action:"动作",method:"方法",encoding:"表单编码"},hidden:{title:"隐藏域属性",name:"名称",value:"初始值"},select:{title:"菜单/列表属性",selectInfo:"选择信息",opAvail:"可选项",value:"值",size:"高度",lines:"行",chkMulti:"允许多选",required:"必选项",opText:"选项文本",opValue:"选项值",btnAdd:"添加",
+btnModify:"修改",btnUp:"上移",btnDown:"下移",btnSetValue:"设为初始选定",btnDelete:"删除"},textarea:{title:"多行文本属性",cols:"字符宽度",rows:"行数"},textfield:{title:"单行文本属性",name:"名称",value:"初始值",charWidth:"字符宽度",maxChars:"最多字符数",required:"必填项",type:"类型",typeText:"文本",typePass:"密码",typeEmail:"Email",typeSearch:"搜索",typeTel:"电话号码",typeUrl:"地址"}});
