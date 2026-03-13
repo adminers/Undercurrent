@@ -1,1 +1,1 @@
-﻿CKEDITOR.plugins.setLang("templates","tt",{button:"Шаблоннар",emptyListMsg:"(Шаблоннар билгеләнмәгән)",insertOption:"Әлеге эчтәлекне алмаштыру",options:"Шаблон үзлекләре",selectPromptMsg:"Please select the template to open in the editor",title:"Эчтәлек шаблоннары"});
+﻿CKEDITOR.plugins.setLang("iframe","tt",{border:"Frame чикләрен күрсәтү",noUrl:"Please type the iframe URL",scrolling:"Enable scrollbars",title:"IFrame үзлекләре",toolbar:"IFrame"});
