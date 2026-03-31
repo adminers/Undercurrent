@@ -1,13 +1,68 @@
-﻿/*
- Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
-*/
-CKEDITOR.plugins.setLang("specialchar","ro",{euro:"Simbol EURO €",lsquo:"Ghilimea simplă stânga",rsquo:"Ghilimea simplă dreapta",ldquo:"Ghilimea dublă stânga",rdquo:"Ghilimea dublă dreapta",ndash:"liniuță despărțire cu spații",mdash:"liniuță despărțire cuvinte fără spații",iexcl:"semnul exclamației inversat",cent:"simbol cent",pound:"simbol lira sterlină",curren:"simbol monedă",yen:"simbol yen",brvbar:"bara verticală întreruptă",sect:"simbol paragraf",uml:"tréma",copy:"simbol drept de autor",ordf:"Indicatorul ordinal feminin a superscript",
-laquo:"Left-pointing double angle quotation mark",not:"Not sign",reg:"Registered sign",macr:"Macron",deg:"Degree sign",sup2:"Superscript two",sup3:"Superscript three",acute:"Acute accent",micro:"Micro sign",para:"Pilcrow sign",middot:"Middle dot",cedil:"Sedila",sup1:"Superscript one",ordm:"Masculine ordinal indicator",raquo:"Right-pointing double angle quotation mark",frac14:"Vulgar fraction one quarter",frac12:"Vulgar fraction one half",frac34:"Vulgar fraction three quarters",iquest:"Semnul întrebării inversat",
-Agrave:"Latin capital letter A with grave accent",Aacute:"Latin capital letter A with acute accent",Acirc:"Latin capital letter A with circumflex",Atilde:"Latin capital letter A with tilde",Auml:"Latin capital letter A with diaeresis",Aring:"Latin capital letter A with ring above",AElig:"Latin capital letter Æ",Ccedil:"Latin capital letter C with cedilla",Egrave:"Latin capital letter E with grave accent",Eacute:"Latin capital letter E with acute accent",Ecirc:"Latin capital letter E with circumflex",
-Euml:"Latin capital letter E with diaeresis",Igrave:"Latin capital letter I with grave accent",Iacute:"Latin capital letter I with acute accent",Icirc:"Latin capital letter I with circumflex",Iuml:"Latin capital letter I with diaeresis",ETH:"Latin capital letter Eth",Ntilde:"Latin capital letter N with tilde",Ograve:"Latin capital letter O with grave accent",Oacute:"Latin capital letter O with acute accent",Ocirc:"Latin capital letter O with circumflex",Otilde:"Latin capital letter O with tilde",
-Ouml:"Latin capital letter O with diaeresis",times:"Simbol înmulțire",Oslash:"Latin capital letter O with stroke",Ugrave:"Latin capital letter U with grave accent",Uacute:"Latin capital letter U with acute accent",Ucirc:"Latin capital letter U with circumflex",Uuml:"Latin capital letter U with diaeresis",Yacute:"Latin capital letter Y with acute accent",THORN:"Latin capital letter Thorn",szlig:"Latin small letter sharp s",agrave:"Latin small letter a with grave accent",aacute:"Latin small letter a with acute accent",
-acirc:"Latin small letter a with circumflex",atilde:"Latin small letter a with tilde",auml:"Latin small letter a with diaeresis",aring:"Latin small letter a with ring above",aelig:"Latin small letter æ",ccedil:"Latin small letter c with cedilla",egrave:"Latin small letter e with grave accent",eacute:"Latin small letter e with acute accent",ecirc:"Latin small letter e with circumflex",euml:"Latin small letter e with diaeresis",igrave:"Latin small letter i with grave accent",iacute:"Latin small letter i with acute accent",
-icirc:"Latin small letter i with circumflex",iuml:"Latin small letter i with diaeresis",eth:"Latin small letter eth",ntilde:"Latin small letter n with tilde",ograve:"Latin small letter o with grave accent",oacute:"Latin small letter o with acute accent",ocirc:"Latin small letter o with circumflex",otilde:"Latin small letter o with tilde",ouml:"Latin small letter o with diaeresis",divide:"Simbol împărțire",oslash:"Latin small letter o with stroke",ugrave:"Latin small letter u with grave accent",uacute:"Latin small letter u with acute accent",
-ucirc:"Latin small letter u with circumflex",uuml:"Latin small letter u with diaeresis",yacute:"Latin small letter y with acute accent",thorn:"Latin small letter thorn",yuml:"Latin small letter y with diaeresis",OElig:"Latin capital ligature OE",oelig:"Latin small ligature oe",372:"Latin capital letter W with circumflex",374:"Latin capital letter Y with circumflex",373:"Latin small letter w with circumflex",375:"Latin small letter y with circumflex",sbquo:"Single low-9 quotation mark",8219:"Single high-reversed-9 quotation mark",
-bdquo:"Double low-9 quotation mark",hellip:"Horizontal ellipsis",trade:"Trade mark sign",9658:"Black right-pointing pointer",bull:"Bullet",rarr:"Rightwards arrow",rArr:"Rightwards double arrow",hArr:"Left right double arrow",diams:"Black diamond suit",asymp:"Aproximativ egal cu"});
+//! moment.js locale configuration
+//! locale : Romanian [ro]
+//! author : Vlad Gurdiga : https://github.com/gurdiga
+//! author : Valentin Agachi : https://github.com/avaly
+
+import moment from '../moment';
+
+function relativeTimeWithPlural(number, withoutSuffix, key) {
+    var format = {
+            'ss': 'secunde',
+            'mm': 'minute',
+            'hh': 'ore',
+            'dd': 'zile',
+            'MM': 'luni',
+            'yy': 'ani'
+        },
+        separator = ' ';
+    if (number % 100 >= 20 || (number >= 100 && number % 100 === 0)) {
+        separator = ' de ';
+    }
+    return number + separator + format[key];
+}
+
+export default moment.defineLocale('ro', {
+    months : 'ianuarie_februarie_martie_aprilie_mai_iunie_iulie_august_septembrie_octombrie_noiembrie_decembrie'.split('_'),
+    monthsShort : 'ian._febr._mart._apr._mai_iun._iul._aug._sept._oct._nov._dec.'.split('_'),
+    monthsParseExact: true,
+    weekdays : 'duminică_luni_marți_miercuri_joi_vineri_sâmbătă'.split('_'),
+    weekdaysShort : 'Dum_Lun_Mar_Mie_Joi_Vin_Sâm'.split('_'),
+    weekdaysMin : 'Du_Lu_Ma_Mi_Jo_Vi_Sâ'.split('_'),
+    longDateFormat : {
+        LT : 'H:mm',
+        LTS : 'H:mm:ss',
+        L : 'DD.MM.YYYY',
+        LL : 'D MMMM YYYY',
+        LLL : 'D MMMM YYYY H:mm',
+        LLLL : 'dddd, D MMMM YYYY H:mm'
+    },
+    calendar : {
+        sameDay: '[azi la] LT',
+        nextDay: '[mâine la] LT',
+        nextWeek: 'dddd [la] LT',
+        lastDay: '[ieri la] LT',
+        lastWeek: '[fosta] dddd [la] LT',
+        sameElse: 'L'
+    },
+    relativeTime : {
+        future : 'peste %s',
+        past : '%s în urmă',
+        s : 'câteva secunde',
+        ss : relativeTimeWithPlural,
+        m : 'un minut',
+        mm : relativeTimeWithPlural,
+        h : 'o oră',
+        hh : relativeTimeWithPlural,
+        d : 'o zi',
+        dd : relativeTimeWithPlural,
+        M : 'o lună',
+        MM : relativeTimeWithPlural,
+        y : 'un an',
+        yy : relativeTimeWithPlural
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 7  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+
