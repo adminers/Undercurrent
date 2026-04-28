@@ -1,0 +1,8 @@
+api:
+  url: https://httpbin.org/post
+  timeout: 30000
+
+task:
+  enabled: true
+  retry-count: 3
+  retry-delay: 1000
