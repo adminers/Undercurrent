@@ -1,26 +1,29 @@
-package com.dpv4.ag;
+package com.dpv4.ag.sorter;
+
+import com.dpv4.ag.util.ArrayUtil;
+import com.dpv4.ag.util.QuickPartitionUtil;
 
 /**
  * 快速排序器
- * 使用 QuickPartitionUtil 进行分区操作
+ * 使用分治策略实现
+ * 
+ * @author dpv4
+ * @date 2026-05-18
  */
-public class QuickSorter {
-    /**
-     * 对整型数组进行快速排序
-     * @param arr 待排序数组
-     */
-    public static void sort(int[] arr) {
-        if (arr == null || arr.length <= 1) {
+public class QuickSorter implements Sorter {
+
+    @Override
+    public void sort(int[] arr) {
+        if (ArrayUtil.isSortedOrEmpty(arr)) {
             return;
         }
+
         quickSort(arr, 0, arr.length - 1);
     }
 
     private static void quickSort(int[] arr, int low, int high) {
         if (low < high) {
-            // 获取分区索引
             int pivotIndex = QuickPartitionUtil.partition(arr, low, high);
-            // 递归排序左右子数组
             quickSort(arr, low, pivotIndex - 1);
             quickSort(arr, pivotIndex + 1, high);
         }

@@ -1,8 +1,20 @@
-package com.dpv4.ag;
+package com.dpv4.ag.util;
 
-public class HeapifyUtil {
+/**
+ * 堆化工具类
+ * 
+ * @author dpv4
+ * @date 2026-05-18
+ */
+public final class HeapifyUtil {
+
+    private HeapifyUtil() {
+        // 工具类禁止实例化
+    }
+
     /**
      * 对以 root 为根的子树进行堆化（最大堆）
+     * 
      * @param arr 数组
      * @param n   堆的大小
      * @param root 当前子树的根索引
@@ -19,14 +31,8 @@ public class HeapifyUtil {
             largest = right;
         }
         if (largest != root) {
-            swap(arr, root, largest);
-            heapify(arr, n, largest); // 递归调整受影响子树
+            ArrayUtil.swap(arr, root, largest);
+            heapify(arr, n, largest);
         }
-    }
-
-    private static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
     }
 }
