@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件上传 - 支持多选照片</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .upload-area input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            fill: #667eea;
+        }
+
+        .upload-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .upload-hint span {
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        .file-list {
+            margin-top: 24px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .file-item.uploading {
+            opacity: 0.7;
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .file-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 4px;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .file-status {
+            margin-left: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .file-status.success {
+            color: #10b981;
+        }
+
+        .file-status.error {
+            color: #ef4444;
+        }
+
+        .file-status.pending {
+            color: #6b7280;
+        }
+
+        .file-status.uploading {
+            color: #3b82f6;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0;
+        }
+
+        .btn-upload {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-upload:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-upload:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-clear {
+            width: 100%;
+            padding: 12px;
+            background: #f3f4f6;
+            color: #6b7280;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .btn-clear:hover {
+            background: #e5e7eb;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: #10b981;
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        .toast.info {
+            background: #3b82f6;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .upload-area {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📷 上传照片</h1>
+        <p class="subtitle">支持多选照片，兼容 Safari 浏览器</p>
+
+        <div class="upload-area" id="uploadArea">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div class="upload-text">点击或拖拽文件到这里</div>
+            <div class="upload-hint">支持 <span>JPG、PNG、GIF、WebP</span> 格式，单个文件最大 50MB</div>
+            <input type="file" id="fileInput" accept="image/*" multiple>
+        </div>
+
+        <div class="file-list" id="fileList" style="display: none;">
+            <!-- 文件列表会动态生成 -->
+        </div>
+
+        <button class="btn-upload" id="btnUpload" disabled>开始上传</button>
+        <button class="btn-clear" id="btnClear" style="display: none;">清空全部</button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const btnUpload = document.getElementById('btnUpload');
+        const btnClear = document.getElementById('btnClear');
+        const toast = document.getElementById('toast');
+
+        let selectedFiles = [];
+
+        // 点击上传区域触发文件选择
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // 文件选择变化
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            addFiles(files);
+        });
+
+        // 拖拽支持
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files);
+            addFiles(files);
+        });
+
+        // 添加文件到列表
+        function addFiles(files) {
+            files.forEach(file => {
+                if (!selectedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    selectedFiles.push(file);
+                    renderFileItem(file);
+                }
+            });
+            updateButtons();
+        }
+
+        // 渲染文件项
+        function renderFileItem(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.dataset.fileName = file.name;
+
+            const fileIcon = document.createElement('div');
+            fileIcon.className = 'file-icon';
+
+            // 图片预览
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = file.name;
+                    fileIcon.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                fileIcon.textContent = '📄';
+            }
+
+            const fileInfo = document.createElement('div');
+            fileInfo.className = 'file-info';
+
+            const fileName = document.createElement('div');
+            fileName.className = 'file-name';
+            fileName.textContent = file.name;
+
+            const fileSize = document.createElement('div');
+            fileSize.className = 'file-size';
+            fileSize.textContent = formatSize(file.size);
+
+            fileInfo.appendChild(fileName);
+            fileInfo.appendChild(fileSize);
+
+            const fileStatus = document.createElement('div');
+            fileStatus.className = 'file-status pending';
+            fileStatus.textContent = '待上传';
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            const progressFill = document.createElement('div');
+            progressFill.className = 'progress-fill';
+            progressBar.appendChild(progressFill);
+
+            fileItem.appendChild(fileIcon);
+            fileItem.appendChild(fileInfo);
+            fileItem.appendChild(fileStatus);
+            fileInfo.appendChild(progressBar);
+
+            fileList.appendChild(fileItem);
+            fileList.style.display = 'block';
+        }
+
+        // 格式化文件大小
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // 更新按钮状态
+        function updateButtons() {
+            btnUpload.disabled = selectedFiles.length === 0;
+            btnClear.style.display = selectedFiles.length > 0 ? 'block' : 'none';
+        }
+
+        // 上传按钮点击
+        btnUpload.addEventListener('click', async () => {
+            if (selectedFiles.length === 0) return;
+
+            btnUpload.disabled = true;
+            btnClear.disabled = true;
+
+            const formData = new FormData();
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
+
+            showToast('开始上传...', 'info');
+
+            try {
+                const response = await fetch('/api/files/upload/batch', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    result.results.forEach((res, index) => {
+                        const fileItem = document.querySelector(`[data-file-name="${selectedFiles[index].name}"]`);
+                        const status = fileItem?.querySelector('.file-status');
+                        const progress = fileItem?.querySelector('.progress-fill');
+
+                        if (res.success) {
+                            status.textContent = '上传成功';
+                            status.className = 'file-status success';
+                            progress.style.width = '100%';
+                        } else {
+                            status.textContent = res.errorMessage;
+                            status.className = 'file-status error';
+                        }
+                    });
+
+                    const successCount = result.results.filter(r => r.success).length;
+                    if (successCount === selectedFiles.length) {
+                        showToast(`全部 ${successCount} 个文件上传成功！`, 'success');
+                    } else {
+                        showToast(`部分上传：成功 ${successCount} 个，失败 ${selectedFiles.length - successCount} 个`, 'info');
+                    }
+
+                    setTimeout(() => {
+                        clearFiles();
+                    }, 2000);
+                } else {
+                    showToast(result.message, 'error');
+                }
+            } catch (error) {
+                showToast('上传失败：' + error.message, 'error');
+            } finally {
+                btnUpload.disabled = false;
+                btnClear.disabled = false;
+            }
+        });
+
+        // 清空按钮点击
+        btnClear.addEventListener('click', () => {
+            clearFiles();
+        });
+
+        // 清空文件列表
+        function clearFiles() {
+            selectedFiles = [];
+            fileList.innerHTML = '';
+            fileList.style.display = 'none';
+            fileInput.value = '';
+            updateButtons();
+        }
+
+        // 显示提示消息
+        function showToast(message, type = 'info') {
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
