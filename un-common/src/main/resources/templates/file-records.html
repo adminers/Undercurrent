@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件记录列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .filter-bar {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            padding: 10px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .filter-bar input:focus,
+        .filter-bar select:focus {
+            border-color: #667eea;
+        }
+
+        .filter-bar input {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        .filter-bar select {
+            min-width: 150px;
+        }
+
+        .btn-refresh {
+            padding: 10px 20px;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-refresh:hover {
+            background: #5a6fd6;
+        }
+
+        .file-list {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .list-header {
+            display: grid;
+            grid-template-columns: 40px 200px 100px 120px 100px auto 100px;
+            padding: 14px 20px;
+            background: #f8f9fa;
+            font-weight: 600;
+            font-size: 13px;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .list-item {
+            display: grid;
+            grid-template-columns: 40px 200px 100px 120px 100px auto 100px;
+            padding: 14px 20px;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s ease;
+        }
+
+        .list-item:hover {
+            background: #fafafa;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .file-icon.image {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+        }
+
+        .file-icon.pdf {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .file-icon.doc {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .file-icon.zip {
+            background: #7c3aed;
+            color: #fff;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-size,
+        .file-type,
+        .file-date {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .file-category {
+            font-size: 12px;
+            padding: 3px 8px;
+            background: #f0f4ff;
+            color: #667eea;
+            border-radius: 4px;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .file-category:empty {
+            display: none;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-download {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .btn-download:hover {
+            background: #059669;
+        }
+
+        .btn-delete {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .btn-delete:hover {
+            background: #fee2e2;
+        }
+
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-text {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: #10b981;
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            .list-header {
+                display: none;
+            }
+
+            .list-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 16px;
+            }
+
+            .list-item > div {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .list-item > div::before {
+                content: attr(data-label);
+                font-size: 12px;
+                color: #999;
+                min-width: 60px;
+            }
+
+            .file-icon {
+                grid-column: 1;
+            }
+
+            .file-name {
+                grid-column: 1;
+            }
+
+            .actions {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📁 文件记录列表</h1>
+            <p class="subtitle">查看所有已上传的文件记录</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="totalCount">0</span>
+                    <span class="stat-label">总文件数</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="searchInput" placeholder="搜索文件名..." />
+            <select id="categoryFilter">
+                <option value="">全部分类</option>
+            </select>
+            <button class="btn-refresh" onclick="loadRecords()">🔄 刷新</button>
+        </div>
+
+        <div class="file-list" id="fileList">
+            <div class="empty-state">
+                <div class="empty-icon">📭</div>
+                <div class="empty-text">暂无文件记录</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let allRecords = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRecords();
+            document.getElementById('searchInput').addEventListener('input', filterRecords);
+            document.getElementById('categoryFilter').addEventListener('change', filterRecords);
+        });
+
+        async function loadRecords() {
+            try {
+                const response = await fetch('/api/files/generic/records');
+                allRecords = await response.json();
+                updateStats();
+                updateCategoryFilter();
+                renderRecords(allRecords);
+            } catch (error) {
+                showToast('加载记录失败: ' + error.message, 'error');
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('totalCount').textContent = allRecords.length;
+        }
+
+        function updateCategoryFilter() {
+            const categories = [...new Set(allRecords.map(r => r.category).filter(c => c))];
+            const select = document.getElementById('categoryFilter');
+            select.innerHTML = '<option value="">全部分类</option>';
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                select.appendChild(option);
+            });
+        }
+
+        function filterRecords() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+
+            let filtered = allRecords;
+
+            if (searchText) {
+                filtered = filtered.filter(r => 
+                    r.originalFileName.toLowerCase().includes(searchText)
+                );
+            }
+
+            if (category) {
+                filtered = filtered.filter(r => r.category === category);
+            }
+
+            renderRecords(filtered);
+        }
+
+        function renderRecords(records) {
+            const container = document.getElementById('fileList');
+
+            if (!records || records.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-text">暂无文件记录</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div class="list-header">' +
+                '<div>图标</div>' +
+                '<div>文件名</div>' +
+                '<div>大小</div>' +
+                '<div>类型</div>' +
+                '<div>分类</div>' +
+                '<div>上传时间</div>' +
+                '<div>操作</div>' +
+                '</div>';
+
+            records.forEach(record => {
+                const iconClass = getFileIconClass(record.contentType, record.originalFileName);
+                const iconEmoji = getFileIconEmoji(record.contentType, record.originalFileName);
+
+                html += `
+                    <div class="list-item" data-id="${record.id}">
+                        <div class="file-icon ${iconClass}">${iconEmoji}</div>
+                        <div class="file-name" title="${record.originalFileName}">${record.originalFileName}</div>
+                        <div class="file-size">${formatSize(record.fileSize)}</div>
+                        <div class="file-type">${record.contentType || '未知'}</div>
+                        <div class="file-category">${record.category || ''}</div>
+                        <div class="file-date">${formatDate(record.uploadTime)}</div>
+                        <div class="actions">
+                            <button class="btn-action btn-download" onclick="downloadFile('${record.accessUrl}')">下载</button>
+                            <button class="btn-action btn-delete" onclick="deleteRecord('${record.id}')">删除</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function getFileIconClass(contentType, fileName) {
+            if (contentType?.startsWith('image/')) return 'image';
+            if (fileName?.toLowerCase().endsWith('.pdf')) return 'pdf';
+            if (fileName?.toLowerCase().match(/\.(doc|docx)$/)) return 'doc';
+            if (fileName?.toLowerCase().match(/\.(zip|rar|7z)$/)) return 'zip';
+            return '';
+        }
+
+        function getFileIconEmoji(contentType, fileName) {
+            if (contentType?.startsWith('image/')) return '🖼️';
+            if (fileName?.toLowerCase().endsWith('.pdf')) return '📕';
+            if (fileName?.toLowerCase().match(/\.(doc|docx)$/)) return '📘';
+            if (fileName?.toLowerCase().match(/\.(zip|rar|7z)$/)) return '📦';
+            if (fileName?.toLowerCase().match(/\.(xls|xlsx)$/)) return '📗';
+            if (fileName?.toLowerCase().match(/\.(ppt|pptx)$/)) return '📙';
+            if (fileName?.toLowerCase().endsWith('.txt')) return '📝';
+            if (fileName?.toLowerCase().match(/\.(mp4|mov|avi)$/)) return '🎬';
+            if (fileName?.toLowerCase().match(/\.(mp3|wav)$/)) return '🎵';
+            return '📄';
+        }
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            return date.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function downloadFile(url) {
+            window.open(url, '_blank');
+        }
+
+        async function deleteRecord(id) {
+            if (!confirm('确定要删除这条记录吗？')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/files/generic/records/${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast('删除成功', 'success');
+                    loadRecords();
+                } else {
+                    showToast(result.message, 'error');
+                }
+            } catch (error) {
+                showToast('删除失败: ' + error.message, 'error');
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

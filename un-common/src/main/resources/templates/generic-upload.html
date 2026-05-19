@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通用文件上传 - 支持所有文件类型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .upload-area {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .drop-zone {
+            border: 3px dashed #ddd;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .drop-zone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            fill: #667eea;
+        }
+
+        .upload-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .upload-hint {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #667eea;
+        }
+
+        .file-list {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .list-header {
+            padding: 12px 16px;
+            background: #f8f9fa;
+            font-weight: 600;
+            font-size: 13px;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s ease;
+        }
+
+        .file-item:hover {
+            background: #fafafa;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .file-icon.image { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+        .file-icon.pdf { background: #dc2626; color: #fff; }
+        .file-icon.doc { background: #2563eb; color: #fff; }
+        .file-icon.zip { background: #7c3aed; color: #fff; }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 4px;
+        }
+
+        .file-meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .file-status {
+            margin-left: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .file-status.success { color: #10b981; }
+        .file-status.error { color: #ef4444; }
+        .file-status.pending { color: #6b7280; }
+        .file-status.uploading { color: #3b82f6; }
+
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0;
+        }
+
+        .btn-bar {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            padding: 14px 24px;
+            background: #f3f4f6;
+            color: #6b7280;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-view-records {
+            width: 100%;
+            padding: 14px;
+            background: #fff;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-view-records:hover {
+            background: #f0f4ff;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.success { background: #10b981; }
+        .toast.error { background: #ef4444; }
+        .toast.info { background: #3b82f6; }
+
+        @media (max-width: 480px) {
+            .upload-area {
+                padding: 24px 16px;
+            }
+
+            .drop-zone {
+                padding: 30px 15px;
+            }
+
+            .btn-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📁 通用文件上传</h1>
+            <p class="subtitle">支持所有类型文件上传，自动记录历史</p>
+        </div>
+
+        <div class="upload-area">
+            <div class="drop-zone" id="dropZone">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <div class="upload-text">点击或拖拽文件到这里</div>
+                <div class="upload-hint">支持所有类型文件，单个文件最大 50MB</div>
+                <input type="file" id="fileInput" multiple>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryInput">文件分类（可选）</label>
+                <input type="text" id="categoryInput" placeholder="例如：文档、图片、视频">
+            </div>
+
+            <div class="form-group">
+                <label for="descriptionInput">文件描述（可选）</label>
+                <input type="text" id="descriptionInput" placeholder="简要描述文件内容">
+            </div>
+        </div>
+
+        <div class="file-list" id="fileList" style="display: none;">
+            <div class="list-header">已选择的文件</div>
+        </div>
+
+        <div class="btn-bar">
+            <button class="btn-primary" id="btnUpload" disabled>开始上传</button>
+            <button class="btn-secondary" id="btnClear" style="display: none;">清空</button>
+        </div>
+
+        <button class="btn-view-records" onclick="window.open('/file-records.html', '_blank')">
+            📋 查看文件记录
+        </button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const btnUpload = document.getElementById('btnUpload');
+        const btnClear = document.getElementById('btnClear');
+        const toast = document.getElementById('toast');
+
+        let selectedFiles = [];
+
+        dropZone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            addFiles(files);
+        });
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files);
+            addFiles(files);
+        });
+
+        function addFiles(files) {
+            files.forEach(file => {
+                if (!selectedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    selectedFiles.push(file);
+                    renderFileItem(file);
+                }
+            });
+            updateButtons();
+        }
+
+        function renderFileItem(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.dataset.fileName = file.name;
+
+            const fileIcon = document.createElement('div');
+            fileIcon.className = 'file-icon ' + getFileIconClass(file.type, file.name);
+            fileIcon.textContent = getFileIconEmoji(file.type, file.name);
+
+            const fileInfo = document.createElement('div');
+            fileInfo.className = 'file-info';
+
+            const fileName = document.createElement('div');
+            fileName.className = 'file-name';
+            fileName.textContent = file.name;
+
+            const fileMeta = document.createElement('div');
+            fileMeta.className = 'file-meta';
+            fileMeta.textContent = `${formatSize(file.size)} | ${file.type || '未知类型'}`;
+
+            fileInfo.appendChild(fileName);
+            fileInfo.appendChild(fileMeta);
+
+            const fileStatus = document.createElement('div');
+            fileStatus.className = 'file-status pending';
+            fileStatus.textContent = '待上传';
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            const progressFill = document.createElement('div');
+            progressFill.className = 'progress-fill';
+            progressBar.appendChild(progressFill);
+
+            fileInfo.appendChild(progressBar);
+
+            fileItem.appendChild(fileIcon);
+            fileItem.appendChild(fileInfo);
+            fileItem.appendChild(fileStatus);
+
+            fileList.appendChild(fileItem);
+            fileList.style.display = 'block';
+        }
+
+        function getFileIconClass(contentType, fileName) {
+            if (contentType?.startsWith('image/')) return 'image';
+            if (fileName?.toLowerCase().endsWith('.pdf')) return 'pdf';
+            if (fileName?.toLowerCase().match(/\.(doc|docx)$/)) return 'doc';
+            if (fileName?.toLowerCase().match(/\.(zip|rar|7z)$/)) return 'zip';
+            return '';
+        }
+
+        function getFileIconEmoji(contentType, fileName) {
+            if (contentType?.startsWith('image/')) return '🖼️';
+            if (fileName?.toLowerCase().endsWith('.pdf')) return '📕';
+            if (fileName?.toLowerCase().match(/\.(doc|docx)$/)) return '📘';
+            if (fileName?.toLowerCase().match(/\.(zip|rar|7z)$/)) return '📦';
+            if (fileName?.toLowerCase().match(/\.(xls|xlsx)$/)) return '📗';
+            if (fileName?.toLowerCase().match(/\.(ppt|pptx)$/)) return '📙';
+            if (fileName?.toLowerCase().endsWith('.txt')) return '📝';
+            if (fileName?.toLowerCase().match(/\.(mp4|mov|avi)$/)) return '🎬';
+            if (fileName?.toLowerCase().match(/\.(mp3|wav)$/)) return '🎵';
+            return '📄';
+        }
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function updateButtons() {
+            btnUpload.disabled = selectedFiles.length === 0;
+            btnClear.style.display = selectedFiles.length > 0 ? 'block' : 'none';
+        }
+
+        btnUpload.addEventListener('click', async () => {
+            if (selectedFiles.length === 0) return;
+
+            btnUpload.disabled = true;
+            btnClear.disabled = true;
+
+            const formData = new FormData();
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
+
+            const category = document.getElementById('categoryInput').value;
+            const description = document.getElementById('descriptionInput').value;
+
+            if (category) formData.append('category', category);
+            if (description) formData.append('description', description);
+
+            showToast('开始上传...', 'info');
+
+            try {
+                const response = await fetch('/api/files/generic/upload/batch', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    result.results.forEach((res, index) => {
+                        const fileItem = document.querySelector(`[data-file-name="${selectedFiles[index].name}"]`);
+                        const status = fileItem?.querySelector('.file-status');
+                        const progress = fileItem?.querySelector('.progress-fill');
+
+                        if (res.success) {
+                            status.textContent = '上传成功';
+                            status.className = 'file-status success';
+                            progress.style.width = '100%';
+                        } else {
+                            status.textContent = res.errorMessage;
+                            status.className = 'file-status error';
+                        }
+                    });
+
+                    const successCount = result.results.filter(r => r.success).length;
+                    if (successCount === selectedFiles.length) {
+                        showToast(`全部 ${successCount} 个文件上传成功！`, 'success');
+                    } else {
+                        showToast(`部分上传：成功 ${successCount} 个，失败 ${selectedFiles.length - successCount} 个`, 'info');
+                    }
+
+                    setTimeout(() => {
+                        clearFiles();
+                    }, 2000);
+                } else {
+                    showToast(result.message, 'error');
+                }
+            } catch (error) {
+                showToast('上传失败：' + error.message, 'error');
+            } finally {
+                btnUpload.disabled = false;
+                btnClear.disabled = false;
+            }
+        });
+
+        btnClear.addEventListener('click', () => {
+            clearFiles();
+        });
+
+        function clearFiles() {
+            selectedFiles = [];
+            fileList.innerHTML = '<div class="list-header">已选择的文件</div>';
+            fileList.style.display = 'none';
+            fileInput.value = '';
+            updateButtons();
+        }
+
+        function showToast(message, type = 'info') {
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
