@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配色方案网格展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0d1117;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #8b949e;
+            font-size: 14px;
+        }
+
+        .feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .item {
+            width: 120px;
+            background: #161b22;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border-color: #58a6ff;
+        }
+
+        .palette {
+            display: flex;
+            flex-direction: column;
+            height: 120px;
+        }
+
+        .place {
+            flex: 1;
+            position: relative;
+            transition: opacity 0.2s ease;
+        }
+
+        .place:hover {
+            opacity: 0.9;
+        }
+
+        .place a {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .place span {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            user-select: none;
+            text-align: center;
+        }
+
+        .place:hover span {
+            opacity: 1;
+        }
+
+        .flex {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #30363d;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .button.like {
+            color: #f85149;
+        }
+
+        .button span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .icon {
+            width: 12px;
+            height: 12px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+
+        .date {
+            font-size: 10px;
+            color: #8b949e;
+        }
+
+        .copied {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #238636;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .copied.show {
+            opacity: 1;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: #30363d;
+        }
+
+        .scroll-top svg {
+            width: 20px;
+            height: 20px;
+            fill: #8b949e;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            color: #8b949e;
+            font-size: 13px;
+        }
+
+        .stats span {
+            font-weight: 600;
+            color: #58a6ff;
+        }
+
+        @media (max-width: 768px) {
+            .feed {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            .item {
+                width: 100px;
+            }
+
+            .palette {
+                height: 100px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feed {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                gap: 8px;
+            }
+
+            .item {
+                width: 80px;
+            }
+
+            .palette {
+                height: 80px;
+            }
+
+            .place span {
+                font-size: 9px;
+            }
+
+            .flex {
+                padding: 8px;
+            }
+
+            .button span {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 配色方案网格展示</h1>
+        <p class="subtitle">点击颜色块复制颜色代码 | 固定宽度自适应布局</p>
+        <div class="stats">
+            <span>共 <span id="totalCount">0</span> 个配色方案</span>
+        </div>
+    </div>
+
+    <div class="feed global" id="feed">
+        <div class="item" data-index="0" data-code="093c5d3b75976fd1d75df8d8">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(93, 248, 216);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#5DF8D8">#5DF8D8</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(111, 209, 215);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#6FD1D7">#6FD1D7</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(59, 117, 151);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#3B7597">#3B7597</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(9, 60, 93);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#093C5D">#093C5D</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('093c5d3b75976fd1d75df8d8')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,288</span>
+                    </div>
+                </div>
+                <span class="date">2w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="1" data-code="170c79efe3ca56b6c68acbd0">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(138, 203, 208);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#8ACBD0">#8ACBD0</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(86, 182, 198);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#56B6C6">#56B6C6</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(239, 227, 202);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#EFE3CA">#EFE3CA</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(23, 12, 121);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#170C79">#170C79</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('170c79efe3ca56b6c68acbd0')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,258</span>
+                    </div>
+                </div>
+                <span class="date">4w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="2" data-code="d6336cff4081ffb6c1fff5f8">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(255, 245, 248);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#FFF5F8">#FFF5F8</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(255, 182, 193);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#FFB6C1">#FFB6C1</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(255, 64, 129);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#FF4081">#FF4081</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(214, 51, 108);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#D6336C">#D6336C</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('d6336cff4081ffb6c1fff5f8')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,223</span>
+                    </div>
+                </div>
+                <span class="date">3w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="3" data-code="35858e7da78cc2d099e6eec9">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(230, 238, 201);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#E6EEC9">#E6EEC9</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(194, 208, 153);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#C2D099">#C2D099</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(133, 142, 126);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#858E7E">#858E7E</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(53, 133, 142);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#35858E">#35858E</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('35858e7da78cc2d099e6eec9')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,189</span>
+                    </div>
+                </div>
+                <span class="date">5w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="4" data-code="4a90d9e8b3c2a1f0e7d6c5b4">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(200, 220, 240);">
+                    <a href="/palette/4a90d9e8b3c2a1f0e7d6c5b4"></a>
+                    <span onclick="copy(this)" data-copy="#C8DCF0">#C8DCF0</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(150, 180, 220);">
+                    <a href="/palette/4a90d9e8b3c2a1f0e7d6c5b4"></a>
+                    <span onclick="copy(this)" data-copy="#96B4DC">#96B4DC</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(74, 144, 217);">
+                    <a href="/palette/4a90d9e8b3c2a1f0e7d6c5b4"></a>
+                    <span onclick="copy(this)" data-copy="#4A90D9">#4A90D9</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(30, 60, 100);">
+                    <a href="/palette/4a90d9e8b3c2a1f0e7d6c5b4"></a>
+                    <span onclick="copy(this)" data-copy="#1E3C64">#1E3C64</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('4a90d9e8b3c2a1f0e7d6c5b4')">
+                        <div class="icon" icon="like"></div>
+                        <span>987</span>
+                    </div>
+                </div>
+                <span class="date">6w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="5" data-code="f5a623e4b1c0d9f8e7a6b5c4">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(255, 230, 180);">
+                    <a href="/palette/f5a623e4b1c0d9f8e7a6b5c4"></a>
+                    <span onclick="copy(this)" data-copy="#FFE6B4">#FFE6B4</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(245, 166, 35);">
+                    <a href="/palette/f5a623e4b1c0d9f8e7a6b5c4"></a>
+                    <span onclick="copy(this)" data-copy="#F5A623">#F5A623</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(200, 120, 20);">
+                    <a href="/palette/f5a623e4b1c0d9f8e7a6b5c4"></a>
+                    <span onclick="copy(this)" data-copy="#C87814">#C87814</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(80, 40, 10);">
+                    <a href="/palette/f5a623e4b1c0d9f8e7a6b5c4"></a>
+                    <span onclick="copy(this)" data-copy="#50280A">#50280A</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('f5a623e4b1c0d9f8e7a6b5c4')">
+                        <div class="icon" icon="like"></div>
+                        <span>856</span>
+                    </div>
+                </div>
+                <span class="date">1w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="6" data-code="9b59b6e7f8a9c0d1e2f3a4b5">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(220, 180, 240);">
+                    <a href="/palette/9b59b6e7f8a9c0d1e2f3a4b5"></a>
+                    <span onclick="copy(this)" data-copy="#DCB4F0">#DCB4F0</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(180, 140, 200);">
+                    <a href="/palette/9b59b6e7f8a9c0d1e2f3a4b5"></a>
+                    <span onclick="copy(this)" data-copy="#B48CC8">#B48CC8</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(155, 89, 182);">
+                    <a href="/palette/9b59b6e7f8a9c0d1e2f3a4b5"></a>
+                    <span onclick="copy(this)" data-copy="#9B59B6">#9B59B6</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(60, 30, 80);">
+                    <a href="/palette/9b59b6e7f8a9c0d1e2f3a4b5"></a>
+                    <span onclick="copy(this)" data-copy="#3C1E50">#3C1E50</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('9b59b6e7f8a9c0d1e2f3a4b5')">
+                        <div class="icon" icon="like"></div>
+                        <span>723</span>
+                    </div>
+                </div>
+                <span class="date">2w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="7" data-code="1abc9ce8f7d6b5a4c3b2a1">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(180, 230, 210);">
+                    <a href="/palette/1abc9ce8f7d6b5a4c3b2a1"></a>
+                    <span onclick="copy(this)" data-copy="#B4E6D2">#B4E6D2</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(120, 200, 170);">
+                    <a href="/palette/1abc9ce8f7d6b5a4c3b2a1"></a>
+                    <span onclick="copy(this)" data-copy="#78C8AA">#78C8AA</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(26, 188, 156);">
+                    <a href="/palette/1abc9ce8f7d6b5a4c3b2a1"></a>
+                    <span onclick="copy(this)" data-copy="#1ABC9C">#1ABC9C</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(10, 80, 70);">
+                    <a href="/palette/1abc9ce8f7d6b5a4c3b2a1"></a>
+                    <span onclick="copy(this)" data-copy="#0A5046">#0A5046</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('1abc9ce8f7d6b5a4c3b2a1')">
+                        <div class="icon" icon="like"></div>
+                        <span>654</span>
+                    </div>
+                </div>
+                <span class="date">3w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="8" data-code="e74c3cf8d7e6a5b4c3d2e1f0">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(255, 200, 190);">
+                    <a href="/palette/e74c3cf8d7e6a5b4c3d2e1f0"></a>
+                    <span onclick="copy(this)" data-copy="#FFC8BE">#FFC8BE</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(230, 120, 100);">
+                    <a href="/palette/e74c3cf8d7e6a5b4c3d2e1f0"></a>
+                    <span onclick="copy(this)" data-copy="#E67864">#E67864</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(231, 76, 60);">
+                    <a href="/palette/e74c3cf8d7e6a5b4c3d2e1f0"></a>
+                    <span onclick="copy(this)" data-copy="#E74C3C">#E74C3C</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(80, 20, 15);">
+                    <a href="/palette/e74c3cf8d7e6a5b4c3d2e1f0"></a>
+                    <span onclick="copy(this)" data-copy="#50140F">#50140F</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('e74c3cf8d7e6a5b4c3d2e1f0')">
+                        <div class="icon" icon="like"></div>
+                        <span>589</span>
+                    </div>
+                </div>
+                <span class="date">4w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="9" data-code="3498dbe9f8a7b6c5d4e3f2a1">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(180, 220, 240);">
+                    <a href="/palette/3498dbe9f8a7b6c5d4e3f2a1"></a>
+                    <span onclick="copy(this)" data-copy="#B4DCF0">#B4DCF0</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(100, 180, 220);">
+                    <a href="/palette/3498dbe9f8a7b6c5d4e3f2a1"></a>
+                    <span onclick="copy(this)" data-copy="#64B4DC">#64B4DC</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(52, 152, 219);">
+                    <a href="/palette/3498dbe9f8a7b6c5d4e3f2a1"></a>
+                    <span onclick="copy(this)" data-copy="#3498DB">#3498DB</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(20, 60, 100);">
+                    <a href="/palette/3498dbe9f8a7b6c5d4e3f2a1"></a>
+                    <span onclick="copy(this)" data-copy="#143C64">#143C64</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('3498dbe9f8a7b6c5d4e3f2a1')">
+                        <div class="icon" icon="like"></div>
+                        <span>456</span>
+                    </div>
+                </div>
+                <span class="date">5w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="10" data-code="f1c40fe2d3b1a0f9e8d7c6b5">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(255, 240, 180);">
+                    <a href="/palette/f1c40fe2d3b1a0f9e8d7c6b5"></a>
+                    <span onclick="copy(this)" data-copy="#FFF0B4">#FFF0B4</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(240, 200, 100);">
+                    <a href="/palette/f1c40fe2d3b1a0f9e8d7c6b5"></a>
+                    <span onclick="copy(this)" data-copy="#F0C864">#F0C864</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(241, 196, 15);">
+                    <a href="/palette/f1c40fe2d3b1a0f9e8d7c6b5"></a>
+                    <span onclick="copy(this)" data-copy="#F1C40F">#F1C40F</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(80, 60, 10);">
+                    <a href="/palette/f1c40fe2d3b1a0f9e8d7c6b5"></a>
+                    <span onclick="copy(this)" data-copy="#503C0A">#503C0A</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('f1c40fe2d3b1a0f9e8d7c6b5')">
+                        <div class="icon" icon="like"></div>
+                        <span>398</span>
+                    </div>
+                </div>
+                <span class="date">6w</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="11" data-code="16a085e7d6c5b4a3f2e1d0c9">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(180, 220, 200);">
+                    <a href="/palette/16a085e7d6c5b4a3f2e1d0c9"></a>
+                    <span onclick="copy(this)" data-copy="#B4DC C8">#B4DCC8</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(100, 180, 150);">
+                    <a href="/palette/16a085e7d6c5b4a3f2e1d0c9"></a>
+                    <span onclick="copy(this)" data-copy="#64B496">#64B496</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(22, 160, 133);">
+                    <a href="/palette/16a085e7d6c5b4a3f2e1d0c9"></a>
+                    <span onclick="copy(this)" data-copy="#16A085">#16A085</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(10, 60, 50);">
+                    <a href="/palette/16a085e7d6c5b4a3f2e1d0c9"></a>
+                    <span onclick="copy(this)" data-copy="#0A3C32">#0A3C32</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions">
+                    <div class="button like" onclick="like('16a085e7d6c5b4a3f2e1d0c9')">
+                        <div class="icon" icon="like"></div>
+                        <span>342</span>
+                    </div>
+                </div>
+                <span class="date">1w</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="copied" id="copiedToast">已复制!</div>
+
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 15l7-7 7 7"/>
+            <path d="M12 8V2"/>
+        </svg>
+    </div>
+
+    <script>
+        function copy(element) {
+            const colorCode = element.getAttribute('data-copy');
+            navigator.clipboard.writeText(colorCode).then(() => {
+                const toast = document.getElementById('copiedToast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        function like(code) {
+            const button = document.querySelector(`[data-code="${code}"] .button.like`);
+            const span = button.querySelector('span');
+            const current = parseInt(span.textContent.replace(',', ''));
+            span.textContent = (current + 1).toLocaleString();
+            button.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalCount = document.querySelectorAll('.item').length;
+            document.getElementById('totalCount').textContent = totalCount;
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.scrollY > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
