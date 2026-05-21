@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配色方案展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #1a1a2e;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .feed {
+            display: flex;
+            width: 100%;
+            min-height: 400px;
+            background: #16213e;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .item:last-child {
+            border-right: none;
+        }
+
+        .item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .palette {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 8px;
+        }
+
+        .place {
+            flex: 1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .place:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        .place a {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .place span {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .place:hover span {
+            opacity: 1;
+        }
+
+        .flex {
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .button.like {
+            color: #ff6b6b;
+        }
+
+        .button span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+
+        .date {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .copied {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .copied.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .feed {
+                flex-wrap: wrap;
+            }
+
+            .item {
+                width: 50%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .item:nth-child(2n) {
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .item:last-child {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .item {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .item:nth-child(2n) {
+                border-right: none;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 配色方案展示</h1>
+        <p class="subtitle">点击颜色块复制颜色代码</p>
+    </div>
+
+    <div class="feed global">
+        <div class="item" data-index="0" data-code="093c5d3b75976fd1d75df8d8">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(93, 248, 216);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8" aria-label="Palette 093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#5DF8D8">#5DF8D8</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(111, 209, 215);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8" aria-label="Palette 093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#6FD1D7">#6FD1D7</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(59, 117, 151);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8" aria-label="Palette 093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#3B7597">#3B7597</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(9, 60, 93);">
+                    <a href="/palette/093c5d3b75976fd1d75df8d8" aria-label="Palette 093c5d3b75976fd1d75df8d8"></a>
+                    <span onclick="copy(this)" data-copy="#093C5D">#093C5D</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions flex">
+                    <div class="button like" onclick="like('093c5d3b75976fd1d75df8d8')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,288</span>
+                    </div>
+                </div>
+                <span class="date">2 weeks</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="1" data-code="170c79efe3ca56b6c68acbd0">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(138, 203, 208);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0" aria-label="Palette 170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#8ACBD0">#8ACBD0</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(86, 182, 198);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0" aria-label="Palette 170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#56B6C6">#56B6C6</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(239, 227, 202);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0" aria-label="Palette 170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#EFE3CA">#EFE3CA</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(23, 12, 121);">
+                    <a href="/palette/170c79efe3ca56b6c68acbd0" aria-label="Palette 170c79efe3ca56b6c68acbd0"></a>
+                    <span onclick="copy(this)" data-copy="#170C79">#170C79</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions flex">
+                    <div class="button like" onclick="like('170c79efe3ca56b6c68acbd0')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,258</span>
+                    </div>
+                </div>
+                <span class="date">4 weeks</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="2" data-code="d6336cff4081ffb6c1fff5f8">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(255, 245, 248);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8" aria-label="Palette d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#FFF5F8">#FFF5F8</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(255, 182, 193);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8" aria-label="Palette d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#FFB6C1">#FFB6C1</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(255, 64, 129);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8" aria-label="Palette d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#FF4081">#FF4081</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(214, 51, 108);">
+                    <a href="/palette/d6336cff4081ffb6c1fff5f8" aria-label="Palette d6336cff4081ffb6c1fff5f8"></a>
+                    <span onclick="copy(this)" data-copy="#D6336C">#D6336C</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions flex">
+                    <div class="button like" onclick="like('d6336cff4081ffb6c1fff5f8')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,223</span>
+                    </div>
+                </div>
+                <span class="date">3 weeks</span>
+            </div>
+        </div>
+
+        <div class="item" data-index="3" data-code="35858e7da78cc2d099e6eec9">
+            <div class="palette">
+                <div class="place c3" style="background-color: rgb(230, 238, 201);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9" aria-label="Palette 35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#E6EEC9">#E6EEC9</span>
+                </div>
+                <div class="place c2" style="background-color: rgb(194, 208, 153);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9" aria-label="Palette 35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#C2D099">#C2D099</span>
+                </div>
+                <div class="place c1" style="background-color: rgb(133, 142, 126);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9" aria-label="Palette 35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#858E7E">#858E7E</span>
+                </div>
+                <div class="place c0" style="background-color: rgb(53, 133, 142);">
+                    <a href="/palette/35858e7da78cc2d099e6eec9" aria-label="Palette 35858e7da78cc2d099e6eec9"></a>
+                    <span onclick="copy(this)" data-copy="#35858E">#35858E</span>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="actions flex">
+                    <div class="button like" onclick="like('35858e7da78cc2d099e6eec9')">
+                        <div class="icon" icon="like"></div>
+                        <span>1,189</span>
+                    </div>
+                </div>
+                <span class="date">5 weeks</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="copied" id="copiedToast">已复制!</div>
+
+    <script>
+        function copy(element) {
+            const colorCode = element.getAttribute('data-copy');
+            navigator.clipboard.writeText(colorCode).then(() => {
+                const toast = document.getElementById('copiedToast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        function like(code) {
+            const button = document.querySelector(`[data-code="${code}"] .button.like`);
+            const span = button.querySelector('span');
+            const current = parseInt(span.textContent.replace(',', ''));
+            span.textContent = (current + 1).toLocaleString();
+            button.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 200);
+        }
+    </script>
+</body>
+</html>
