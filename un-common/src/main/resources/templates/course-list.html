@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程列表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-list {
+            padding: 0 12px;
+        }
+
+        .category-item {
+            padding: 14px 16px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #888;
+        }
+
+        .category-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .category-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .category-icon {
+            font-size: 20px;
+            width: 32px;
+            text-align: center;
+        }
+
+        .category-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #888;
+            margin-top: 6px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: #667eea;
+        }
+
+        .course-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .course-info {
+            padding: 20px;
+        }
+
+        .course-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .course-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-description {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .course-date {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .course-date svg {
+            width: 14px;
+            height: 14px;
+            fill: #666;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            padding: 10px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: transparent;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #667eea;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+        }
+
+        .pagination-info {
+            color: #888;
+            font-size: 14px;
+            padding: 0 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #888;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-text {
+            font-size: 16px;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(102, 126, 234, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: #888;
+        }
+
+        @media (max-width: 1400px) {
+            .course-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 220px;
+            }
+
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 16px 0;
+            }
+
+            .sidebar-header {
+                padding: 0 16px 12px;
+            }
+
+            .category-list {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 12px;
+                gap: 8px;
+            }
+
+            .category-item {
+                white-space: nowrap;
+                padding: 10px 16px;
+            }
+
+            .main-content {
+                padding: 20px 16px;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">
+                <span>📚</span>
+                <span>课程中心</span>
+            </div>
+        </div>
+        <div class="category-list" id="categoryList">
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <div class="page-title" id="pageTitle">全部课程</div>
+                <div class="page-subtitle" id="pageSubtitle">共 0 门课程</div>
+            </div>
+        </div>
+
+        <div class="course-grid" id="courseGrid">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">加载中...</p>
+            </div>
+        </div>
+
+        <div class="pagination" id="pagination">
+        </div>
+    </div>
+
+    <script>
+        let currentCategoryId = null;
+        let currentPage = 1;
+        const pageSize = 8;
+        let categories = [];
+        let totalCount = 0;
+        let totalPages = 0;
+
+        async function loadCategories() {
+            try {
+                const response = await fetch('/api/course/categories');
+                categories = await response.json();
+                renderCategories();
+                loadCourses();
+            } catch (error) {
+                console.error('加载分类失败:', error);
+            }
+        }
+
+        function renderCategories() {
+            const list = document.getElementById('categoryList');
+            let html = `
+                <div class="category-item ${currentCategoryId === null ? 'active' : ''}" onclick="selectCategory(null)">
+                    <span class="category-icon">📋</span>
+                    <span class="category-name">全部课程</span>
+                </div>
+            `;
+
+            categories.forEach(category => {
+                html += `
+                    <div class="category-item ${currentCategoryId === category.id ? 'active' : ''}" onclick="selectCategory(${category.id})">
+                        <span class="category-icon">${category.icon}</span>
+                        <span class="category-name">${category.name}</span>
+                    </div>
+                `;
+            });
+
+            list.innerHTML = html;
+        }
+
+        function selectCategory(categoryId) {
+            currentCategoryId = categoryId;
+            currentPage = 1;
+            renderCategories();
+            
+            const title = categoryId === null ? '全部课程' : categories.find(c => c.id === categoryId)?.name || '';
+            document.getElementById('pageTitle').textContent = title;
+            
+            loadCourses();
+        }
+
+        async function loadCourses() {
+            const grid = document.getElementById('courseGrid');
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p class="loading-text">加载中...</p>
+                </div>
+            `;
+
+            try {
+                let url = `/api/course/list?page=${currentPage}&size=${pageSize}`;
+                if (currentCategoryId !== null) {
+                    url += `&categoryId=${currentCategoryId}`;
+                }
+
+                const response = await fetch(url);
+                const pageData = await response.json();
+                totalCount = pageData.total;
+                totalPages = pageData.totalPages;
+                
+                document.getElementById('pageSubtitle').textContent = `共 ${totalCount} 门课程`;
+                renderCourses(pageData.records);
+                renderPagination();
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <p class="empty-text">加载失败: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderCourses(courses) {
+            const grid = document.getElementById('courseGrid');
+
+            if (courses.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <p class="empty-text">暂无课程</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = courses.map(course => `
+                <div class="course-card" onclick="viewCourse(${course.id})">
+                    <img class="course-thumbnail" src="${course.thumbnail}" alt="${course.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 75%27%3E%3Crect fill=%27%23667eea%27 width=%27120%27 height=%2775%27/%3E%3Ctext x=%2760%27 y=%2745%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%2724%27%3E📚%3C/text%3E%3C/svg%3E'">
+                    <div class="course-info">
+                        <span class="course-category">${course.categoryName}</span>
+                        <div class="course-title">${course.title}</div>
+                        <div class="course-description">${course.description}</div>
+                    </div>
+                    <div class="course-meta">
+                        <div class="course-date">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                            <span>${formatDate(course.createTime)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = `
+                <button class="pagination-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹ 上一页</button>
+            `;
+
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage < maxVisiblePages - 1) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            if (startPage > 1) {
+                html += `<button class="pagination-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) {
+                    html += `<span class="pagination-info">...</span>`;
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    html += `<span class="pagination-info">...</span>`;
+                }
+                html += `<button class="pagination-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+
+            html += `
+                <button class="pagination-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页 ›</button>
+            `;
+
+            pagination.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            loadCourses();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function viewCourse(id) {
+            alert(`查看课程详情: ID = ${id}`);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCategories);
+    </script>
+</body>
+</html>
