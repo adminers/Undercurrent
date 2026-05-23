@@ -29,6 +29,8 @@ public class Course {
     
     private Integer status;
     
+    private Integer viewCount;
+    
     private LocalDateTime createTime;
     
     private LocalDateTime updateTime;
