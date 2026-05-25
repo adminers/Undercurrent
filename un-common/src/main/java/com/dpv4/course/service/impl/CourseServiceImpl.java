@@ -1,6 +1,8 @@
 package com.dpv4.course.service.impl;
 
+import com.dpv4.common.util.DateUtil;
 import com.dpv4.common.util.PageUtil;
+import com.dpv4.common.util.StringUtil;
 import com.dpv4.course.dto.PageResponse;
 import com.dpv4.course.model.Course;
 import com.dpv4.course.model.CourseCategory;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -235,5 +238,43 @@ public class CourseServiceImpl implements CourseService {
                 .filter(c -> c.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Course> getHotCourses(int limit) {
+        log.info("获取热门课程: limit={}", limit);
+        return courses.stream()
+                .sorted(Comparator.comparingInt(Course::getViewCount).reversed())
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Course> searchCourses(String keyword) {
+        log.info("搜索课程: keyword={}", keyword);
+        if (StringUtil.isBlank(keyword)) {
+            return courses.stream()
+                    .sorted(Comparator.comparing(Course::getSort))
+                    .collect(Collectors.toList());
+        }
+        
+        String lowerKeyword = keyword.toLowerCase();
+        return courses.stream()
+                .filter(c -> c.getTitle().toLowerCase().contains(lowerKeyword) ||
+                        c.getDescription().toLowerCase().contains(lowerKeyword) ||
+                        c.getCategoryName().toLowerCase().contains(lowerKeyword))
+                .sorted(Comparator.comparing(Course::getSort))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean incrementViewCount(Long id) {
+        log.info("增加课程观看次数: id={}", id);
+        Course course = getCourseById(id);
+        if (course != null) {
+            course.setViewCount((course.getViewCount() == null ? 0 : course.getViewCount()) + 1);
+            return true;
+        }
+        return false;
     }
 }

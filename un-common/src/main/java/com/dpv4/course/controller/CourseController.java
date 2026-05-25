@@ -36,6 +36,22 @@ public class CourseController {
         return ResponseEntity.ok(pageResponse);
     }
 
+    @GetMapping("/hot")
+    public ResponseEntity<List<Course>> getHotCourses(
+            @RequestParam(defaultValue = "10") int limit) {
+        log.info("获取热门课程: limit={}", limit);
+        List<Course> courses = courseService.getHotCourses(limit);
+        return ResponseEntity.ok(courses);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Course>> searchCourses(
+            @RequestParam String keyword) {
+        log.info("搜索课程: keyword={}", keyword);
+        List<Course> courses = courseService.searchCourses(keyword);
+        return ResponseEntity.ok(courses);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourseDetail(@PathVariable Long id) {
         log.info("获取课程详情: id={}", id);
@@ -43,6 +59,17 @@ public class CourseController {
         if (course == null) {
             return ResponseEntity.notFound().build();
         }
+        courseService.incrementViewCount(id);
         return ResponseEntity.ok(course);
+    }
+
+    @PostMapping("/{id}/view")
+    public ResponseEntity<Void> incrementViewCount(@PathVariable Long id) {
+        log.info("增加课程观看次数: id={}", id);
+        boolean success = courseService.incrementViewCount(id);
+        if (success) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

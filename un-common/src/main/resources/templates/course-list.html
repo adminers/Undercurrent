@@ -103,6 +103,107 @@
             margin-top: 6px;
         }
 
+        .search-box {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px 18px;
+            color: #fff;
+            font-size: 14px;
+            width: 300px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: #666;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .hot-section {
+            margin-bottom: 40px;
+        }
+
+        .hot-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hot-title span {
+            color: #ff6b6b;
+        }
+
+        .hot-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .hot-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hot-card:hover {
+            border-color: #ff6b6b;
+            transform: translateY(-4px);
+        }
+
+        .hot-card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .hot-card-views {
+            font-size: 12px;
+            color: #ff6b6b;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         .course-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -354,6 +455,15 @@
                 <div class="page-title" id="pageTitle">全部课程</div>
                 <div class="page-subtitle" id="pageSubtitle">共 0 门课程</div>
             </div>
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索课程..." onkeypress="handleSearchKeyPress(event)">
+                <button class="search-btn" onclick="searchCourses()">搜索</button>
+            </div>
+        </div>
+
+        <div class="hot-section" id="hotSection">
+            <div class="hot-title">🔥 热门课程</div>
+            <div class="hot-grid" id="hotGrid"></div>
         </div>
 
         <div class="course-grid" id="courseGrid">
@@ -380,9 +490,81 @@
                 const response = await fetch('/api/course/categories');
                 categories = await response.json();
                 renderCategories();
+                loadHotCourses();
                 loadCourses();
             } catch (error) {
                 console.error('加载分类失败:', error);
+            }
+        }
+
+        async function loadHotCourses() {
+            try {
+                const response = await fetch('/api/course/hot?limit=10');
+                const hotCourses = await response.json();
+                renderHotCourses(hotCourses);
+            } catch (error) {
+                console.error('加载热门课程失败:', error);
+            }
+        }
+
+        function renderHotCourses(courses) {
+            const grid = document.getElementById('hotGrid');
+            if (courses.length === 0) {
+                grid.innerHTML = '';
+                return;
+            }
+            grid.innerHTML = courses.map(course => `
+                <div class="hot-card" onclick="viewCourse(${course.id})">
+                    <div class="hot-card-title">${course.title}</div>
+                    <div class="hot-card-views">👁 ${formatViewCount(course.viewCount)}</div>
+                </div>
+            `).join('');
+        }
+
+        function handleSearchKeyPress(event) {
+            if (event.key === 'Enter') {
+                searchCourses();
+            }
+        }
+
+        async function searchCourses() {
+            const keyword = document.getElementById('searchInput').value.trim();
+            const grid = document.getElementById('courseGrid');
+            
+            if (!keyword) {
+                currentCategoryId = null;
+                currentPage = 1;
+                renderCategories();
+                document.getElementById('pageTitle').textContent = '全部课程';
+                document.getElementById('hotSection').style.display = 'block';
+                loadCourses();
+                return;
+            }
+
+            document.getElementById('hotSection').style.display = 'none';
+            document.getElementById('pageTitle').textContent = `搜索: "${keyword}"`;
+            document.getElementById('pageSubtitle').textContent = '';
+            document.getElementById('pagination').innerHTML = '';
+            
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p class="loading-text">搜索中...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`/api/course/search?keyword=${encodeURIComponent(keyword)}`);
+                const courses = await response.json();
+                document.getElementById('pageSubtitle').textContent = `找到 ${courses.length} 门课程`;
+                renderCourses(courses);
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <p class="empty-text">搜索失败: ${error.message}</p>
+                    </div>
+                `;
             }
         }
 

@@ -13,4 +13,10 @@ public interface CourseService {
     PageResponse<Course> getCourseList(Long categoryId, int page, int size);
 
     Course getCourseById(Long id);
+
+    List<Course> getHotCourses(int limit);
+
+    List<Course> searchCourses(String keyword);
+
+    boolean incrementViewCount(Long id);
 }
