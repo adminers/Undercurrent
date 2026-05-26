@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -25,11 +26,19 @@ public class Course {
     
     private String categoryName;
     
+    private List<String> tags;
+    
     private Integer sort;
     
     private Integer status;
     
     private Integer viewCount;
+    
+    private Integer favoriteCount;
+    
+    private Double rating;
+    
+    private Integer ratingCount;
     
     private LocalDateTime createTime;
     

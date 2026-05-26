@@ -1,6 +1,7 @@
 package com.dpv4.course.service.impl;
 
 import com.dpv4.common.util.DateUtil;
+import com.dpv4.common.util.MathUtil;
 import com.dpv4.common.util.PageUtil;
 import com.dpv4.common.util.StringUtil;
 import com.dpv4.course.dto.PageResponse;
@@ -12,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -170,6 +169,45 @@ public class CourseServiceImpl implements CourseService {
             "#6a11cb", "#2575fc", "#009efd", "#2af598"
         };
 
+        List<List<String>> tagList = List.of(
+            List.of("Vue", "前端", "入门"),
+            List.of("React", "Hooks", "前端"),
+            List.of("TypeScript", "类型", "前端"),
+            List.of("小程序", "微信", "移动"),
+            List.of("Node.js", "后端", "全栈"),
+            List.of("Webpack", "Vite", "构建"),
+            List.of("Spring Boot", "Java", "后端"),
+            List.of("Go语言", "并发", "后端"),
+            List.of("微服务", "架构", "后端"),
+            List.of("Docker", "K8s", "云原生"),
+            List.of("Redis", "缓存", "数据库"),
+            List.of("MySQL", "SQL", "数据库"),
+            List.of("Flutter", "跨平台", "移动"),
+            List.of("React Native", "跨平台", "移动"),
+            List.of("SwiftUI", "iOS", "移动"),
+            List.of("Android", "Jetpack", "移动"),
+            List.of("Uni-app", "跨平台", "小程序"),
+            List.of("HarmonyOS", "华为", "移动"),
+            List.of("机器学习", "AI", "算法"),
+            List.of("深度学习", "神经网络", "AI"),
+            List.of("NLP", "自然语言处理", "AI"),
+            List.of("计算机视觉", "CV", "AI"),
+            List.of("大模型", "LLM", "AI"),
+            List.of("Prompt", "工程", "AI"),
+            List.of("UI设计", "设计", "创意"),
+            List.of("Figma", "协作", "设计"),
+            List.of("Photoshop", "PS", "设计"),
+            List.of("After Effects", "AE", "动效"),
+            List.of("Sketch", "设计", "UI"),
+            List.of("Blender", "3D", "建模"),
+            List.of("产品经理", "产品", "思维"),
+            List.of("用户增长", "运营", "增长"),
+            List.of("数据分析", "数据", "运营"),
+            List.of("内容运营", "内容", "运营"),
+            List.of("项目管理", "敏捷", "管理"),
+            List.of("用户研究", "UX", "设计")
+        );
+
         for (int i = 0; i < 36; i++) {
             long categoryId = (i % 6) + 1;
             String categoryName = categories.get((int) (categoryId - 1)).getName();
@@ -181,9 +219,13 @@ public class CourseServiceImpl implements CourseService {
                     java.net.URLEncoder.encode(categoryName + " course abstract colorful") + "&image_size=square")
                 .categoryId(categoryId)
                 .categoryName(categoryName)
+                .tags(tagList.get(i))
                 .sort(i + 1)
                 .status(1)
                 .viewCount(1000 + i * 100 + (int) (Math.random() * 500))
+                .favoriteCount(50 + (int) (Math.random() * 200))
+                .rating(3.5 + Math.random() * 1.5)
+                .ratingCount(20 + (int) (Math.random() * 100))
                 .createTime(LocalDateTime.now().minusDays(36 - i))
                 .build());
         }
@@ -276,5 +318,71 @@ public class CourseServiceImpl implements CourseService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Course> getTopRatedCourses(int limit) {
+        log.info("获取高评分课程: limit={}", limit);
+        return courses.stream()
+                .sorted(Comparator.comparingDouble(Course::getRating).reversed())
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Course> getCoursesByTag(String tag) {
+        log.info("根据标签获取课程: tag={}", tag);
+        if (StringUtil.isBlank(tag)) {
+            return new ArrayList<>();
+        }
+        String lowerTag = tag.toLowerCase();
+        return courses.stream()
+                .filter(c -> c.getTags() != null && 
+                        c.getTags().stream().anyMatch(t -> t.toLowerCase().contains(lowerTag)))
+                .sorted(Comparator.comparing(Course::getSort))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean incrementFavoriteCount(Long id) {
+        log.info("增加课程收藏次数: id={}", id);
+        Course course = getCourseById(id);
+        if (course != null) {
+            course.setFavoriteCount((course.getFavoriteCount() == null ? 0 : course.getFavoriteCount()) + 1);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean rateCourse(Long id, double rating) {
+        log.info("课程评分: id={}, rating={}", id, rating);
+        if (rating < 1 || rating > 5) {
+            log.warn("评分必须在1-5之间");
+            return false;
+        }
+        Course course = getCourseById(id);
+        if (course != null) {
+            int currentCount = course.getRatingCount() == null ? 0 : course.getRatingCount();
+            double currentRating = course.getRating() == null ? 0 : course.getRating();
+            double newRating = ((currentRating * currentCount) + rating) / (currentCount + 1);
+            newRating = MathUtil.round(newRating, 1);
+            course.setRating(newRating);
+            course.setRatingCount(currentCount + 1);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<String> getAllTags() {
+        log.info("获取所有课程标签");
+        Set<String> allTags = new LinkedHashSet<>();
+        courses.forEach(c -> {
+            if (c.getTags() != null) {
+                allTags.addAll(c.getTags());
+            }
+        });
+        return new ArrayList<>(allTags);
     }
 }

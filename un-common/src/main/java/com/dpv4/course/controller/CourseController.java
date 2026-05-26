@@ -44,11 +44,33 @@ public class CourseController {
         return ResponseEntity.ok(courses);
     }
 
+    @GetMapping("/top-rated")
+    public ResponseEntity<List<Course>> getTopRatedCourses(
+            @RequestParam(defaultValue = "10") int limit) {
+        log.info("获取高评分课程: limit={}", limit);
+        List<Course> courses = courseService.getTopRatedCourses(limit);
+        return ResponseEntity.ok(courses);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<List<Course>> searchCourses(
             @RequestParam String keyword) {
         log.info("搜索课程: keyword={}", keyword);
         List<Course> courses = courseService.searchCourses(keyword);
+        return ResponseEntity.ok(courses);
+    }
+
+    @GetMapping("/tags")
+    public ResponseEntity<List<String>> getAllTags() {
+        log.info("获取所有课程标签");
+        List<String> tags = courseService.getAllTags();
+        return ResponseEntity.ok(tags);
+    }
+
+    @GetMapping("/tag/{tag}")
+    public ResponseEntity<List<Course>> getCoursesByTag(@PathVariable String tag) {
+        log.info("根据标签获取课程: tag={}", tag);
+        List<Course> courses = courseService.getCoursesByTag(tag);
         return ResponseEntity.ok(courses);
     }
 
@@ -71,5 +93,27 @@ public class CourseController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{id}/favorite")
+    public ResponseEntity<Void> incrementFavoriteCount(@PathVariable Long id) {
+        log.info("增加课程收藏次数: id={}", id);
+        boolean success = courseService.incrementFavoriteCount(id);
+        if (success) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{id}/rate")
+    public ResponseEntity<Void> rateCourse(
+            @PathVariable Long id,
+            @RequestParam double rating) {
+        log.info("课程评分: id={}, rating={}", id, rating);
+        boolean success = courseService.rateCourse(id, rating);
+        if (success) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 }
