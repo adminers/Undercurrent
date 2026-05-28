@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的笔记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            min-height: 100vh;
+            display: flex;
+            color: #fff;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px 0;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .create-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .category-list {
+            padding: 0 12px;
+        }
+
+        .category-item {
+            padding: 12px 16px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #aaa;
+        }
+
+        .category-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .category-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .category-icon {
+            font-size: 18px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #888;
+            margin-top: 6px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px 18px;
+            color: #fff;
+            font-size: 14px;
+            width: 300px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .note-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .note-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: #667eea;
+        }
+
+        .note-card.pinned {
+            border: 2px solid #ffd700;
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .note-header {
+            padding: 20px 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .note-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .note-pin {
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .note-pin:hover {
+            transform: rotate(20deg);
+        }
+
+        .note-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            padding: 0 20px 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .note-content {
+            font-size: 14px;
+            color: #aaa;
+            padding: 0 20px 20px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .note-footer {
+            padding: 12px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .note-action-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .note-action-btn:hover {
+            color: #667eea;
+        }
+
+        .note-action-btn.delete:hover {
+            color: #ff6b6b;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 32px;
+        }
+
+        .pagination-btn {
+            padding: 10px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #888;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-text {
+            font-size: 16px;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(102, 126, 234, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 200px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">
+                <span>📝</span>
+                <span>我的笔记</span>
+            </div>
+        </div>
+        <button class="create-btn" onclick="openCreateModal()">
+            + 新建笔记
+        </button>
+        <div class="category-list" id="categoryList"></div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <div class="page-title" id="pageTitle">全部笔记</div>
+                <div class="page-subtitle" id="pageSubtitle">共 0 篇笔记</div>
+            </div>
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记..." onkeypress="handleSearchKeyPress(event)">
+            </div>
+        </div>
+
+        <div class="notes-grid" id="notesGrid">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p class="empty-text">加载中...</p>
+            </div>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <div class="modal" id="noteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">新建笔记</div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">标题</label>
+                    <input type="text" class="form-input" id="noteTitle" placeholder="输入笔记标题">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">分类</label>
+                    <input type="text" class="form-input" id="noteCategory" placeholder="输入分类（如：Git、Java、前端）">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">内容</label>
+                    <textarea class="form-input form-textarea" id="noteContent" placeholder="输入笔记内容..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+                <button class="btn btn-primary" onclick="saveNote()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCategory = null;
+        let currentPage = 1;
+        let categories = [];
+        let currentEditNoteId = null;
+
+        async function init() {
+            await loadCategories();
+            await loadNotes();
+        }
+
+        async function loadCategories() {
+            try {
+                const response = await fetch('/api/note/categories');
+                categories = await response.json();
+                renderCategories();
+            } catch (error) {
+                console.error('加载分类失败:', error);
+            }
+        }
+
+        function renderCategories() {
+            const list = document.getElementById('categoryList');
+            let html = `
+                <div class="category-item ${currentCategory === null ? 'active' : ''}" onclick="selectCategory(null)">
+                    <span class="category-icon">📋</span>
+                    <span class="category-name">全部笔记</span>
+                </div>
+                <div class="category-item ${currentCategory === 'pinned' ? 'active' : ''}" onclick="selectCategory('pinned')">
+                    <span class="category-icon">📌</span>
+                    <span class="category-name">置顶笔记</span>
+                </div>
+            `;
+
+            categories.forEach(category => {
+                const icon = getCategoryIcon(category);
+                html += `
+                    <div class="category-item ${currentCategory === category ? 'active' : ''}" onclick="selectCategory('${category}')">
+                        <span class="category-icon">${icon}</span>
+                        <span class="category-name">${category}</span>
+                    </div>
+                `;
+            });
+
+            list.innerHTML = html;
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                'Git': '📦',
+                'Java': '☕',
+                'Spring': '🌱',
+                '前端': '🎨',
+                '数据库': '🗃️',
+                '架构': '🏗️',
+                'DevOps': '🚀',
+                '算法': '🧮',
+                '学习': '📚',
+                '待办': '✅',
+                '其他': '📝'
+            };
+            return icons[category] || '📝';
+        }
+
+        async function selectCategory(category) {
+            currentCategory = category;
+            currentPage = 1;
+            renderCategories();
+
+            if (category === 'pinned') {
+                document.getElementById('pageTitle').textContent = '置顶笔记';
+                await loadPinnedNotes();
+            } else if (category === null) {
+                document.getElementById('pageTitle').textContent = '全部笔记';
+                await loadNotes();
+            } else {
+                document.getElementById('pageTitle').textContent = category;
+                await loadNotesByCategory(category);
+            }
+        }
+
+        async function loadNotes() {
+            const grid = document.getElementById('notesGrid');
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p class="empty-text">加载中...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch('/api/note/all');
+                const notes = await response.json();
+                document.getElementById('pageSubtitle').textContent = `共 ${notes.length} 篇笔记`;
+                renderNotes(notes);
+                document.getElementById('pagination').innerHTML = '';
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <p class="empty-text">加载失败: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadPinnedNotes() {
+            const grid = document.getElementById('notesGrid');
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p class="empty-text">加载中...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch('/api/note/pinned');
+                const notes = await response.json();
+                document.getElementById('pageSubtitle').textContent = `共 ${notes.length} 篇笔记`;
+                renderNotes(notes);
+                document.getElementById('pagination').innerHTML = '';
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <p class="empty-text">加载失败: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadNotesByCategory(category) {
+            const grid = document.getElementById('notesGrid');
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p class="empty-text">加载中...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`/api/note/category/${encodeURIComponent(category)}`);
+                const notes = await response.json();
+                document.getElementById('pageSubtitle').textContent = `共 ${notes.length} 篇笔记`;
+                renderNotes(notes);
+                document.getElementById('pagination').innerHTML = '';
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <p class="empty-text">加载失败: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderNotes(notes) {
+            const grid = document.getElementById('notesGrid');
+
+            if (notes.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <p class="empty-text">暂无笔记，点击新建按钮创建第一篇笔记吧！</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = notes.map(note => `
+                <div class="note-card ${note.pinned ? 'pinned' : ''}" onclick="viewNote(${note.id})">
+                    <div class="note-header">
+                        <span class="note-badge">${note.category}</span>
+                        <span class="note-pin" onclick="event.stopPropagation(); togglePin(${note.id})">${note.pinned ? '📌' : '📍'}</span>
+                    </div>
+                    <div class="note-title">${note.title}</div>
+                    <div class="note-content">${note.content}</div>
+                    <div class="note-footer">
+                        <span>👁 ${note.viewCount || 0} 次 · ${formatDate(note.createTime)}</span>
+                        <div class="note-actions">
+                            <button class="note-action-btn" onclick="event.stopPropagation(); editNote(${note.id})">✏️</button>
+                            <button class="note-action-btn delete" onclick="event.stopPropagation(); deleteNote(${note.id})">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function handleSearchKeyPress(event) {
+            if (event.key === 'Enter') {
+                await searchNotes();
+            }
+        }
+
+        async function searchNotes() {
+            const keyword = document.getElementById('searchInput').value.trim();
+            
+            if (!keyword) {
+                currentCategory = null;
+                await selectCategory(null);
+                return;
+            }
+
+            const grid = document.getElementById('notesGrid');
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p class="empty-text">搜索中...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`/api/note/search?keyword=${encodeURIComponent(keyword)}`);
+                const notes = await response.json();
+                document.getElementById('pageTitle').textContent = `搜索: "${keyword}"`;
+                document.getElementById('pageSubtitle').textContent = `找到 ${notes.length} 篇笔记`;
+                renderNotes(notes);
+                document.getElementById('pagination').innerHTML = '';
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <p class="empty-text">搜索失败: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function viewNote(id) {
+            try {
+                const response = await fetch(`/api/note/${id}`);
+                const note = await response.json();
+                if (note) {
+                    currentEditNoteId = note.id;
+                    document.getElementById('modalTitle').textContent = '笔记详情';
+                    document.getElementById('noteTitle').value = note.title;
+                    document.getElementById('noteCategory').value = note.category;
+                    document.getElementById('noteContent').value = note.content;
+                    document.getElementById('noteModal').classList.add('show');
+                }
+            } catch (error) {
+                console.error('加载笔记失败:', error);
+            }
+        }
+
+        function openCreateModal() {
+            currentEditNoteId = null;
+            document.getElementById('modalTitle').textContent = '新建笔记';
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteCategory').value = '';
+            document.getElementById('noteContent').value = '';
+            document.getElementById('noteModal').classList.add('show');
+        }
+
+        async function editNote(id) {
+            try {
+                const response = await fetch(`/api/note/${id}`);
+                const note = await response.json();
+                if (note) {
+                    currentEditNoteId = note.id;
+                    document.getElementById('modalTitle').textContent = '编辑笔记';
+                    document.getElementById('noteTitle').value = note.title;
+                    document.getElementById('noteCategory').value = note.category;
+                    document.getElementById('noteContent').value = note.content;
+                    document.getElementById('noteModal').classList.add('show');
+                }
+            } catch (error) {
+                console.error('加载笔记失败:', error);
+            }
+        }
+
+        async function saveNote() {
+            const title = document.getElementById('noteTitle').value.trim();
+            const category = document.getElementById('noteCategory').value.trim();
+            const content = document.getElementById('noteContent').value.trim();
+
+            if (!title) {
+                alert('请输入笔记标题');
+                return;
+            }
+
+            try {
+                let response;
+                if (currentEditNoteId) {
+                    const params = new URLSearchParams();
+                    params.append('title', title);
+                    params.append('content', content);
+                    if (category) params.append('category', category);
+                    
+                    response = await fetch(`/api/note/${currentEditNoteId}?${params}`, {
+                        method: 'PUT'
+                    });
+                } else {
+                    const params = new URLSearchParams();
+                    params.append('title', title);
+                    params.append('content', content);
+                    if (category) params.append('category', category);
+                    
+                    response = await fetch(`/api/note/create?${params}`, {
+                        method: 'POST'
+                    });
+                }
+
+                if (response.ok) {
+                    closeModal();
+                    await loadCategories();
+                    await selectCategory(currentCategory);
+                }
+            } catch (error) {
+                console.error('保存失败:', error);
+                alert('保存失败，请重试');
+            }
+        }
+
+        async function deleteNote(id) {
+            if (!confirm('确定要删除这篇笔记吗？')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/note/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    await loadCategories();
+                    await selectCategory(currentCategory);
+                }
+            } catch (error) {
+                console.error('删除失败:', error);
+                alert('删除失败，请重试');
+            }
+        }
+
+        async function togglePin(id) {
+            try {
+                const response = await fetch(`/api/note/${id}/toggle-pin`, {
+                    method: 'POST'
+                });
+
+                if (response.ok) {
+                    await selectCategory(currentCategory);
+                }
+            } catch (error) {
+                console.error('切换置顶失败:', error);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('noteModal').classList.remove('show');
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+        }
+
+        document.getElementById('noteModal').addEventListener('click', function(e) {
+            if (e.target === document.getElementById('noteModal')) {
+                closeModal();
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>
