@@ -38,7 +38,8 @@ public class WeaverOAuthController {
                                  HttpServletRequest request,
                                  HttpServletResponse response) throws Exception {
         // 调用核心登录逻辑
-        return doLogin(code, request, response);
+        return doLogin(code,
+                request, response);
     }
 
     /**
